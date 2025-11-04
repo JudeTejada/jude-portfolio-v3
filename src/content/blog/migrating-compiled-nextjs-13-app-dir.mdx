@@ -1,0 +1,52 @@
+---
+title: 'Migrating Compiled to using Next 13 app directory'
+publishedAt: '2023-03-17'
+summary: 'Sharing my experience on migrating my side project  compiled to using the app directory of Next 13'
+image: '/images/compiled/banner-2.png'
+showHome: false
+isPublished: true
+latestArticle: true
+labels: ['notes', 'code']
+---
+
+<Image
+  src='/images/compiled/banner-2.png'
+  alt='Picture of Quick Links'
+  width={720}
+  height={540}
+  className='rounded-md'
+  objectFit='cover'
+  priority
+/>
+
+## Overview
+
+In this article, I'll share my experiences and process for migrating my side project, Compiled, to use the app directory of Next 13. This will be my first time trying out the app directory of Next 13, and I'm excited to use it once the app directory becomes stable.
+
+## Process
+
+During the migration, I started by reading the first page of the [docs](https://beta.nextjs.org/docs). As the app directory introduces a new way of structuring your pages, along with the addition of server components, I had to relearn new concepts. Learning it was quite easy overall. After reading the getting started page, I moved straight to the migration guide and began migrating my pages one by one.
+
+## Problems Encountered
+
+Migrating Compiled to the Next 13 app directory was smooth, although I encountered some unexplainable error logs that were hard to debug. So, I had to check my code one by one to see where I went wrong.
+
+I also found that there's currently no support for Vercel OG generation in the Next.js beta docs, so if you're currently using it, I'd suggest waiting a bit longer. Additionally, there isn't yet support for the `useParams` hook for getting dynamic parameters of a page, so I had to use some hacky ways to get the dynamic parameters.
+
+## Using Tailwind in the App Directory
+
+If you're using Tailwind, don't forget to add the `app` folder directory to your Tailwind config file. Otherwise, you might end up like me, debugging for an hour and getting frustrated about why Tailwind styles aren't working at all.
+
+```tsx
+module.exports = {
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+  ],
+  ...
+}
+```
+
+## Conclusion
+In conclusion, migrating a project to use the app directory of Next 13 was smooth, however there were challenges that you might encounter, such as unhelpful error logs. You may also expect some lack of support for certain features while doing your migration. So it's best to migrate once the app directory becomes fully stable and ready to be used.

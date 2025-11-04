@@ -1,0 +1,117 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Container from '../components/Layout/Container.astro';
+import Heading from '../components/UI/Heading.astro';
+import Paragraph from '../components/UI/Paragraph.astro';
+import BlogPost from '../components/Content/BlogPost.astro';
+import { getCollection } from 'astro:content';
+
+// Get all blog posts, sorted by date
+const allBlogPosts = await getCollection('blog', ({ data }) => {
+  return data.isPublished !== false;
+});
+
+const blogPosts = allBlogPosts.sort((a, b) =>
+  new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime()
+);
+
+// Get latest blog post as featured
+const featuredPost = blogPosts[0];
+const otherPosts = blogPosts.slice(1);
+---
+
+<Layout title="Blog - Jude Tejada" description="Read my latest articles and thoughts on web development, programming, and technology.">
+  <Container>
+    <div class="py-20">
+      <Heading as="h1" extraClasses="mb-6 text-center">
+        Blog
+      </Heading>
+      <Paragraph extraClasses="mb-16 text-center max-w-2xl mx-auto">
+        Thoughts, tutorials, and insights about web development, programming, and technology.
+      </Paragraph>
+
+      <!-- Featured Blog Post -->
+      {featuredPost && (
+        <section class="mb-16">
+          <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div class="order-2 md:order-1">
+              <div class="mb-6">
+                {featuredPost.data.labels && featuredPost.data.labels.length > 0 && (
+                  <div class="flex flex-wrap gap-2 mb-3">
+                    {featuredPost.data.labels.map((label) => (
+                      <span class="inline-block text-gray-600 text-sm">
+                        {label}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                <time class="text-sm text-gray-500 block mb-4">
+                  {new Date(featuredPost.data.publishedAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
+                </time>
+              </div>
+
+              <Heading as="h1" extraClasses="mb-6 text-3xl md:text-4xl leading-tight">
+                <a href={`/blog/${featuredPost.slug}`} class="text-gray-900 hover:text-gray-700 transition-colors">
+                  {featuredPost.data.title}
+                </a>
+              </Heading>
+
+              <Paragraph extraClasses="mb-8 text-lg leading-relaxed text-gray-600">
+                {featuredPost.data.summary}
+              </Paragraph>
+
+              <a
+                href={`/blog/${featuredPost.slug}`}
+                class="inline-flex items-center text-gray-900 hover:text-gray-600 transition-colors"
+              >
+                Read more
+                <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+
+            <div class="order-1 md:order-2">
+              {featuredPost.data.image && (
+                <a href={`/blog/${featuredPost.slug}`} class="block">
+                  <img
+                    src={featuredPost.data.image}
+                    alt={featuredPost.data.title}
+                    class="w-full h-64 md:h-80 object-cover rounded-lg"
+                  />
+                </a>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <!-- Separator -->
+      {otherPosts.length > 0 && (
+        <div class="border-b border-gray-200 mb-16"></div>
+      )}
+
+      <!-- Other Blog Posts -->
+      {otherPosts.length > 0 && (
+        <section>
+          <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {otherPosts.map((post) => (
+              <BlogPost
+                title={post.data.title}
+                publishedAt={post.data.publishedAt}
+                summary={post.data.summary}
+                slug={post.slug}
+                image={post.data.image}
+                labels={post.data.labels}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
+  </Container>
+</Layout>

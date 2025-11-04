@@ -1,0 +1,52 @@
+---
+title: 'Compiled'
+publishedAt: '2023-01-11'
+summary: 'A compilation of everyday resources  for web developers.'
+image: '/images/compiled/banner-2.png'
+showHome: true
+---
+
+<div className='flex flex-row justify-between'>
+         <List title="TYPE" items={["Personal Project"]} />
+        <List
+          title="STACK"
+          items={[
+            "Next.js",
+            "Tailwind",
+            "Cloudinary",
+            "Notion API",
+          ]}
+        />
+
+<List title='Live' items={['View Repo']} link='https://compiled.vercel.app/' />
+
+</div>
+
+## Overview
+
+Compiled is a side project that I had built using Next.js and the new incredible tool, [Notion API](https://www.google.com/search?q=notion+Api&sourceid=chrome&ie=UTF-8) as my database. This project aimed to explore and learn about Notion API and have fun along the way. I store Images on Cloudinary and paste the URL into my notion database.
+
+Its main functionality includes:
+
+- Submit a link that'll be sent in the Notion database
+- Display different resources by category
+
+## Screenshot of the website
+
+<Image
+  src='/images/compiled/compiled-screenshot.jpg'
+  width={2000}
+  height={1600}
+  alt='Picture of Compiled'
+  objectFit='contain'
+/>
+
+## Conclusion
+
+Using Notion API as my database has been a great and smooth experience overall, Overall Notion API can be a great alternative to using it as CMS or a database for content type websites.
+
+## Tidbits:
+
+- [Vercel OG generator](https://vercel.com/docs/concepts/functions/edge-functions/og-image-generation) is another cool technology that I had recently discovered, it let's you build a open graph image with just using html css, I recommend that you'll check it out
+- https://heroicons.com/
+- https://vercel.com/blog/building-a-fast-animated-image-gallery-with-next-js

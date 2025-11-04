@@ -1,0 +1,142 @@
+---
+title: 'VS code tips and tricks you might not know'
+publishedAt: '2021-07-03'
+summary: 'VS Code tips and tricks that I found to be useful.'
+image: '/articles/images/vscode-tricks/banner.png'
+showHome: true
+isPublished: true
+labels: ['productivity', 'notes']
+---
+
+<Image
+  alt={`VS code Icon`}
+  className='rounded-md'
+  src={`/articles/images/vscode-tricks/banner.png`}
+  width={1116}
+  height={746}
+  priority
+/>
+
+I've been using VS Code for almost a year now and have watched and read a couple of VS Code tricks that you could find elsewhere on the internet. I wanted to share the tips and tricks that I found that could help you love VS Code more.
+
+## Gitlens for git integrations
+
+I've had this extension installed in the past but I wasn't leveraging its full potential. After spending some time learning about this extension, I was blown away by what it can do. It made my developer experience truly great since you no longer have to go into the terminal to type those git commands.
+
+### Track recent changes
+
+This is pretty useful if you want to see the new changes you've made.
+
+<Image
+  className='rounded-md'
+  alt={`Gitlens Demo`}
+  src={`/articles/images/vscode-tricks/recent-changes.gif`}
+  width={1116}
+  height={746}
+/>
+
+### Sync created branch to GitHub repository
+
+Ever had that time when you're creating a new branch and wanted to sync it to the GitHub repository? GitLens can do that too. If you're also planning to delete a branch, go to the command palette and type `Delete branch`.
+
+<Image
+  className='rounded-md'
+  alt={`Gitlens Demo`}
+  src={`/articles/images/vscode-tricks/branch.gif`}
+  width={1116}
+  height={746}
+/>
+
+### Commit directly in the source panel
+
+What's even greater about this extension is that you can directly commit your code in the source control panel. No more need to go to the terminal and type out the command.
+
+<Image
+  className='rounded-md'
+  alt={`Gitlens Demo`}
+  src={`/articles/images/vscode-tricks/commit.gif`}
+  width={1116}
+  height={746}
+/>
+
+There are many more features that GitLens has to offer, and I would really recommend watching this [video](https://youtu.be/C6wMNoe78oc) to learn more about what GitLens can do.
+
+## VS Code Tricks
+
+Just like me, you might have read or watched a couple of VS Code tips and tricks. Here are some things that I found recently that not many articles have mentioned.
+
+### ctrl + space
+
+Useful for insert/replace suggestions. To fully utilize this feature, go to `system preferences` and find `insert mode` and change its value to replace. This makes sure that when you're planning to change something, it replaces instead of inserting.
+
+<Image
+  className='rounded-md'
+  alt={`vs code Demo`}
+  src={`/articles/images/vscode-tricks/suggestion.gif`}
+  width={1116}
+  height={746}
+/>
+
+### word wrap
+
+Ever had that time where you have a long line of code and you have to scroll just to see the full thing? Well, no more need for that. Just go to `system preferences > word wrap` and enable it.
+
+### Wrap tabs
+
+This is particularly useful when you have too many files open and you have to scroll just to see the other files. With this functionality enabled, your tabs will go to a new line. To enable this feature, go to preferences by pressing `cmd + ,` or `ctrl + a` and type the keyword "wrap tabs".
+
+### Navigating through the files using keyboard navigation
+
+Press `ctrl shift e` for Windows and `cmd + shift + e` for Mac to open up the explorer tabs. You can navigate through the files using arrow keys, and pressing `space` opens the folder or opens the file in a new tab.
+
+<Image
+  className='rounded-md'
+  alt={`vs code Demo`}
+  src={`/articles/images/vscode-tricks/keyboard-navigation.gif`}
+  width={1116}
+  height={746}
+/>
+
+### Fancy Blinking Cursor
+
+One way to make your VS Code prettier is by going to preferences and searching for `Cursor Blinking` and changing its value to expand. Although this is just my preference, it also has a couple of other options that you can explore.
+
+### Enable smooth scrolling effect
+
+Another way to take your VS Code experience to another level is by going to system preferences and searching for `Smooth Scrolling` and checking the box. This is pretty useful if you're doing screen recordings.
+
+<Image
+  className='rounded-md'
+  alt={`vs code Demo`}
+  src={`/articles/images/vscode-tricks/smooth-scroll.gif`}
+  width={1116}
+  height={746}
+/>
+
+### Pin tabs
+
+If you have a file that's always being used and you don't want it to be closed, VS Code has functionality that lets you pin a particular file. Simply right-click on a tab you want to pin and select `Pin`.
+
+<Image
+  className='rounded-md'
+  alt={`vs code Demo`}
+  src={`/articles/images/vscode-tricks/pin-tab.gif`}
+  width={1116}
+  height={746}
+/>
+
+## Leverage VS code extensions
+
+I've had a lot of VS Code extensions installed on my computer, but these are the extensions that I found to be primarily useful and used daily as a front-end web developer. They made my experience better and also made me happier with using VS Code.
+
+- [Path Intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense): Provides path intellisense to your files.
+- [Relative Path](https://marketplace.visualstudio.com/items?itemName=jakob101.RelativePath™): Gets the relative path of any file. Once installed, you can start using it by pressing the command `ctrl + shift + h` or `Cmd + shift + h`.
+- [Auto Imports](https://marketplace.visualstudio.com/items?itemName=steoates.autoimport): Finds code completion for all available imports.
+
+## Summary
+
+To summarize the points of this article:
+
+- Gitlens for git integrations.
+- Make use of VS Code keyboard shortcuts.
+- Leverage VS code extensions.

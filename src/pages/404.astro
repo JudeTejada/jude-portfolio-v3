@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Container from '../components/Layout/Container.astro';
+import Heading from '../components/UI/Heading.astro';
+import Paragraph from '../components/UI/Paragraph.astro';
+import ButtonPrimary from '../components/UI/ButtonPrimary.astro';
+---
+
+<Layout
+  title="404 - Page Not Found"
+  description="Oops! The page you're looking for doesn't exist on Jude Tejada's portfolio website. Return to homepage."
+>
+  <Container>
+    <div class="min-h-screen flex items-center justify-center">
+      <div class="text-center">
+        <Heading as="h1" extraClasses="mb-4 text-6xl">
+          404
+        </Heading>
+        <Heading as="h2" extraClasses="mb-6">
+          Page Not Found
+        </Heading>
+        <Paragraph extraClasses="mb-8 max-w-2xl mx-auto">
+          Oops! The page you're looking for doesn't exist. It might have been moved,
+          deleted, or you might have typed the wrong URL.
+        </Paragraph>
+        <ButtonPrimary href="/">Go Back Home</ButtonPrimary>
+      </div>
+    </div>
+  </Container>
+</Layout>

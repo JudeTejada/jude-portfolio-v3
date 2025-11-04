@@ -1,0 +1,53 @@
+---
+interface Props {
+  as: 'h1' | 'h2' | 'h3' | 'h4' | 'h6';
+  extraClasses?: string;
+}
+
+const { as, extraClasses = '' } = Astro.props;
+
+function getHeadingClasses(type: string, extraClasses: string): string {
+  const baseClasses = extraClasses;
+
+  switch (type) {
+    case 'h1':
+      return `font-bold text-5xl tracking-normal leading-tight lg:text-6xl ${baseClasses}`;
+    case 'h2':
+      return `text-4xl font-bold ${baseClasses}`;
+    case 'h3':
+      return `text-3xl font-medium ${baseClasses}`;
+    case 'h4':
+      return `text-base font-medium ${baseClasses}`;
+    case 'h6':
+      return `text-sm font-light ${baseClasses}`;
+    default:
+      return baseClasses;
+  }
+}
+---
+
+{as === 'h1' && (
+  <h1 class={getHeadingClasses(as, extraClasses)}>
+    <slot />
+  </h1>
+)}
+{as === 'h2' && (
+  <h2 class={getHeadingClasses(as, extraClasses)}>
+    <slot />
+  </h2>
+)}
+{as === 'h3' && (
+  <h3 class={getHeadingClasses(as, extraClasses)}>
+    <slot />
+  </h3>
+)}
+{as === 'h4' && (
+  <h4 class={getHeadingClasses(as, extraClasses)}>
+    <slot />
+  </h4>
+)}
+{as === 'h6' && (
+  <h6 class={getHeadingClasses(as, extraClasses)}>
+    <slot />
+  </h6>
+)}

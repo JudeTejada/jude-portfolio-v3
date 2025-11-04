@@ -1,0 +1,171 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Container from '../../components/Layout/Container.astro';
+import Heading from '../../components/UI/Heading.astro';
+import Paragraph from '../../components/UI/Paragraph.astro';
+import ButtonPrimary from '../../components/UI/ButtonPrimary.astro';
+import TableOfContents from '../../components/UI/TableOfContents.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+// MDX component imports
+import VideoPlayer from '../../components/MDX/VideoPlayer.astro';
+import ImageWithCaption from '../../components/MDX/ImageWithCaption.astro';
+import CustomImage from '../../components/MDX/CustomImage.astro';
+import List from '../../components/MDX/List.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('project', ({ data }) => {
+    return data.isPublished !== false;
+  });
+
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+type Props = {
+  project: CollectionEntry<'project'>;
+};
+
+const { project } = Astro.props;
+const { Content, headings } = await project.render();
+
+// Format date
+const date = new Date(project.data.publishedAt);
+const formattedDate = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+
+// Extract headings for table of contents
+const tocHeadings = headings.map(heading => ({
+  text: heading.text,
+  slug: heading.slug,
+  level: heading.depth
+}));
+
+// Structured data for SEO
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Project",
+  "name": project.data.title,
+  "description": project.data.summary,
+  "image": project.data.image || "https://judetejada.com/banner.png",
+  "datePublished": project.data.publishedAt,
+  "dateModified": project.data.publishedAt,
+  "author": {
+    "@type": "Person",
+    "name": "Jude Tejada",
+    "url": "https://judetejada.com"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": `https://judetejada.com/project/${project.slug}`
+  },
+  "url": `https://judetejada.com/project/${project.slug}`,
+  "keywords": project.data.technologies ? project.data.technologies.join(", ") : "web development, front-end, portfolio",
+  "programmingLanguage": project.data.technologies || [],
+  "sameAs": [
+    project.data.demoUrl,
+    project.data.githubUrl
+  ].filter(Boolean)
+};
+---
+
+<Layout
+  title={project.data.title}
+  description={project.data.summary}
+  canonical={`https://judetejada.com/project/${project.slug}`}
+>
+  <!-- Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+  <Container>
+    <div class="py-20">
+      <!-- Full-width featured image at top -->
+      {project.data.image && (
+        <div class="w-full -mx-4 sm:-mx-6 lg:-mx-8 mb-8">
+          <img
+            src={project.data.image}
+            alt={project.data.title}
+            class="w-full h-64 sm:h-80 md:h-96 object-cover"
+          />
+        </div>
+      )}
+
+      <!-- Enhanced Header -->
+      <header class="mb-16 text-center max-w-4xl mx-auto">
+        <div class="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-2xl p-8 shadow-sm border border-indigo-100">
+          <Heading as="h1" extraClasses="mb-4">
+            {project.data.title}
+          </Heading>
+
+          <div class="flex items-center justify-center gap-2 text-gray-600 mb-6">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            <time datetime={project.data.publishedAt}>{formattedDate}</time>
+          </div>
+
+          {project.data.technologies && project.data.technologies.length > 0 && (
+            <div class="mb-8 flex flex-wrap justify-center gap-2">
+              {project.data.technologies.map((tech) => (
+                <span class="inline-block bg-gradient-to-r from-indigo-500 to-blue-600 text-white text-sm px-3 py-1.5 rounded-full shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <div class="flex flex-wrap justify-center gap-4">
+            {project.data.demoUrl && (
+              <ButtonPrimary href={project.data.demoUrl} extraClasses="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-md hover:shadow-lg transition-all duration-200">
+                <span class="flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                  </svg>
+                  View Live Demo
+                </span>
+              </ButtonPrimary>
+            )}
+            {project.data.githubUrl && (
+              <ButtonPrimary href={project.data.githubUrl} extraClasses="bg-gradient-to-r from-gray-700 to-gray-900 hover:from-gray-800 hover:to-black shadow-md hover:shadow-lg transition-all duration-200">
+                <span class="flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                  </svg>
+                  View Source Code
+                </span>
+              </ButtonPrimary>
+            )}
+          </div>
+        </div>
+      </header>
+
+      <!-- Two-column layout for tablet and desktop -->
+      <div class="flex gap-8 max-w-6xl mx-auto">
+        <!-- Main Content -->
+        <main class="flex-1 min-w-0">
+          <article class="prose prose-lg max-w-none">
+            <Content
+              components={{
+                Image: CustomImage,
+                VideoPlayer,
+                ImageWithCaption,
+                List,
+              }}
+            />
+          </article>
+        </main>
+
+        <!-- Table of Contents (visible on tablet and desktop) -->
+        <aside class="hidden lg:block w-64 flex-shrink-0">
+          <TableOfContents headings={tocHeadings} />
+        </aside>
+      </div>
+    </div>
+  </Container>
+</Layout>

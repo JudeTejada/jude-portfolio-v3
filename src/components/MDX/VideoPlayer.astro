@@ -1,0 +1,16 @@
+---
+interface Props {
+  url: string;
+}
+
+const { url } = Astro.props;
+---
+
+<video
+  src={url}
+  controls
+  alt="video content"
+  loop
+  muted
+  class="max-w-full"
+/>

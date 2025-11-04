@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://judetejada.com/sitemap.xml
+
+# Block common non-content paths
+Disallow: /api/
+Disallow: /_astro/
+Disallow: /.well-known/

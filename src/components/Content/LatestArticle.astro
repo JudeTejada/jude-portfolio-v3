@@ -1,0 +1,56 @@
+---
+import Heading from '../UI/Heading.astro';
+import Paragraph from '../UI/Paragraph.astro';
+import ButtonLink from '../UI/ButtonLink.astro';
+
+interface Props {
+  title: string;
+  image?: string;
+  labels?: string[];
+  publishedAt: string;
+  summary: string;
+  slug: string;
+}
+
+const { title, image, labels = [], publishedAt, summary, slug } = Astro.props;
+
+// Format date
+const date = new Date(publishedAt);
+const formattedDate = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+---
+
+<article class="grid items-start justify-center grid-cols-1 mb-32 md:grid-cols-2">
+  {image && (
+    <div class="relative w-full mb-8 mr-10 shadow-lg h-80 md:mb-0">
+      <img
+        src={image}
+        alt={title}
+        class="w-full h-full object-cover rounded-md"
+        loading="eager"
+        priority
+      />
+    </div>
+  )}
+
+  <div class="md:ml-10">
+    <div class="flex items-center justify-between">
+      <Heading as="h6" extraClasses="mb-1.5">
+        {formattedDate}
+      </Heading>
+    </div>
+
+    <Heading as="h2" extraClasses="mb-4">
+      {title}
+    </Heading>
+
+    <Paragraph>{summary}</Paragraph>
+
+    <ButtonLink href={`/blog/${slug}`} extraClasses="mt-6">
+      Read More
+    </ButtonLink>
+  </div>
+</article>

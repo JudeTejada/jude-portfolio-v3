@@ -1,0 +1,42 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Container from '../components/Layout/Container.astro';
+import Heading from '../components/UI/Heading.astro';
+import Paragraph from '../components/UI/Paragraph.astro';
+import ProjectPost from '../components/Content/ProjectPost.astro';
+import { getCollection } from 'astro:content';
+
+// Get all projects, sorted by date
+const allProjects = await getCollection('project', ({ data }) => {
+  return data.isPublished !== false;
+});
+
+const projects = allProjects.sort((a, b) =>
+  new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime()
+);
+---
+
+<Layout title="Projects - Jude Tejada" description="Explore my portfolio of web development projects, applications, and creative work.">
+  <Container>
+    <div class="py-20">
+      <Heading as="h1" extraClasses="mb-6 text-center">
+        Projects
+      </Heading>
+      <Paragraph extraClasses="mb-16 text-center max-w-2xl mx-auto">
+        A collection of my web development projects, experiments, and creative work.
+        Each project represents a unique challenge and learning experience.
+      </Paragraph>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {projects.map((project) => (
+          <ProjectPost
+            title={project.data.title}
+            summary={project.data.summary}
+            slug={project.slug}
+            image={project.data.image}
+          />
+        ))}
+      </div>
+    </div>
+  </Container>
+</Layout>

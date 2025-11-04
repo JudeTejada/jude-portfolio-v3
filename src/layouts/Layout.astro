@@ -1,0 +1,53 @@
+---
+import '../styles/global.css';
+import Navbar from '../components/Layout/Navbar';
+import Footer from '../components/Layout/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+}
+
+const { title, description, image = '/banner.png', canonical } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="author" content="Jude Tejada" />
+    <meta name="keywords" content="Jude Tejada, front-end developer, web development, portfolio, Next.js, React, Astro, TypeScript" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={image} />
+    <meta property="twitter:creator" content="@JudeTejada2" />
+
+    <!-- Canonical URL -->
+    {canonical && <link rel="canonical" href={canonical} />}
+  </head>
+  <body>
+    <Navbar client:load />
+    <main class="pt-24">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

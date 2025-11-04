@@ -1,0 +1,23 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  attribution?: string;
+}
+
+const { src, alt, attribution } = Astro.props;
+---
+
+<figure class="w-full">
+  <img
+    src={src}
+    alt={alt}
+    class="w-full object-cover rounded"
+    loading="lazy"
+  />
+  {attribution && (
+    <figcaption class="text-xs font-light text-center text-gray-500 mt-2">
+      Photo by {attribution}
+    </figcaption>
+  )}
+</figure>

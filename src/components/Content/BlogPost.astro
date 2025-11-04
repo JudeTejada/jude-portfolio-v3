@@ -1,0 +1,62 @@
+---
+import Heading from '../UI/Heading.astro';
+import Paragraph from '../UI/Paragraph.astro';
+
+interface Props {
+  title: string;
+  publishedAt: string;
+  summary: string;
+  slug: string;
+  image?: string;
+  labels?: string[];
+}
+
+const { title, publishedAt, summary, slug, image, labels = [] } = Astro.props;
+console.log("🚀 ~ title:", title)
+
+// Format date
+const date = new Date(publishedAt);
+const formattedDate = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+---
+
+<a href={`/blog/${slug}`}>
+  <article class="mb-20 cursor-pointer group">
+    {image && (
+      <div class="relative mb-8 shadow-md h-72">
+        <img
+          src={image}
+          alt={title}
+          class="w-full h-full object-cover rounded-md"
+          loading="lazy"
+        />
+      </div>
+    )}
+
+    <Heading as="h6" extraClasses="mb-1.5">
+      {formattedDate}
+    </Heading>
+
+    <Heading
+      as="h3"
+      extraClasses="mb-6 group-hover:text-blue-500 duration-100 ease-in-out"
+    >
+      {title}
+    </Heading>
+
+    {labels.length > 0 && (
+      <div class="mb-4">
+        {labels.map((label) => (
+          <span class="inline-block bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded mr-2 mb-2">
+            {label}
+          </span>
+        ))}
+      </div>
+    )}
+
+    <Paragraph>{summary}</Paragraph>
+  </article>
+</a>

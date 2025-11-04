@@ -1,0 +1,88 @@
+---
+title: '5  tips for  a faster website'
+publishedAt: '2021-07-15'
+summary: 'highlighting the process that i had took to reach a 0.9s loading speed for my portfolio.'
+image: '/articles/images/how-i-improved-my-website/web-dev-measure.png'
+showHome: true
+isPublished: true
+latestArticle: false
+labels: ['notes', 'code']
+---
+
+<Image
+  src='/articles/images/how-i-improved-my-website/web-dev-measure.png'
+  alt='Lighthouse result score of my website'
+  width={1080}
+  className='rounded-md '
+  height={600}
+  priority
+/>
+
+### Quick Pause
+
+> Please do note that these metrics may be different when you try to test in your local machine, so please don't expect the result will be the same.
+
+## Self host your font
+
+There's a lot of benefits of self-hosting your font when compared to using a third-party provider such as Google font, one major benefit of self-hosting your font is that when a user visits your site the font will be requested from your server compare to as requesting from a third-party provider which results to a faster loading speed, another benefit is that you can customize it to you're liking such as bundling and minifying your font-related rules/CSS.
+
+However, this approach is rather complicated to implement it's a good thing that there's a free tool that does for you which is [Google Fonts helper](https://google-webfonts-helper.herokuapp.com/fonts) that automates the process easier for you.
+
+## Use the icons that you necessarily need
+
+for a small site such as this, I had only used about 6 icons, and downloading a whole icon pack into my project would have resulted in an increase in bundle sizes thus could potentially slow down my website, so what ended happening is I manually download the SVG icon that I'll only be needing.
+
+> Don't forget to compress your SVG icons as small changes like this could help to improve the loading speed of your website.
+
+## Optimize your third-party scripts
+
+One of the main huge problems that had caused my website to slow down was due to adding google analytics into my project but recently Next.js had just rolled out version 11 and they had introduced
+a component called `Script` and what this does it optimizes your third party scripts and define when will it be executed. After utilizing the `Script` component from Next.js I was able to solve the problem with ease.
+
+I have here an example of how I'm using the `Script` component to load my google tag manager that only executes at the time that the page fully loads.
+
+```js
+<Script
+  strategy='afterInteractive'
+  src='https://www.googletagmanager.com/gtag/js?id={Your-ID}'
+/>
+```
+
+## Use Webp for your images
+
+Images are one of the major causes that make a website slow and using an image format such as png could potentially slow down your website loading speed. Webp is a modern format for images, when comparing to using PNG, JPEG WebP is 25-24% smaller than JPEG images. it's also supported across all modern browsers except internet explorer and I highly advise that you use Webp instead of JPG for your images.
+
+## Converting my project to Preact
+
+React ships a lot of code and I had realized that I wasn't using most of the APIs that React has to offer which had to lead me to an idea of converting my site to Preact, I was skeptical as I had thought that it will cause some massive changes in my project in an attempt to convert my site to Preact. But I was wrong and instead I was blown away by how smooth the process was and I had only changed a few lines of code entirely.
+
+If you're using Next.js make sure that preact is installed and under your `next.config.js` file add these code and what does this under the hood is it converts yours react project to using preact on the build time.
+
+```js
+module.exports = {
+  webpack: (config, { isServer, dev }) => {
+    // Replace React with Preact only in client production build
+    if (!dev && !isServer) {
+      Object.assign(config.resolve.alias, {
+        react: 'preact/compat',
+        'react-dom/test-utils': 'preact/test-utils',
+        'react-dom': 'preact/compat'
+      });
+    }
+
+    return config;
+  }
+};
+```
+
+> note this tip only works if you're using react for your project and I don't advise that you would do this step however if you're facing the same problem that I had then I recommend that you'll give it a try see the result for yourself.
+
+## Conclusion
+
+in summary here are the things that I had done that had resulted in a 0.9s seconds load for my portfolio. if you found a typo or I had stated something wrong you can DM me at [Twitter](https://twitter.com/JudeTejada2)
+
+- Self host your fonts
+- Use the icons that you necessarily need
+- Optimize your third-party scripts
+- Use Webp for your images
+- Converting my project to Preact

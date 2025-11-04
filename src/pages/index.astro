@@ -1,16 +1,148 @@
 ---
+import Layout from '../layouts/Layout.astro';
+import Container from '../components/Layout/Container.astro';
+import Heading from '../components/UI/Heading.astro';
+import Paragraph from '../components/UI/Paragraph.astro';
+import BlogPost from '../components/Content/BlogPost.astro';
+import ProjectPost from '../components/Content/ProjectPost.astro';
+import CallToAction from '../components/UI/CallToAction.astro';
+import { getCollection } from 'astro:content';
 
+// Get featured projects
+const allProjects = await getCollection('project', ({ data }) => {
+  return data.isPublished !== false && data.showHome === true;
+});
+
+const featuredProjects = allProjects.sort(
+  (a, b) =>
+    new Date(b.data.publishedAt).getTime() -
+    new Date(a.data.publishedAt).getTime()
+);
+
+// Get latest blog posts to show on home
+const allBlogPosts = await getCollection('blog', ({ data }) => {
+  return data.isPublished !== false && data.showHome === true;
+});
+
+const latestBlogs = allBlogPosts
+  .sort(
+    (a, b) =>
+      new Date(b.data.publishedAt).getTime() -
+      new Date(a.data.publishedAt).getTime()
+  )
+  .slice(0, 2); // Show only 2 latest posts
+
+// Structured data for SEO
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Jude Tejada",
+  "jobTitle": "Front-end Developer",
+  "description": "A front-end developer who focuses on creating beautiful user experiences and modern web applications.",
+  "url": "https://judetejada.com",
+  "image": "https://judetejada.com/banner.png",
+  "sameAs": [
+    "https://github.com/judetejada",
+    "https://linkedin.com/in/judetejada",
+    "https://twitter.com/JudeTejada2",
+    "https://dribbble.com/judetejada"
+  ],
+  "knowsAbout": [
+    "Front-end Development",
+    "React",
+    "Next.js",
+    "Astro",
+    "TypeScript",
+    "JavaScript",
+    "Web Development",
+    "UI/UX Design"
+  ],
+  "offers": {
+    "@type": "Offer",
+    "serviceType": "Front-end Web Development",
+    "description": "Creating beautiful user experiences and modern web applications"
+  }
+};
 ---
+<Layout
+  title="Jude Tejada - Front-end Developer"
+  description="Jude Tejada - A front-end developer who focuses on creating beautiful user experiences and modern web applications."
+  canonical="https://judetejada.com"
+>
+  <!-- Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+  <!-- Hero Section -->
+  <Container>
+    <main class="grid items-center w-full max-w-6xl py-40">
+      <header>
+        <h2 class="text-4xl font-bold leading-tight tracking-normal lg:text-6xl xl:text-8xl">
+          <span class="block">Hi there, I'm Jude.</span>
+          <span>
+            A{' '}
+            <span class="text-blue-500"> Front-end Developer</span>{' '}
+            who focuses on creating beautiful experience.
+          </span>
+        </h2>
+      </header>
+    </main>
+  </Container>
+
+  <!-- Featured Projects Section -->
+  <Container>
+    <section class="pb-20">
+      <div class="mb-10">
+        <Heading as="h2" extraClasses="mb-6">What I've been working on</Heading>
+        <div class="max-w-2xl">
+          <Paragraph>
+            I like to have a lookout on the next project that I'm going to
+            build. Take a look at the list of the projects that I've built in
+            the past.
+          </Paragraph>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:gap-10 md:grid-cols-2">
+        {featuredProjects.map((project) => (
+          <ProjectPost
+            title={project.data.title}
+            summary={project.data.summary}
+            slug={project.slug}
+            image={project.data.image}
+          />
+        ))}
+      </div>
+    </section>
+  </Container>
+
+  <!-- Latest Blog Posts Section -->
+  <Container>
+    <section class="pb-20">
+      <div class="mb-10">
+        <Heading as="h2" extraClasses="mb-6">I have a blog</Heading>
+        <Paragraph>
+          Writing allows me to express my thoughts and share it to the world. 🌟
+        </Paragraph>
+      </div>
+
+      <div class="grid grid-cols-1 gap-x-6 md:grid-cols-2">
+        {latestBlogs.map((blog) => (
+          <BlogPost
+            title={blog.data.title}
+            publishedAt={blog.data.publishedAt}
+            summary={blog.data.summary}
+            slug={blog.slug}
+            image={blog.data.image}
+            labels={blog.data.labels}
+          />
+        ))}
+      </div>
+    </section>
+  </Container>
+
+  <!-- Call to Action -->
+  <Container>
+    <div class="max-w-2xl mx-auto">
+      <CallToAction />
+    </div>
+  </Container>
+</Layout>

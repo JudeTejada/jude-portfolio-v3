@@ -1,0 +1,78 @@
+---
+title: 'Movie Pahe'
+publishedAt: '2020-07-22'
+summary: ' An application where you can scout for movies built with React,Redux and Redux Saga.'
+image: '/images/moviepahe.png'
+showHome: false
+---
+
+<div className='flex flex-row justify-between'>
+         <List title="TYPE" items={["Personal Project"]} />
+        <List
+          title="STACK"
+          items={[
+            "React",
+            "Styled-components",
+            "Redux",
+            "Redux Saga",
+            "Netlify",
+          ]}
+        />
+        <List title="Live" items={["View Site"]} link={'https://moviepahe.netlify.app/'} />
+
+</div>
+
+## Overview
+
+I wanted to build a project where I could scout for new movies that pique my interest and so I had decided to build a movie library project that I could able to sort out by year, genre. Here I show you my process of how I built out this project from scratch.`
+
+## The Process
+
+After finishing a course on React, I wanted to test my skills as I had felt that I wasn't confident yet with using redux and so I decided to come up with an idea of a project that I'm gonna build. Building a projet right after finishing a course helps me to better understand a certain topic as well as have fun along the way.
+
+My process for building out this project starts with sketching the whole structure of the application as this will help me get a better picture of what I'm exactly going to build. Here I just designed the bare bones of my application on figma for the homepage and viewing a single movie.
+
+<Image
+  src='/project/moviepahe/main.png'
+  alt='Main Page'
+  width={1920}
+  height={1080}
+  className='rounded-md'
+  objectFit='cover'
+/>
+
+<Image
+  width={1920}
+  height={3927}
+  src='/project/moviepahe/single.png'
+  alt='Viewing a single movie page'
+  className='rounded-md'
+/>
+
+Right after I had finished sketching out the structure of my application, I head into coding the project by starting with setting up the structure of the redux, Routes, etc. One thing that I had realized while building out the project was that the docs will be your best friend as throughout the process I always check the documentation of Redux as well as API documentation of IMDB.
+
+Another thing that I had learned from this project was reading someone else code, reading someone else code had helped me come up with ideas such as how they set up actions for redux sagas, project structure, etc.
+
+Reading someone else code wasn't a smooth process at all , in fact I got scared as I felt so overwhelmed just simply seeing the whole project, nevertheless, I had to take things to step by step at a time and along the way I had to manage to understand the whole structure, you don't need to understand the whole thing just focus on the problem that you're trying to solve.
+
+## Mistakes encountered
+
+What happened to the project was I was taking so much time styling the whole application, my original goal for this project was to improve my skills with using redux and redux middlewares but what had ended happening was that 60% of my time had gone into styling the whole application, this was a mistake that I had when building out this project I would had used a UI library so that I could focus more on the functionality and finish the application faster. So whenenver you're building a project allocate some of your time to planning as this will help you in the long run.
+
+## Takeaway
+
+One of the best ways to enforce the knowledge you had just learned is to simply build a project as this will help you gain a better understanding of a particular tool that you're trying to learn, you'll also learn a few things that you may not expect when building a project so don't be afraid and take that first step.
+
+## Future improvements
+
+I had built this project on July of 2020 when school had just ended and I had saw a lot of new technologies arised, if you ever plan to build a similar project such as this I would recommend that check these tools.
+
+- [Next.js](https://nextjs.org/): a React framework that allows you to do server-side rendering and also static site generation. You can try to pre-render some of the pages of your application to make your application faster when visited.
+- [React-Query](https://react-query.tanstack.com/) : data-fetching library that allows you fetch, cached and update server state in your application. I had used Redux for the whole application to manage state and handle incoming data from the server and react-query all does for you easy with a hook.
+- [tailwind](https://tailwindcss.com/): a utility framework for styling that will help you style your application faster.
+
+## Final Product
+
+if you want to check it out for yourself here's the [link](https://moviepahe.netlify.app/) to my project.
+
+<VideoPlayer url='/project/moviepahe/moviepahe-final.mp4' />

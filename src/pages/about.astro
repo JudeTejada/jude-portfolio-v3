@@ -1,0 +1,75 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Container from '../components/Layout/Container.astro';
+import Heading from '../components/UI/Heading.astro';
+import Paragraph from '../components/UI/Paragraph.astro';
+import CallToAction from '../components/UI/CallToAction.astro';
+---
+
+<Layout
+  title="About - Jude Tejada"
+  description="Jude Tejada is a front-end web developer focusing on creating better user experience and building modern web applications."
+>
+  <Container>
+    <header class="pb-20 pt-24 md:pt-32">
+      <Heading as="h1">Hi There, I'm Jude Tejada</Heading>
+      <div class="grid grid-cols-1 mt-10 lg:grid-cols-2">
+        <div class="lg:pr-28 w-full">
+          <Paragraph>
+            Hey There, I'm a college student and I do freelancing on the
+            side while juggling with my studies.
+          </Paragraph>
+
+          <br />
+          <br />
+          <Paragraph>
+            I've been into front-web development for nearly 2 years, and
+            I've enjoyed creating web applications that provides a good user
+            experience to the users.
+          </Paragraph>
+        </div>
+        <div class="w-full pt-10 lg:pt-0">
+          <Paragraph>
+            When I'm not into coding I like to dive myself in the world of
+            User Interface and User Experience as it helps me to create a
+            much more better user experience to the users as well as create
+            a more valuable product in the market.
+          </Paragraph>
+        </div>
+      </div>
+    </header>
+
+    <section class="grid grid-cols-1 pb-20 lg:grid-cols-2">
+      <div class="flex flex-col justify-center">
+        <Heading as="h2" extraClasses="mb-6">
+          Tech Stack
+        </Heading>
+        <Paragraph>
+          When working on a project I tailor my approach to the problem that
+          I'm trying to solve, as one tool does not work for everybody. I
+          always strive to achieve the best results for who I'm currently
+          working.
+        </Paragraph>
+        <div class="mt-4">
+          <Paragraph>
+            I focus on building approaches which scale to help the growth of
+            the product. Here's my go to stack when I'm building a project,
+            I'm always open to adding more or changing as long as it helps
+            the product requirement.
+          </Paragraph>
+        </div>
+      </div>
+
+      <img
+        src="/images/stack.png"
+        alt="Tech stack for building front-end applications"
+        class="w-full h-auto rounded-md"
+        loading="lazy"
+      />
+    </section>
+
+    <div class="max-w-2xl mx-auto">
+      <CallToAction />
+    </div>
+  </Container>
+</Layout>

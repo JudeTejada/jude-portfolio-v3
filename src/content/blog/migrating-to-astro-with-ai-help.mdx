@@ -1,0 +1,159 @@
+---
+title: 'How I migrated my blog to Astro with AI assistance'
+publishedAt: '2025-11-04'
+summary: 'A complete guide on migrating from Next.js to Astro with AI assistance. Learn about the migration process, challenges, and performance benefits.'
+image: '/banner.png'
+showHome: true
+isPublished: true
+latestArticle: true
+labels: ['notes', 'code', 'migration', 'astro', 'nextjs', 'ai', 'performance']
+description: 'Complete migration guide from Next.js to Astro with AI assistance. Learn step-by-step process, challenges faced, and performance improvements gained.'
+keywords: 'Astro, Next.js, migration, AI assistance, web development, performance optimization, MDX, content management'
+author: 'Jude Tejada'
+---
+
+<Image
+  src='/banner.png'
+  alt='Astro logo and migration process'
+  width={1080}
+  height={810}
+  className='rounded-md'
+  priority
+/>
+
+After running my blog on Next.js for a while, I decided to migrate it to Astro for better performance and a simpler architecture. What made this migration interesting was that I had AI assistance throughout the entire process. In this comprehensive guide, I'll share my experience migrating from Next.js to Astro and how AI helped streamline the entire process.
+
+## Why Astro?
+
+I've been hearing great things about Astro, especially its focus on performance and the ability to use multiple frameworks. The main reasons for considering the migration were:
+
+- **Better performance** - Astro ships zero JavaScript by default
+- **Simpler setup** - Less configuration than Next.js
+- **Flexible rendering** - Mix and match different frameworks
+- **Content collections** - Better content management out of the box
+
+## The Migration Process
+
+### Step 1: Initial Setup
+
+The first step was setting up a new Astro project. I ran the standard setup command and chose the basic template since I wanted to build everything from scratch.
+
+```bash
+npm create astro@latest
+```
+
+### Step 2: Content Migration
+
+One of the biggest challenges was migrating my MDX blog posts. Astro has built-in support for MDX, but the setup is different from Next.js.
+
+My AI assistant helped me:
+
+1. **Configure MDX integration** - Set up the proper plugins and configuration
+2. **Create content collections** - Organize blog posts with proper schema validation
+3. **Update frontmatter** - Adjust the metadata structure for Astro's expectations
+
+### Step 3: Component Conversion
+
+This is where AI really shined. I had to convert several React components to work with Astro:
+
+- **Layout components** - Modified to use Astro's slot system
+- **MDX components** - Ensured they work with Astro's MDX integration
+- **UI components** - Kept as React components where needed
+
+### Step 4: Styling Migration
+
+Since I was using Tailwind CSS, the migration was straightforward. Just needed to add Tailwind to the Astro config and update the content paths.
+
+```astro
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+### Step 5: Route Setup
+
+Astro's file-based routing is very intuitive. I just needed to:
+
+1. Create `[slug].astro` for dynamic blog post routes
+2. Set up `blog.astro` for the blog index
+3. Update the main `index.astro` page
+
+## How AI Helped
+
+### Code Analysis and Suggestions
+
+The AI assistant analyzed my existing Next.js codebase and provided specific suggestions for Astro equivalents. This saved me hours of documentation reading.
+
+### Error Debugging
+
+When I ran into issues with MDX components not rendering correctly, AI helped me identify the problem quickly - I was trying to use client-side components in a server environment.
+
+### Best Practices
+
+AI provided guidance on Astro best practices, like:
+- Using islands architecture for interactive components
+- Properly structuring content collections
+- Optimizing images with Astro's built-in components
+
+### Code Generation
+
+For repetitive tasks like converting multiple blog posts, AI helped generate scripts and templates that sped up the process significantly.
+
+## Challenges Faced
+
+Even with AI assistance, there were some challenges:
+
+### MDX Custom Components
+Getting custom MDX components to work required some trial and error. The AI helped, but I still had to experiment with different approaches.
+
+### Build Configuration
+Setting up the build process for production required some adjustments to handle the content collections properly.
+
+### Performance Optimization
+While Astro is fast out of the box, I still needed to optimize images and lazy loading for the best performance.
+
+## Benefits of the Migration
+
+After completing the migration, I noticed significant improvements:
+
+- **Page load times** - Much faster, especially for blog posts
+- **Build times** - Quicker builds during development
+- **Bundle size** - Smaller JavaScript bundles
+- **Developer experience** - Simpler development workflow
+
+## Conclusion
+
+Migrating from Next.js to Astro with AI assistance was a smooth process. The AI helped me overcome the learning curve quickly and provided solutions to problems that would have taken much longer to solve on my own.
+
+If you're considering a similar migration, I'd recommend:
+
+1. **Plan your migration** - Understand what needs to be converted
+2. **Use AI assistance** - It can help with code analysis and problem-solving
+3. **Test thoroughly** - Make sure all features work as expected
+4. **Leverage Astro's features** - Take advantage of performance optimizations
+
+The combination of Astro's architecture and AI assistance made this migration much more manageable than I expected. The performance improvements and developer experience have made it well worth the effort.
+
+## Frequently Asked Questions
+
+### Is migrating from Next.js to Astro worth it?
+Yes, especially if you're focused on performance. Astro's zero-JS-by-default approach significantly improves page load times and reduces bundle sizes.
+
+### How long does the migration take?
+With AI assistance, the migration can be completed in a few days. Without AI, it might take 1-2 weeks depending on the complexity of your site.
+
+### Do I need to rewrite all my components?
+Not necessarily. Astro supports using React components, so you can gradually migrate or keep your existing React components where needed.
+
+### Can AI really help with technical migrations?
+Absolutely. AI can help with code analysis, error debugging, best practices guidance, and even code generation for repetitive tasks.
+
+---
+
+*This blog post was created with AI assistance, demonstrating how AI can help with technical content creation and migration documentation. The combination of human experience and AI capabilities makes complex technical projects much more manageable.*
+

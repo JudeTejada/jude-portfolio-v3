@@ -1,0 +1,150 @@
+---
+title: 'Building Quick  Links with Solid-js '
+publishedAt: '2023-01-13'
+summary: 'Sharing my experience with  building out Quick links in Solid-js'
+image: '/images/quicklinks/banner-2.webp'
+showHome: true
+isPublished: true
+latestArticle: true
+labels: ['notes', 'code']
+---
+
+<Image
+  src='/images/quicklinks/banner-2.webp'
+  alt='Picture of Quick Links'
+  width={720}
+  height={540}
+  className='rounded-md'
+  objectFit='cover'
+  priority
+/>
+
+## Overview
+
+In this article, I'll be sharing my experience and learnings with using
+Solid-js, as well as building out [Quick links](https://quick-links-solid.vercel.app/).
+
+## Process
+
+Right around the fall season, I decided to learn a new web framework to expand my knowledge further, and one that caught my attention was Solid-js. I was blown away by two things: reactivity, in which only the particular code that listens to state changes is rerun, and its similarities with React. If you come from a background in React, you can learn Solid-js for just a day and focus on building the product.
+
+#### Tech stack
+
+For the tools that I'll be using on this project:
+
+- Solid-js for building out the UI
+- [Hope UI](https://hope-ui.com/) a set of accessible UI components
+- Supabase as my choice of database
+
+While building out Quick links, one of the roadblocks I encountered was how I should set up my global state management. Solid-js recommends you use their `Context` API for shareable states. At first, I wasn't a fan of using Context as the problem I have with using Context is it will lead to lots of nested Context providers, and once the project scales, it will take a lot of work to manage it.
+
+```js
+<AuthProvider>
+  <NotificationProvider>
+    <StateProvider>
+      <AnotherStateProvider>{/*  More Nested Provider */}</AnotherStateProvider>
+    </StateProvider>
+  </NotificationProvider>
+</AuthProvider>
+```
+
+After doing my research, here are packages that I found for setting up global state management:
+
+- https://github.com/gstatem/gstatem
+- https://github.com/wobsoriano/solid-zustand/
+- https://github.com/lxsmnsyc/solid-pebble
+
+After trying out those multiple packages, I decided to settle on Context for setting up my global state management. One concern I had was that you wouldn't be able to leverage the primitive `createStore` with some built-in tricks that can quickly update the state easily. If anything else, the community of Solid-js still recommends you use their built-in primitives for handling state management.
+
+When I finished building out Quick Links, I came across a package [Solid-services](https://github.com/Exelord/solid-services). The cool thing about this package is that you can leverage primitives such as `createSignal` or `createStore,` and it eliminates the use of setting multiple contexts and you can use the built-in state primitives so you essentially get the best of the two.
+
+## Lessons learned
+
+#### Updating state in Solid
+
+When updating nested state, `createStore` offers some built-in tricks that you can easily use to update the state. Here's an example in which I have an array of categories, and each category has an array of links.
+
+```
+
+  const data = [
+    {categoryId:1, links:[]},
+    {categoryId:2, links:[]}
+    {categoryId:3, links:[]}
+  ]
+
+  const [categories, setCategories] = createStore(data);
+
+    // 1. find the category that it's equal to id we selecetd
+    // 2. Map to links
+    // 3. Add a new data inside of links array
+   setCategories(
+                category => category.categoryId === id,
+                'links',
+                bookmarks => [...bookmarks, { ...payload.new }]
+              );
+
+
+
+// 1. find the category that it's equal to id we selecetd
+// 2. And update whole content
+setCategories(
+                category => category.categoryId === id,
+                payload.new
+              );
+
+```
+
+Or If I want to delete a category
+
+```
+// Creates a new copy of array
+  setCategories(state =>
+                state.filter(
+                  category => category.categoryId !== payload.old.id
+                )
+              );
+```
+
+There's more of this that `createStore` has to offer, and I wished there had been more examples showcasing what `createStore` can do more.
+
+#### Derived State in Solid
+
+I was solving a problem that took me about 2 hours to solve, and after posting a question in the discord community, I needed to set the expression as a function for it to work. Reactivity in Solid works where only code that listens to changes reruns.
+
+```
+  const [count, setCount] = createSignal(0);
+
+  // this works
+  const doubleCount = () => count() * 2;
+
+  // won't work
+ const doubleCount =  count() * 2;
+
+```
+
+#### Mutating data after initial fetch rquest
+
+We currently use `createResource` for API fetching, and it's only about the data reads. Doing mutation on the returned data is certainly not possible. The solution is that after the request is loaded, we pass the data into a state. Here's an example in which I'm fetching data from Supabase, and once it's loaded, I pass it on to my state.
+
+```jsx
+  const [categories, setCategories] = createStore([]);
+  const [data] = createResource(getTodos);
+
+  createEffect(() => {
+    const returnedValue = data();
+    if (returnedValue) {
+      setCategories(returnedValue);
+    }
+```
+
+## Takeaways:
+
+- For anyone interested on using Supabase with Solid, I highly recommend watching out this [video](https://www.youtube.com/watch?v=M5rJxGPPFvY&t=1389s) by Supabase that will help you set things up smooth.
+- https://www.youtube.com/watch?v=Ow_Uzedfohk on implementing row level security on your supabase project.
+- [Solid-supabase](https://www.google.com/search?q=solid-supabase&sourceid=chrome&ie=UTF-8) a wrapper of supabase to use with Solid-js
+
+## Conclusion
+
+Using Solid has been a great experience that had helped me focus on building the product and not focusing my time on how can I make the app for performant, I'm truly excited for what Solid-js has to offer this 2023 and when its meta framework has finally reached to a stable released.
+
+If you're interested to check out the project here's the link to the [github repo](https://github.com/JudeTejada/Quick-Links).

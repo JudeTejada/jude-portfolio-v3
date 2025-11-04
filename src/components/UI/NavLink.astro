@@ -1,0 +1,15 @@
+---
+interface Props {
+  to: string;
+  extraClasses?: string;
+}
+
+const { to, extraClasses = '' } = Astro.props;
+---
+
+<a
+  href={to}
+  class={`font-light outline-none hover:text-blue-500 ${extraClasses}`}
+>
+  <slot />
+</a>

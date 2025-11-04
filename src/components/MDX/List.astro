@@ -1,0 +1,37 @@
+---
+import Heading from '../UI/Heading.astro';
+
+interface Props {
+  title: string;
+  items: string[];
+  link?: string;
+}
+
+const { title, items, link } = Astro.props;
+---
+
+<div class="flex flex-col">
+  <Heading as="h4" extraClasses="mb-6">
+    {title}
+  </Heading>
+
+  {items.map((item) => (
+    link ? (
+      <a
+        title="Live Site"
+        href={link}
+        rel="noreferrer"
+        target="_blank"
+        class="text-blue-500 font-bold inline-block mb-2"
+      >
+        View Site
+      </a>
+    ) : (
+      <span
+        class="text-sm font-normal mb-2 md:text-base block"
+      >
+        {item}
+      </span>
+    )
+  ))}
+</div>
