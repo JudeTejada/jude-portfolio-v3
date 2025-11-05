@@ -81,13 +81,11 @@ const structuredData = {
   description={post.data.summary}
   canonical={`https://judetejada.com/blog/${post.slug}`}
 >
-  <!-- Structured Data -->
   <script type='application/ld+json' set:html={JSON.stringify(structuredData)}
   ></script>
 
   <Container>
     <div class='py-20'>
-      <!-- Full-width featured image at top -->
       {
         post.data.image && (
           <div class='w-full -mx-4 sm:-mx-6 lg:-mx-8 mb-8'>
@@ -100,7 +98,6 @@ const structuredData = {
         )
       }
 
-      <!-- Enhanced Header -->
       <header class='mb-16 text-center max-w-4xl mx-auto'>
         <div class='p-8'>
           <Heading as='h1' extraClasses='mb-4'>
