@@ -31,98 +31,213 @@ const topProject = featuredProjects[0];
 const recentProjects = featuredProjects.slice(1, 5);
 const recentWriting = latestBlogs;
 
+const experience = [
+  {
+    company: "Islands",
+    date: "Apr 2023 - Present",
+    description: "Spearheading frontend development for high-impact web applications. Leveraging Next.js and TypeScript to build scalable, performant user interfaces.",
+    tech: ["Next.js", "TypeScript", "Tailwind CSS"]
+  },
+  {
+    company: "Elite Sports Tours Inc.",
+    date: "Jun 2024 - Dec 2024",
+    description: "Led the architectural overhaul and implementation of a modernized frontend, resulting in a significantly improved user experience. Spearheaded the development of the package builder functionality, enabling users to create custom travel packages combining tickets, hotels, and flights. Architected and implemented a modern, responsive hotel booking system with advanced filtering capabilities.",
+    tech: ["React", "TypeScript", "Next.js", "Tailwind"]
+  },
+  {
+    company: "DIG Labs",
+    date: "Apr 2023 - Mar 2024",
+    description: "Worked remotely as a front-end engineer, responsible for developing the user experience for the MVP of a veterinary tech app. Utilized tools such as React with TypeScript and integrated REST APIs to deliver a seamless user journey.",
+    tech: ["React", "TypeScript", "REST APIs"]
+  },
+  {
+    company: "Hybe",
+    date: "Sep 2021 - Dec 2022",
+    description: "Restructured class-based components into functional counterparts and developed new user-centric features leveraging React.js. Translated design concepts and wireframes into high-fidelity code and enhanced component performance for optimal functionality across various web-enabled devices.",
+    tech: ["React", "Redux Toolkit", "TypeScript", "Framer Motion"]
+  },
+  {
+    company: "Upwork",
+    date: "Nov 2020 - Sep 2021",
+    description: "Lead Front-end Developer @ Elancerz. Led two developers and was responsible for setting the project architecture using Next.js. Setup the theme using Styled-components and implemented scalable components for better reusability. Converted Figma designs to pixel-perfect code.",
+    tech: ["React", "Next.js", "Styled-components"]
+  }
+];
+
 // Structured data for SEO
 const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Jude Tejada",
-  "jobTitle": "Front-end Developer",
-  "description": "A front-end developer who focuses on creating beautiful user experiences and modern web applications.",
-  "url": "https://judetejada.com",
-  "image": "https://judetejada.com/banner.png",
-  "sameAs": [
-    "https://github.com/judetejada",
-    "https://linkedin.com/in/judetejada",
-    "https://twitter.com/JudeTejada2",
-    "https://dribbble.com/judetejada"
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Jude Tejada',
+  jobTitle: 'Front-end Developer',
+  description:
+    'A front-end developer who focuses on creating beautiful user experiences and modern web applications.',
+  url: 'https://judetejada.com',
+  image: 'https://judetejada.com/banner.png',
+  sameAs: [
+    'https://github.com/judetejada',
+    'https://linkedin.com/in/judetejada',
+    'https://twitter.com/JudeTejada2',
+    'https://dribbble.com/judetejada'
   ],
-  "knowsAbout": [
-    "Front-end Development",
-    "React",
-    "Next.js",
-    "Astro",
-    "TypeScript",
-    "JavaScript",
-    "Web Development",
-    "UI/UX Design"
+  knowsAbout: [
+    'Front-end Development',
+    'React',
+    'Next.js',
+    'Astro',
+    'TypeScript',
+    'JavaScript',
+    'Web Development',
+    'UI/UX Design'
   ],
-  "offers": {
-    "@type": "Offer",
-    "serviceType": "Front-end Web Development",
-    "description": "Creating beautiful user experiences and modern web applications"
+  offers: {
+    '@type': 'Offer',
+    serviceType: 'Front-end Web Development',
+    description:
+      'Creating beautiful user experiences and modern web applications'
   }
 };
 ---
+
 <Layout
-  title="Jude Tejada - Front-end Developer"
-  description="Jude Tejada - A front-end developer who focuses on creating beautiful user experiences and modern web applications."
-  canonical="https://judetejada.com"
+  title='Jude Tejada - Front-end Developer'
+  description='Jude Tejada - A front-end developer who focuses on creating beautiful user experiences and modern web applications.'
+  canonical='https://judetejada.com'
 >
   <!-- Structured Data -->
-  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  <script
+    type='application/ld+json'
+    set:html={JSON.stringify(structuredData)}
+  />
 
   <!-- Hero Section -->
-  <section class="pt-12 pb-20 md:pt-24 md:pb-32 bg-white overflow-hidden">
+  <section class='pt-12 pb-20 md:pt-24 md:pb-32 bg-white overflow-hidden'>
     <Container>
-      <div class="max-w-4xl mx-auto text-center px-4">
-        <h1 class="text-5xl md:text-7xl font-medium tracking-tight text-gray-900 mb-6 leading-[1.1]">
-          Built to create <br/>
-          <span class="text-gray-400">beautiful experiences.</span>
+      <div class='max-w-4xl mx-auto text-center px-4'>
+        <h1
+          class='text-5xl md:text-7xl font-medium tracking-tight text-gray-900 mb-6 leading-[1.1]'
+        >
+          Built to create <br />
+          <span class='text-gray-400'>beautiful experiences.</span>
         </h1>
-        <p class="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-          I am Jude Tejada, a Front-end Developer focusing on modern web applications and intuitive design.
+        <p
+          class='text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed'
+        >
+          I am Jude Tejada, a Front-end Developer focusing on modern web
+          applications and intuitive design.
         </p>
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-           <a href="/project" class="w-full sm:w-auto px-8 py-3 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition text-center">View Work</a>
-           <a href="/contact" class="w-full sm:w-auto px-8 py-3 bg-white text-gray-900 border border-gray-200 rounded-full font-medium hover:bg-gray-50 transition text-center">Contact Me</a>
+
+        <div
+          class='flex flex-col sm:flex-row items-center justify-center gap-4 mb-16'
+        >
+          <a
+            href='/project'
+            class='w-full sm:w-auto px-8 py-3 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition text-center'
+            >View Work</a
+          >
+          <a
+            href='/contact'
+            class='w-full sm:w-auto px-8 py-3 bg-white text-gray-900 border border-gray-200 rounded-full font-medium hover:bg-gray-50 transition text-center'
+            >Contact Me</a
+          >
         </div>
-
-
       </div>
     </Container>
   </section>
 
   <!-- Tech Stack -->
-  <section class="py-12 border-y border-gray-100 bg-gray-50/50 overflow-hidden">
-     <Container>
-        <p class="text-center text-sm font-medium text-gray-400 mb-8 uppercase tracking-wider">Technologies I work with</p>
-        
-        <div class="relative flex overflow-x-hidden group">
-            <div class="animate-marquee whitespace-nowrap flex items-center gap-12 pr-12">
-                <span class="text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default">React</span>
-                <span class="text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default">Next.js</span>
-                <span class="text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default">Astro</span>
-                <span class="text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default">TypeScript</span>
-                <span class="text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default">Tailwind CSS</span>
-                <span class="text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default">Node.js</span>
-                <span class="text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default">Svelte</span>
-                <span class="text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default">SvelteKit</span>
-                <span class="text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default">SolidJS</span>
-            </div>
+  <section class='py-12 border-y border-gray-100 bg-gray-50/50 overflow-hidden'>
+    <Container>
+      <p
+        class='text-center text-sm font-medium text-gray-400 mb-8 uppercase tracking-wider'
+      >
+        Technologies I work with
+      </p>
 
-            <div class="absolute top-0 animate-marquee2 whitespace-nowrap flex items-center gap-12 pr-12">
-                <span class="text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default">React</span>
-                <span class="text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default">Next.js</span>
-                <span class="text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default">Astro</span>
-                <span class="text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default">TypeScript</span>
-                <span class="text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default">Tailwind CSS</span>
-                <span class="text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default">Node.js</span>
-                <span class="text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default">Svelte</span>
-                <span class="text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default">SvelteKit</span>
-                <span class="text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default">SolidJS</span>
-            </div>
+      <div class='relative flex overflow-x-hidden group'>
+        <div
+          class='animate-marquee whitespace-nowrap flex items-center gap-12 pr-12'
+        >
+          <span
+            class='text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default'
+            >React</span
+          >
+          <span
+            class='text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default'
+            >Next.js</span
+          >
+          <span
+            class='text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default'
+            >Astro</span
+          >
+          <span
+            class='text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default'
+            >TypeScript</span
+          >
+          <span
+            class='text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default'
+            >Tailwind CSS</span
+          >
+          <span
+            class='text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default'
+            >Node.js</span
+          >
+          <span
+            class='text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default'
+            >Svelte</span
+          >
+          <span
+            class='text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default'
+            >SvelteKit</span
+          >
+          <span
+            class='text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default'
+            >SolidJS</span
+          >
         </div>
-     </Container>
+
+        <div
+          class='absolute top-0 animate-marquee2 whitespace-nowrap flex items-center gap-12 pr-12'
+        >
+          <span
+            class='text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default'
+            >React</span
+          >
+          <span
+            class='text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default'
+            >Next.js</span
+          >
+          <span
+            class='text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default'
+            >Astro</span
+          >
+          <span
+            class='text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default'
+            >TypeScript</span
+          >
+          <span
+            class='text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default'
+            >Tailwind CSS</span
+          >
+          <span
+            class='text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default'
+            >Node.js</span
+          >
+          <span
+            class='text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default'
+            >Svelte</span
+          >
+          <span
+            class='text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default'
+            >SvelteKit</span
+          >
+          <span
+            class='text-xl md:text-2xl font-bold text-gray-300 hover:text-gray-900 transition-colors duration-300 cursor-default'
+            >SolidJS</span
+          >
+        </div>
+      </div>
+    </Container>
   </section>
 
   <style>
@@ -133,45 +248,64 @@ const structuredData = {
       animation: marquee2 25s linear infinite;
     }
     @keyframes marquee {
-      0% { transform: translateX(0%); }
-      100% { transform: translateX(-100%); }
+      0% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
     }
     @keyframes marquee2 {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(0%); }
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(0%);
+      }
     }
-    
+
     /* Pause on hover */
     .group:hover .animate-marquee,
     .group:hover .animate-marquee2 {
-        animation-play-state: paused;
+      animation-play-state: paused;
     }
   </style>
 
   <!-- Recent Projects -->
-  <section class="py-24 bg-[#FCFCFC]">
+  <section class='py-24 bg-[#FCFCFC]'>
     <Container>
-       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          <div class="lg:col-span-4">
-             <h2 class="text-2xl font-medium text-gray-900 sticky top-32">Selected works</h2>
-          </div>
-          <div class="lg:col-span-8 flex flex-col gap-4">
-             {recentProjects.map((project) => (
-                 <a href={`/project/${project.slug}`} class="block group">
-                    <div class="bg-gray-100 hover:bg-white hover:shadow-lg transition-all duration-300 p-6 md:p-8 rounded-xl border border-gray-200/50 group-hover:border-gray-200">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-lg font-medium text-gray-900 group-hover:text-blue-600 transition">{project.data.title}</h3>
-                            <span class="text-xs font-medium text-gray-500 bg-gray-200 px-2 py-1 rounded-full">
-                                Project
-                            </span>
-                        </div>
-                        <p class="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-2">{project.data.summary}</p>
-                        <div class="text-xs text-gray-400 font-medium uppercase tracking-wide">
-                            {new Date(project.data.publishedAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
-                        </div>
-                    </div>
-                 </a>
-             ))}
+      <div class='grid grid-cols-1 lg:grid-cols-12 gap-12'>
+        <div class='lg:col-span-4'>
+          <h2 class='text-2xl font-medium text-gray-900 sticky top-32'>
+            Selected works
+          </h2>
+        </div>
+        <div class='lg:col-span-8 flex flex-col gap-4'>
+          {
+            recentProjects.map(project => (
+              <a href={`/project/${project.slug}`} class='block group'>
+                <div class='bg-gray-100 hover:bg-white hover:shadow-lg transition-all duration-300 p-6 md:p-8 rounded-xl border border-gray-200/50 group-hover:border-gray-200'>
+                  <div class='flex justify-between items-start mb-2'>
+                    <h3 class='text-lg font-medium text-gray-900 group-hover:text-blue-600 transition'>
+                      {project.data.title}
+                    </h3>
+                    <span class='text-xs font-medium text-gray-500 bg-gray-200 px-2 py-1 rounded-full'>
+                      Project
+                    </span>
+                  </div>
+                  <p class='text-gray-600 text-sm leading-relaxed mb-4 line-clamp-2'>
+                    {project.data.summary}
+                  </p>
+                  <div class='text-xs text-gray-400 font-medium uppercase tracking-wide'>
+                    {new Date(project.data.publishedAt).toLocaleDateString(
+                      'en-US',
+                      { month: 'short', year: 'numeric' }
+                    )}
+                  </div>
+                </div>
+              </a>
+            ))
+          }
 
              <div class="mt-6 text-right">
                 <a href="/project" class="text-sm font-medium text-gray-500 hover:text-black transition inline-flex items-center gap-1 group">
@@ -183,48 +317,103 @@ const structuredData = {
     </Container>
   </section>
 
-  <!-- Writing / Blog -->
+  <!-- Experience -->
   <section class="py-24 bg-white border-t border-gray-100">
     <Container>
        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div class="lg:col-span-4">
-             <h2 class="text-2xl font-medium text-gray-900 sticky top-32">Writing</h2>
+             <h2 class="text-2xl font-medium text-gray-900 sticky top-32">Experience</h2>
           </div>
-          <div class="lg:col-span-8 flex flex-col gap-4">
-             {recentWriting.map((post) => (
-                 <a href={`/blog/${post.slug}`} class="block group">
-                    <div class="group-hover:bg-gray-50 transition-all duration-300 p-6 md:p-8 rounded-xl border border-transparent group-hover:border-gray-100">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-lg font-medium text-gray-900 group-hover:text-blue-600 transition">{post.data.title}</h3>
-                        </div>
-                        <p class="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-2">{post.data.summary}</p>
-                        <div class="text-xs text-gray-400 font-medium uppercase tracking-wide">
-                            {new Date(post.data.publishedAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
-                        </div>
-                    </div>
-                 </a>
+          <div class="lg:col-span-8 flex flex-col gap-8">
+             {experience.map((job) => (
+                <div class="group relative pl-8 border-l border-gray-200 hover:border-gray-400 transition-colors duration-300">
+                   <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-gray-200 group-hover:bg-black transition-colors duration-300"></div>
+                   <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">
+                      <h3 class="text-lg font-medium text-gray-900">{job.company}</h3>
+                      <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">{job.date}</span>
+                   </div>
+                   <p class="text-gray-600 text-sm leading-relaxed mb-4 max-w-2xl">
+                      {job.description}
+                   </p>
+                   <div class="flex flex-wrap gap-2">
+                      {job.tech.map(t => (
+                         <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-md">
+                            {t}
+                         </span>
+                      ))}
+                   </div>
+                </div>
              ))}
-
-             <div class="mt-6 text-right">
-                <a href="/blog" class="text-sm font-medium text-gray-500 hover:text-black transition inline-flex items-center gap-1 group">
-                   Read all articles <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
-                </a>
-             </div>
           </div>
        </div>
     </Container>
   </section>
 
-  <!-- Bottom CTA -->
-  <section class="py-32 bg-white text-center border-t border-gray-100">
+  <!-- Writing / Blog -->
+  <section class="py-24 bg-[#FCFCFC] border-t border-gray-100">
     <Container>
-      <h2 class="text-4xl md:text-6xl font-medium text-gray-900 mb-8 tracking-tight">Work with me.</h2>
-      <div class="flex justify-center">
-          <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 bg-black text-white rounded-full font-medium text-lg hover:bg-gray-800 transition shadow-xl hover:shadow-2xl hover:-translate-y-1 duration-300">
-            Get in touch &darr;
-          </a>
+      <div class='grid grid-cols-1 lg:grid-cols-12 gap-12'>
+        <div class='lg:col-span-4'>
+          <h2 class='text-2xl font-medium text-gray-900 sticky top-32'>
+            Writing
+          </h2>
+        </div>
+        <div class='lg:col-span-8 flex flex-col gap-4'>
+          {
+            recentWriting.map(post => (
+              <a href={`/blog/${post.slug}`} class='block group'>
+                <div class='group-hover:bg-gray-50 transition-all duration-300 p-6 md:p-8 rounded-xl border border-transparent group-hover:border-gray-100'>
+                  <div class='flex justify-between items-start mb-2'>
+                    <h3 class='text-lg font-medium text-gray-900 group-hover:text-blue-600 transition'>
+                      {post.data.title}
+                    </h3>
+                  </div>
+                  <p class='text-gray-600 text-sm leading-relaxed mb-4 line-clamp-2'>
+                    {post.data.summary}
+                  </p>
+                  <div class='text-xs text-gray-400 font-medium uppercase tracking-wide'>
+                    {new Date(post.data.publishedAt).toLocaleDateString(
+                      'en-US',
+                      { month: 'short', year: 'numeric' }
+                    )}
+                  </div>
+                </div>
+              </a>
+            ))
+          }
+
+          <div class='mt-6 text-right'>
+            <a
+              href='/blog'
+              class='text-sm font-medium text-gray-500 hover:text-black transition inline-flex items-center gap-1 group'
+            >
+              Read all articles <span
+                class='group-hover:translate-x-1 transition-transform'
+                >&rarr;</span
+              >
+            </a>
+          </div>
+        </div>
       </div>
     </Container>
   </section>
 
+  <!-- Bottom CTA -->
+  <section class='py-32 bg-white text-center border-t border-gray-100'>
+    <Container>
+      <h2
+        class='text-4xl md:text-6xl font-medium text-gray-900 mb-8 tracking-tight'
+      >
+        Work with me.
+      </h2>
+      <div class='flex justify-center'>
+        <a
+          href='/contact'
+          class='inline-flex items-center justify-center px-8 py-4 bg-black text-white rounded-full font-medium text-lg hover:bg-gray-800 transition shadow-xl hover:shadow-2xl hover:-translate-y-1 duration-300'
+        >
+          Get in touch &darr;
+        </a>
+      </div>
+    </Container>
+  </section>
 </Layout>
