@@ -1,0 +1,173 @@
+---
+title: 'Reactly'
+publishedAt: '2025-11-22'
+summary: 'AI-driven feedback & sentiment analysis platform built with Next.js 15, NestJS, and GLM 4.6'
+image: '/images/reactly/banner.png'
+showHome: true
+---
+
+<div className='flex flex-row justify-between'>
+        <List title="TYPE" items={["Personal Project"]} />
+        <List
+          title="STACK"
+          items={[
+            "Next.js 15",
+            "NestJS 10",
+            "GLM 4.6",
+            "BullMQ",
+            "Turborepo",
+            "PostgreSQL",
+          ]}
+        />
+        <List title="Live" items={["View Repo"]} link='https://github.com/JudeTejada/reactly' />
+
+</div>
+
+## Overview
+
+Reactly](https://github.com/JudeTejada/reactly)[tly](https://github.com/JudeTejada/reactly) is a production-ready full-stack SaaS platform that collects, analyzes, and understands user feedback using AI-powered sentiment analysis. The platform enables businesses to gather user feedback through an embeddable widget and automatically categorizes it as positive, negative, or neutral.
+
+## The Project
+
+[Reactly](https://github.com/JudeTejada/reactly) consists of three main applications running in a monorepo:
+
+- **Dashboard (Next.js 15)**: Dashboard analytics and project management
+- **API (NestJS)**: Backend services with AI integration
+- **Widget (Vite + React)**: Embeddable feedback component
+
+## My First AI Model in Production (GLM 4.6)
+
+This was my first time integrating an AI model into a production application. After researching several options, I chose **GLM 4.6** for its cost-effectiveness and strong performance on sentiment analysis tasks.
+
+```typescript
+const analyzeSentiment = async (feedback: string) => {
+  const response = await fetch('GLM_API_ENDPOINT', {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${process.env.GLM_API_KEY}` },
+    body: JSON.stringify({
+      model: 'glm-4',
+      messages: [
+        {
+          role: 'system',
+          content: 'Analyze the sentiment of this feedback. Respond with only: positive, negative, or neutral.'
+        },
+        { role: 'user', content: feedback }
+      ]
+    })
+  });
+
+  const data = await response.json();
+  return data.choices[0].message.content;
+};
+```
+
+**Key Learnings:**
+- Prompt engineering is crucial for consistent responses
+- Cost management matters - at $0.05/1K tokens, I had to optimize usage
+- Error handling for AI responses requires retry logic and fallbacks
+- Latency concerns led me to implement queuing (see below)
+
+## Using Queues for AI Generation
+
+The synchronous AI processing made my API slow and unreliable. Users submitting feedback would wait 2-3 seconds for sentiment analysis. I implemented a queue-based architecture using **BullMQ with Redis** to solve this.
+
+```typescript
+const feedbackQueue = new Queue('feedback-analysis', {
+  redis: { host: 'localhost', port: 6379 }
+});
+
+feedbackQueue.process('analyze-sentiment', async (job) => {
+  const { feedback, projectId } = job.data;
+  const sentiment = await analyzeSentiment(feedback);
+
+  await db.feedback.update(projectId, { sentiment });
+
+  if (sentiment === 'negative') {
+    await sendDiscordNotification(feedback);
+  }
+});
+```
+
+**Impact:**
+- User experience improved dramatically (instant vs 3-second waits)
+- System resilience increased - queue failures don't break the main API
+- Built-in monitoring for job success rates and processing times
+- Easy horizontal scaling when queue grows
+
+## Monorepo with Turborepo
+
+Sharing code across three apps (dashboard, API, widget) became messy with separate repos. I structured it as a monorepo with **pnpm workspaces** and **Turborepo**.
+
+```
+reac]
+├── apps/
+│   ├── web/          # Next.js 15 dashboard
+│   ├── backend/      # NestJS API
+│   └── widget/       # Vite + React widget
+└── packages/
+    └── shared/       # Zod schemas & types
+```
+
+**Benefits:**
+- Type safety across apps with shared Zod schemas
+- Fast dependency installation with pnpm workspaces
+- Turborepo caching speeds up builds (unchanged apps don't rebuild)
+- Global dependencies versioned once in root
+- Simple build pipeline: `pnpm dev` runs all apps in parallel
+
+## NestJS as My First Backend Framework
+
+To showcase my learnings after watching a course on NestJS, I wanted to build a real-world project that would apply the concepts I learned.
+
+**Dependency Injection:**
+```typescript
+@Injectable()
+export class FeedbackService {
+  constructor(
+    @InjectRepository(Feedback)
+    private readonly feedbackRepo: Repository<Feedback>,
+    private readonly aiService: AIService
+  ) {}
+
+  async create(data: CreateFeedbackDto) {
+    // Business logic here
+  }
+}
+```
+
+**Authentication Guards:**
+```typescript
+@UseGuards(AuthGuard)
+@Controller('feedback')
+export class FeedbackController {
+  @Post()
+  async create(@Body() data: CreateFeedbackDto) {
+    // Protected route
+  }
+}
+```
+
+**What I learned:**
+- Modules organize code naturally - each feature is self-contained
+- Testing is built-in with dependency injection
+- Decorators are powerful but can feel magical at first
+- Validation pipes handle input validation declaratively
+  ## Architecture Overview
+
+```
+User → Embeddable Widget ↔ NestJS API ↔ PostgreSQL
+                         ↕           ↕
+                     Next.js    GLM 4.6 AI
+                     Dashboard   Sentiment Analysis
+```
+
+## Key Takeaways
+
+1. **AI integration is approachable** - GLM 4.6's API is straightforward
+2. **Queues solve performance problems** - moving AI processing off the critical path was a game-changer
+3. **Monorepos scale development** - sharing code across apps is seamless with Turborepo
+4. **NestJS brings structure** to backend development with a learning curve that pays off
+
+
+
+The entire codebase is open source on [GitHub](https://github.com/JudeTejada/reactly) - feel free to explore and reach out!
