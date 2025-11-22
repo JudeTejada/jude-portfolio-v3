@@ -1,9 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Container from '../components/Layout/Container.astro';
-import Heading from '../components/UI/Heading.astro';
-import Paragraph from '../components/UI/Paragraph.astro';
-import ProjectPost from '../components/Content/ProjectPost.astro';
 import { getCollection } from 'astro:content';
 
 // Get all projects, sorted by date
@@ -16,27 +13,49 @@ const projects = allProjects.sort((a, b) =>
 );
 ---
 
-<Layout title="Projects - Jude Tejada" description="Explore my portfolio of web development projects, applications, and creative work.">
-  <Container>
-    <div class="py-20">
-      <Heading as="h1" extraClasses="mb-6 text-center">
-        Projects
-      </Heading>
-      <Paragraph extraClasses="mb-16 text-center max-w-2xl mx-auto">
-        A collection of my web development projects, experiments, and creative work.
-        Each project represents a unique challenge and learning experience.
-      </Paragraph>
+<Layout title="Selected Works - Jude Tejada" description="Explore my portfolio of web development projects, applications, and creative work.">
+  <section class="pt-32 pb-20 bg-white min-h-screen">
+    <Container>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <!-- Sidebar -->
+        <div class="lg:col-span-4">
+           <h1 class="text-4xl md:text-6xl font-medium tracking-tight text-gray-900 mb-8 sticky top-32">
+             Selected Works
+           </h1>
+           <p class="text-gray-500 text-lg max-w-sm mb-12 lg:sticky lg:top-52">
+             A collection of projects, experiments, and creative work.
+           </p>
+        </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projects.map((project) => (
-          <ProjectPost
-            title={project.data.title}
-            summary={project.data.summary}
-            slug={project.slug}
-            image={project.data.image}
-          />
-        ))}
+        <!-- Content List -->
+        <div class="lg:col-span-8 flex flex-col gap-4">
+           {projects.map((project) => (
+             <a href={`/project/${project.slug}`} class="block group">
+                <div class="bg-[#FCFCFC] hover:bg-white hover:shadow-lg transition-all duration-300 p-6 md:p-8 rounded-xl border border-gray-200/60 group-hover:border-gray-200">
+                    <div class="flex flex-col gap-2">
+                        <div class="flex justify-between items-start">
+                            <h3 class="text-xl font-medium text-gray-900 group-hover:text-blue-600 transition">{project.data.title}</h3>
+                            <span class="hidden sm:inline-block text-[10px] font-bold uppercase tracking-wider text-gray-400 bg-gray-100 px-2 py-1 rounded-md">
+                                Project
+                            </span>
+                        </div>
+                        
+                        <p class="text-gray-600 leading-relaxed line-clamp-2 mb-4">{project.data.summary}</p>
+                        
+                        <div class="flex items-center justify-between mt-auto">
+                             <span class="text-xs font-medium text-gray-400 uppercase tracking-wide">
+                                {new Date(project.data.publishedAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                             </span>
+                             <span class="text-sm font-medium text-gray-900 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                                View project &rarr;
+                             </span>
+                        </div>
+                    </div>
+                </div>
+             </a>
+           ))}
+        </div>
       </div>
-    </div>
-  </Container>
+    </Container>
+  </section>
 </Layout>

@@ -1,11 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Container from '../../components/Layout/Container.astro';
-import Heading from '../../components/UI/Heading.astro';
-import Paragraph from '../../components/UI/Paragraph.astro';
 import TableOfContents from '../../components/UI/TableOfContents.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { Image } from 'astro:assets';
 
 // MDX component imports
 import VideoPlayer from '../../components/MDX/VideoPlayer.astro';
@@ -81,67 +78,51 @@ const structuredData = {
   description={post.data.summary}
   canonical={`https://judetejada.com/blog/${post.slug}`}
 >
-  <script type='application/ld+json' set:html={JSON.stringify(structuredData)}
-  ></script>
+  <script type='application/ld+json' set:html={JSON.stringify(structuredData)}></script>
 
-  <Container>
-    <div class='py-20'>
-      {
-        post.data.image && (
-          <div class='w-full -mx-4 sm:-mx-6 lg:-mx-8 mb-8'>
-            <img
-              src={post.data.image}
-              alt={post.data.title}
-              class='w-full h-64 sm:h-80 md:h-96 object-cover'
-            />
-          </div>
-        )
-      }
+  <section class="pt-32 pb-20 bg-white min-h-screen">
+    <Container>
+      <div class="mb-8">
+        <a href="/blog" class="text-sm font-medium text-gray-500 hover:text-black transition-colors mb-8 inline-block">
+          &larr; Back to Writing
+        </a>
+      </div>
 
-      <header class='mb-16 text-center max-w-4xl mx-auto'>
-        <div class='p-8'>
-          <Heading as='h1' extraClasses='mb-4'>
-            {post.data.title}
-          </Heading>
-
-          <div
-            class='flex items-center justify-center gap-2 text-gray-600 mb-6'
-          >
-            <svg
-              class='w-4 h-4'
-              fill='none'
-              stroke='currentColor'
-              viewBox='0 0 24 24'
-            >
-              <path
-                stroke-linecap='round'
-                stroke-linejoin='round'
-                stroke-width='2'
-                d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'
-              ></path>
-            </svg>
-            <time datetime={post.data.publishedAt}>{formattedDate}</time>
-          </div>
-
-          {
-            post.data.labels && post.data.labels.length > 0 && (
-              <div class='flex flex-wrap justify-center gap-2'>
-                {post.data.labels.map(label => (
-                  <span class='inline-block bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm px-3 py-1.5 rounded-full shadow-sm hover:shadow-md transition-shadow'>
-                    {label}
-                  </span>
-                ))}
-              </div>
-            )
-          }
+      <header class="max-w-4xl mb-16">
+        <h1 class="text-4xl md:text-6xl font-medium tracking-tight text-gray-900 mb-6 leading-[1.1]">
+          {post.data.title}
+        </h1>
+        
+        <div class="flex items-center gap-6 text-gray-500 text-sm">
+          <time datetime={post.data.publishedAt} class="font-medium">
+            {formattedDate}
+          </time>
+          {post.data.labels && post.data.labels.length > 0 && (
+            <div class="flex gap-2">
+              {post.data.labels.map(label => (
+                 <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded-md text-xs uppercase tracking-wide font-medium">
+                   {label}
+                 </span>
+              ))}
+            </div>
+          )}
         </div>
       </header>
 
-      <!-- Two-column layout for tablet and desktop -->
-      <div class='flex gap-8 max-w-6xl mx-auto'>
+      {post.data.image && (
+        <div class="w-full mb-16 rounded-xl overflow-hidden border border-gray-100">
+          <img
+            src={post.data.image}
+            alt={post.data.title}
+            class="w-full h-auto object-cover"
+          />
+        </div>
+      )}
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
         <!-- Main Content -->
-        <main class='flex-1 min-w-0'>
-          <article class='prose prose-lg max-w-none'>
+        <main class="lg:col-span-8">
+          <article class="prose prose-lg prose-neutral max-w-none prose-headings:font-medium prose-headings:tracking-tight prose-a:text-blue-600 hover:prose-a:text-blue-800 prose-img:rounded-xl">
             <Content
               components={{
                 Image: CustomImage,
@@ -153,11 +134,43 @@ const structuredData = {
           </article>
         </main>
 
-        <!-- Table of Contents (visible on tablet and desktop) -->
-        <aside class='hidden lg:block w-64 flex-shrink-0'>
-          <TableOfContents headings={tocHeadings} />
+        <!-- Table of Contents -->
+        <aside id="toc-sidebar" class="hidden lg:block lg:col-span-4 opacity-0 transition-opacity duration-500">
+          <div class="sticky top-32">
+            <div class="text-sm font-medium text-gray-900 mb-4 uppercase tracking-wider">
+              On this page
+            </div>
+            <TableOfContents headings={tocHeadings} />
+          </div>
         </aside>
       </div>
-    </div>
-  </Container>
+    </Container>
+  </section>
 </Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const tocSidebar = document.getElementById('toc-sidebar');
+    const article = document.querySelector('article');
+    
+    if (tocSidebar && article) {
+      const headings = article.querySelectorAll('h2, h3');
+      if (headings.length > 0) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              tocSidebar.classList.remove('opacity-0');
+              tocSidebar.classList.add('opacity-100');
+            } else if (entry.boundingClientRect.top > 0) {
+               // Optional: Hide again if scrolling back up above the content
+               tocSidebar.classList.remove('opacity-100');
+               tocSidebar.classList.add('opacity-0');
+            }
+          });
+        }, { threshold: 0.1, rootMargin: "-100px 0px 0px 0px" });
+
+        observer.observe(article);
+      }
+    }
+  });
+</script>

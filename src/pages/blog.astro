@@ -1,9 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Container from '../components/Layout/Container.astro';
-import Heading from '../components/UI/Heading.astro';
-import Paragraph from '../components/UI/Paragraph.astro';
-import BlogPost from '../components/Content/BlogPost.astro';
 import { getCollection } from 'astro:content';
 
 // Get all blog posts, sorted by date
@@ -14,104 +11,53 @@ const allBlogPosts = await getCollection('blog', ({ data }) => {
 const blogPosts = allBlogPosts.sort((a, b) =>
   new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime()
 );
-
-// Get latest blog post as featured
-const featuredPost = blogPosts[0];
-const otherPosts = blogPosts.slice(1);
 ---
 
-<Layout title="Blog - Jude Tejada" description="Read my latest articles and thoughts on web development, programming, and technology.">
-  <Container>
-    <div class="py-20">
-      <Heading as="h1" extraClasses="mb-6 text-center">
-        Blog
-      </Heading>
-      <Paragraph extraClasses="mb-16 text-center max-w-2xl mx-auto">
-        Thoughts, tutorials, and insights about web development, programming, and technology.
-      </Paragraph>
+<Layout title="Writing - Jude Tejada" description="Read my latest articles and thoughts on web development, programming, and technology.">
+  <section class="pt-32 pb-20 bg-white min-h-screen">
+    <Container>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <!-- Sidebar -->
+        <div class="lg:col-span-4">
+           <h1 class="text-4xl md:text-6xl font-medium tracking-tight text-gray-900 mb-8 sticky top-32">
+             Writing
+           </h1>
+           <p class="text-gray-500 text-lg max-w-sm mb-12 lg:sticky lg:top-52">
+             Thoughts, tutorials, and insights about web development and technology.
+           </p>
+        </div>
 
-      <!-- Featured Blog Post -->
-      {featuredPost && (
-        <section class="mb-16">
-          <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            <div class="order-2 md:order-1">
-              <div class="mb-6">
-                {featuredPost.data.labels && featuredPost.data.labels.length > 0 && (
-                  <div class="flex flex-wrap gap-2 mb-3">
-                    {featuredPost.data.labels.map((label) => (
-                      <span class="inline-block text-gray-600 text-sm">
-                        {label}
-                      </span>
-                    ))}
-                  </div>
-                )}
-                <time class="text-sm text-gray-500 block mb-4">
-                  {new Date(featuredPost.data.publishedAt).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                  })}
-                </time>
-              </div>
-
-              <Heading as="h1" extraClasses="mb-6 text-3xl md:text-4xl leading-tight">
-                <a href={`/blog/${featuredPost.slug}`} class="text-gray-900 hover:text-gray-700 transition-colors">
-                  {featuredPost.data.title}
-                </a>
-              </Heading>
-
-              <Paragraph extraClasses="mb-8 text-lg leading-relaxed text-gray-600">
-                {featuredPost.data.summary}
-              </Paragraph>
-
-              <a
-                href={`/blog/${featuredPost.slug}`}
-                class="inline-flex items-center text-gray-900 hover:text-gray-600 transition-colors"
-              >
-                Read more
-                <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-              </a>
-            </div>
-
-            <div class="order-1 md:order-2">
-              {featuredPost.data.image && (
-                <a href={`/blog/${featuredPost.slug}`} class="block">
-                  <img
-                    src={featuredPost.data.image}
-                    alt={featuredPost.data.title}
-                    class="w-full h-64 md:h-80 object-cover rounded-lg"
-                  />
-                </a>
-              )}
-            </div>
-          </div>
-        </section>
-      )}
-
-      <!-- Separator -->
-      {otherPosts.length > 0 && (
-        <div class="border-b border-gray-200 mb-16"></div>
-      )}
-
-      <!-- Other Blog Posts -->
-      {otherPosts.length > 0 && (
-        <section>
-          <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {otherPosts.map((post) => (
-              <BlogPost
-                title={post.data.title}
-                publishedAt={post.data.publishedAt}
-                summary={post.data.summary}
-                slug={post.slug}
-                image={post.data.image}
-                labels={post.data.labels}
-              />
-            ))}
-          </div>
-        </section>
-      )}
-    </div>
-  </Container>
+        <!-- Content List -->
+        <div class="lg:col-span-8 flex flex-col gap-4">
+           {blogPosts.map((post) => (
+             <a href={`/blog/${post.slug}`} class="block group">
+                <div class="bg-[#FCFCFC] hover:bg-white hover:shadow-lg transition-all duration-300 p-6 md:p-8 rounded-xl border border-gray-200/60 group-hover:border-gray-200">
+                    <div class="flex flex-col gap-2">
+                        <div class="flex justify-between items-start">
+                            <h3 class="text-xl font-medium text-gray-900 group-hover:text-blue-600 transition">{post.data.title}</h3>
+                            {post.data.labels && post.data.labels.length > 0 && (
+                                <span class="hidden sm:inline-block text-[10px] font-bold uppercase tracking-wider text-gray-400 bg-gray-100 px-2 py-1 rounded-md">
+                                    {post.data.labels[0]}
+                                </span>
+                            )}
+                        </div>
+                        
+                        <p class="text-gray-600 leading-relaxed line-clamp-2 mb-4">{post.data.summary}</p>
+                        
+                        <div class="flex items-center justify-between mt-auto">
+                             <span class="text-xs font-medium text-gray-400 uppercase tracking-wide">
+                                {new Date(post.data.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                             </span>
+                             <span class="text-sm font-medium text-gray-900 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                                Read article &rarr;
+                             </span>
+                        </div>
+                    </div>
+                </div>
+             </a>
+           ))}
+        </div>
+      </div>
+    </Container>
+  </section>
 </Layout>
