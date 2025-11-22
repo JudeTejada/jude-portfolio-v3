@@ -5,6 +5,7 @@ import Heading from '../components/UI/Heading.astro';
 import Paragraph from '../components/UI/Paragraph.astro';
 import BlogPost from '../components/Content/BlogPost.astro';
 import ProjectPost from '../components/Content/ProjectPost.astro';
+import FeaturedProject from '../components/Content/FeaturedProject.astro';
 import CallToAction from '../components/UI/CallToAction.astro';
 import { getCollection } from 'astro:content';
 
@@ -101,9 +102,9 @@ const structuredData = {
           </Paragraph>
         </div>
       </div>
-      <div class="grid grid-cols-1 md:gap-10 md:grid-cols-2">
+      <div class="flex flex-col gap-20">
         {featuredProjects.map((project) => (
-          <ProjectPost
+          <FeaturedProject
             title={project.data.title}
             summary={project.data.summary}
             slug={project.slug}
