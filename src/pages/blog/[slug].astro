@@ -89,16 +89,16 @@ const structuredData = {
       </div>
 
       <header class="max-w-4xl mb-16">
-        <h1 
+        <h1
           class="text-4xl md:text-6xl font-medium tracking-tight text-gray-900 mb-6 leading-[1.1]"
           transition:name={`post-title-${post.slug}`}
         >
           {post.data.title}
         </h1>
-        
+
         <div class="flex items-center gap-6 text-gray-500 text-sm">
-          <time 
-            datetime={post.data.publishedAt} 
+          <time
+            datetime={post.data.publishedAt}
             class="font-medium"
             transition:name={`post-date-${post.slug}`}
           >
@@ -156,28 +156,63 @@ const structuredData = {
 </Layout>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  let intersectionObserver = null;
+
+  function cleanupObserver() {
+    if (intersectionObserver) {
+      intersectionObserver.disconnect();
+      intersectionObserver = null;
+    }
+  }
+
+  function initTableOfContents() {
+    cleanupObserver();
+    
     const tocSidebar = document.getElementById('toc-sidebar');
     const article = document.querySelector('article');
-    
+
     if (tocSidebar && article) {
       const headings = article.querySelectorAll('h2, h3');
       if (headings.length > 0) {
-        const observer = new IntersectionObserver((entries) => {
+        intersectionObserver = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
               tocSidebar.classList.remove('opacity-0');
               tocSidebar.classList.add('opacity-100');
             } else if (entry.boundingClientRect.top > 0) {
-               // Optional: Hide again if scrolling back up above the content
-               tocSidebar.classList.remove('opacity-100');
-               tocSidebar.classList.add('opacity-0');
+              tocSidebar.classList.remove('opacity-100');
+              tocSidebar.classList.add('opacity-0');
             }
           });
         }, { threshold: 0.1, rootMargin: "-100px 0px 0px 0px" });
 
-        observer.observe(article);
+        intersectionObserver.observe(article);
       }
     }
-  });
+  }
+
+  function initTOC() {
+    // Delay initialization to ensure DOM is ready
+    setTimeout(initTableOfContents, 50);
+  }
+
+  // Initialize on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTOC);
+  } else {
+    initTOC();
+  }
+
+  // Handle client-side navigation
+  document.addEventListener('astro:page-load', initTOC);
+  
+  // Fallback: watch for content changes
+  let lastArticleContent = '';
+  const checkInterval = setInterval(() => {
+    const article = document.querySelector('article');
+    if (article && article.innerHTML !== lastArticleContent) {
+      lastArticleContent = article.innerHTML;
+      initTableOfContents();
+    }
+  }, 100);
 </script>

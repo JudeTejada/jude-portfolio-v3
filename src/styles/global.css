@@ -1,13 +1,16 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
 /* inter-regular - latin */
 @font-face {
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
   src: local(''), url(/fonts/inter-v3-latin-regular.woff2) format('woff2'),
-    /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url(/fonts/inter-v3-latin-regular.woff) format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url(/fonts/inter-v3-latin-regular.woff) format('woff');
 }
 
 /* inter-300 - latin */
@@ -16,8 +19,7 @@
   font-style: normal;
   font-weight: 300;
   src: local(''), url(/fonts/inter-v3-latin-300.woff2) format('woff2'),
-    /* Chrome 26+, Opera 23+, Firefox 39+ */ url(/fonts/inter-v3-latin-300.woff)
-      format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url(/fonts/inter-v3-latin-300.woff) format('woff');
 }
 
 /* inter-500 - latin */
@@ -26,8 +28,7 @@
   font-style: normal;
   font-weight: 500;
   src: local(''), url(/fonts/inter-v3-latin-500.woff2) format('woff2'),
-    /* Chrome 26+, Opera 23+, Firefox 39+ */ url(/fonts/inter-v3-latin-500.woff)
-      format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url(/fonts/inter-v3-latin-500.woff) format('woff');
 }
 
 /* inter-900 - latin */
@@ -36,8 +37,7 @@
   font-style: normal;
   font-weight: 900;
   src: local(''), url(/fonts/inter-v3-latin-900.woff2) format('woff2'),
-    /* Chrome 26+, Opera 23+, Firefox 39+ */ url(/fonts/inter-v3-latin-900.woff)
-      format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url(/fonts/inter-v3-latin-900.woff) format('woff');
 }
 
 /* inter-700 - latin */
@@ -46,12 +46,13 @@
   font-style: normal;
   font-weight: 700;
   src: local(''), url(/fonts/inter-v3-latin-700.woff2) format('woff2'),
-    /* Chrome 26+, Opera 23+, Firefox 39+ */ url(/fonts/inter-v3-latin-700.woff)
-      format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url(/fonts/inter-v3-latin-700.woff) format('woff');
 }
 
 html {
   scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Animation keyframes */
@@ -66,181 +67,147 @@ html {
   }
 }
 
-.prose img {
-  /* Don't apply styles to images */
-  @apply m-0;
-}
+/* Cursor-Inspired Documentation Styling */
 .prose {
   max-width: 80ch;
-}
-
-.remark-code-title {
-  @apply px-5 py-3 font-mono text-sm font-bold text-gray-800 bg-gray-200 border border-b-0 border-gray-200 rounded-t;
-}
-
-.remark-code-title + pre {
-  @apply mt-0 rounded-t-none;
-}
-
-.mdx-marker {
-  @apply block px-4 -mx-4 bg-gray-100 border-l-4 border-blue-500;
-}
-
-/* Enhanced typography for markdown content - Cursor Inspired Minimal */
-.prose {
   color: #374151; /* gray-700 */
+  font-size: 1.0625rem; /* 17px */
   line-height: 1.75;
-  max-width: 80ch;
-  font-size: 1.125rem;
 }
 
+/* Headings */
 .prose h1 {
-  @apply text-4xl font-medium leading-tight tracking-tight text-gray-900 mb-8 mt-10;
+  @apply text-4xl font-semibold tracking-tight text-gray-900 mb-8 mt-10;
+  letter-spacing: -0.02em;
 }
 
 .prose h2 {
-  @apply text-2xl font-medium leading-tight tracking-tight text-gray-900 mb-4 mt-12;
+  @apply text-2xl font-semibold tracking-tight text-gray-900 mb-4 mt-12;
+  letter-spacing: -0.015em;
   scroll-margin-top: 100px;
 }
 
-/* Remove decorative elements */
-.prose h2::before {
-  content: none;
-}
-
 .prose h3 {
-  @apply text-xl font-medium leading-tight text-gray-900 mb-4 mt-8;
+  @apply text-xl font-medium tracking-tight text-gray-900 mb-4 mt-8;
+  letter-spacing: -0.01em;
   scroll-margin-top: 100px;
 }
 
 .prose h4 {
-  @apply text-lg font-medium leading-tight text-gray-900 mb-4 mt-6;
+  @apply text-lg font-medium text-gray-900 mb-4 mt-6;
   scroll-margin-top: 100px;
 }
 
+/* Paragraphs */
 .prose p {
-  @apply mb-6 text-gray-600 leading-relaxed;
+  @apply mb-6 text-gray-700 leading-relaxed;
 }
 
-/* Minimal Blockquote */
+/* Blockquotes - Minimal border */
 .prose blockquote {
-  border-left: 2px solid #e5e7eb; /* gray-200 */
-  @apply pl-6 py-2 my-8 italic text-gray-500 bg-transparent;
+  @apply pl-6 py-1 my-8 border-l-2 border-gray-200 not-italic text-gray-600;
 }
-
-.prose blockquote::before {
+.prose blockquote p:first-of-type::before,
+.prose blockquote p:last-of-type::after {
   content: none;
 }
 
+/* Lists */
 .prose ul {
-  @apply list-disc pl-6 mb-6 text-gray-600;
+  @apply list-disc list-outside ml-6 mb-6 text-gray-700 marker:text-gray-400;
 }
-
-.prose ul li {
-  @apply mb-2 pl-2;
-}
-
-.prose ul > li::marker {
-  @apply text-gray-400;
-}
-
 .prose ol {
-  @apply list-decimal pl-6 mb-6 text-gray-600;
+  @apply list-decimal list-outside ml-6 mb-6 text-gray-700 marker:text-gray-500;
 }
-
-.prose ol li {
+.prose li {
   @apply mb-2 pl-2;
 }
 
-.prose ol > li::marker {
-  @apply text-gray-400 font-medium;
-}
-
-/* Minimal Links */
+/* Links */
 .prose a {
-  @apply text-gray-900 underline underline-offset-4 decoration-gray-200 transition-all duration-200;
-  font-weight: 500;
+  @apply text-gray-900 underline underline-offset-4 decoration-gray-300 transition-colors duration-200 font-medium;
 }
-
 .prose a:hover {
-  @apply decoration-gray-900;
+  @apply decoration-gray-900 text-gray-950;
 }
 
-.prose strong {
-  @apply font-semibold text-gray-900;
+/* Inline Code */
+.prose :not(pre) > code {
+  @apply bg-gray-100 text-gray-900 px-1.5 py-0.5 rounded-md border border-gray-200 text-[0.9em] font-mono font-medium;
 }
-
-.prose em {
-  @apply italic text-gray-700;
-}
-
-/* Minimal Code */
-.prose code {
-  @apply bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-sm font-mono font-normal;
+.prose :not(pre) > code::before,
+.prose :not(pre) > code::after {
+  content: none;
 }
 
 /* Code Blocks */
 .prose pre {
-  @apply bg-gray-50 border border-gray-200 text-gray-800 p-4 rounded-lg overflow-x-auto my-8;
+  @apply bg-[#18181b] text-gray-200 p-5 rounded-xl overflow-x-auto my-8 border border-gray-800 shadow-sm;
+  font-size: 0.875rem;
+  line-height: 1.7;
 }
 
 .prose pre code {
-  @apply bg-transparent text-gray-800 p-0;
+  @apply bg-transparent text-inherit p-0 border-none font-mono;
 }
 
-.prose hr {
-  @apply border-0 my-12 h-px bg-gray-200;
-}
-
-/* Images - No hover effects */
+/* Images */
 .prose img {
-  @apply rounded-lg border border-gray-100 my-8 max-w-full h-auto;
+  @apply rounded-lg border border-gray-200 my-10 w-full h-auto shadow-sm;
 }
 
+/* Horizontal Rule */
+.prose hr {
+  @apply border-0 h-px bg-gray-200 my-12;
+}
+
+/* Tables */
 .prose table {
-  @apply min-w-full border-collapse my-8 text-sm;
+  @apply w-full border-collapse my-8 text-sm text-left;
 }
-
 .prose th {
-  @apply border-b border-gray-200 text-gray-900 px-4 py-3 text-left font-medium;
-  background: transparent;
+  @apply border-b border-gray-200 text-gray-900 px-4 py-3 font-semibold bg-gray-50/50;
 }
-
 .prose td {
-  @apply border-b border-gray-100 px-4 py-3 text-gray-600;
+  @apply border-b border-gray-100 px-4 py-3 text-gray-600 align-top;
 }
-
 .prose tr:last-child td {
-  @apply border-b-0;
+  border-bottom: none;
 }
 
+/* Strong & Emphasis */
+.prose strong {
+  @apply font-semibold text-gray-900;
+}
+.prose em {
+  @apply italic text-gray-800;
+}
+
+/* Spacing Utilities */
 .prose > :first-child {
-  /* Override removing top margin, causing layout shift */
-  margin-top: 1.25em !important;
+  margin-top: 0 !important;
+}
+.prose > :last-child {
+  margin-bottom: 0 !important;
 }
 
-/* Ensure proper spacing */
-.prose > * + * {
-  margin-top: 1.5em;
+/* Remark Code Title (if used) */
+.remark-code-title {
+  @apply px-5 py-3 font-mono text-sm font-medium text-gray-400 bg-[#18181b] border-b border-gray-800 rounded-t-xl;
+  margin-bottom: -1px;
+}
+.remark-code-title + pre {
+  @apply mt-0 rounded-t-none;
 }
 
-* {
-  scrollbar-color: #888 #f1f1f1;
-  scrollbar-width: thin;
+/* MDX Markers */
+.mdx-marker {
+  @apply block px-4 -mx-4 bg-blue-50 border-l-4 border-blue-500;
 }
 
-/* removing template literals in code */
-.prose code::after,
-.prose code::before {
-  content: '';
-}
-
-.prose code {
-  @apply bg-sky-100 px-1 py-0.5 rounded-md;
-}
-
+/* Video */
 video {
-  @apply max-w-full;
+  @apply max-w-full rounded-lg shadow-sm;
 }
 
 /* View Transitions */
@@ -248,32 +215,17 @@ video {
 ::view-transition-new(root) {
   animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
-
 ::view-transition-old(root) {
   animation: fade-out 0.4s forwards;
 }
-
 ::view-transition-new(root) {
   animation: slide-up-fade-in 0.6s forwards;
 }
-
 @keyframes fade-out {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
+  from { opacity: 1; }
+  to { opacity: 0; transform: translateY(-10px); }
 }
-
 @keyframes slide-up-fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
