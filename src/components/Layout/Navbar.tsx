@@ -20,9 +20,9 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'py-4' : 'py-6'}`}>
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="container mx-auto px-6">
         <div className={`rounded-2xl transition-all duration-300 flex items-center justify-between px-6 py-3 ${isScrolled ? 'bg-white/80 backdrop-blur-xl border border-black/5 shadow-sm' : 'bg-transparent'}`}>
-          
+
           {/* Logo & Socials */}
           <div className="flex items-center">
             <a href="/" aria-label="Jude Tejada Logo" className="font-bold text-2xl cursor-pointer mr-6 tracking-tighter">
@@ -74,8 +74,8 @@ const Navbar: React.FC = () => {
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a 
-                key={link.name} 
+              <a
+                key={link.name}
                 href={link.href}
                 className="text-sm font-medium text-gray-600 hover:text-black transition-colors"
               >
@@ -90,15 +90,15 @@ const Navbar: React.FC = () => {
           </div>
 
           {/* Mobile Menu Toggle */}
-          <button 
+          <button
             className="md:hidden p-2 text-gray-600"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
           >
-            <img 
-              src={isMobileMenuOpen ? "/icon/close.svg" : "/icon/menu.svg"} 
-              alt={isMobileMenuOpen ? "Close" : "Menu"} 
-              className="w-6 h-6" 
+            <img
+              src={isMobileMenuOpen ? "/icon/close.svg" : "/icon/menu.svg"}
+              alt={isMobileMenuOpen ? "Close" : "Menu"}
+              className="w-6 h-6"
             />
           </button>
         </div>
@@ -109,8 +109,8 @@ const Navbar: React.FC = () => {
         <div className="absolute top-full left-0 right-0 bg-white border-b border-gray-200 p-6 md:hidden shadow-xl mx-6 rounded-2xl mt-2">
           <div className="flex flex-col gap-4">
             {navLinks.map((link) => (
-              <a 
-                key={link.name} 
+              <a
+                key={link.name}
                 href={link.href}
                 className="text-base font-medium text-gray-900"
                 onClick={() => setIsMobileMenuOpen(false)}
