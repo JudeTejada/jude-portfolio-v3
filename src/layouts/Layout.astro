@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Navbar from '../components/Layout/Navbar';
 import Footer from '../components/Layout/Footer.astro';
+import { ClientRouter } from 'astro:transitions';
 
 interface Props {
   title: string;
@@ -21,6 +22,7 @@ const { title, description, image = '/banner.png', canonical } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    <ClientRouter />
 
     <!-- SEO Meta Tags -->
     <title>{title}</title>

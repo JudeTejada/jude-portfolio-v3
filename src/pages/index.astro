@@ -196,7 +196,10 @@ const structuredData = {
               <a href={`/project/${project.slug}`} class='block group'>
                 <div class='bg-gray-100 hover:bg-white hover:shadow-lg transition-all duration-300 p-6 md:p-8 rounded-xl border border-gray-200/50 group-hover:border-gray-200'>
                   <div class='flex justify-between items-start mb-2'>
-                    <h3 class='text-lg font-medium text-gray-900 group-hover:text-blue-600 transition'>
+                    <h3
+                      class='text-lg font-medium text-gray-900 group-hover:text-blue-600 transition'
+                      transition:name={`project-title-${project.slug}`}
+                    >
                       {project.data.title}
                     </h3>
                     <span class='text-xs font-medium text-gray-500 bg-gray-200 px-2 py-1 rounded-full'>
@@ -206,7 +209,10 @@ const structuredData = {
                   <p class='text-gray-600 text-sm leading-relaxed mb-4 line-clamp-2'>
                     {project.data.summary}
                   </p>
-                  <div class='text-xs text-gray-400 font-medium uppercase tracking-wide'>
+                  <div
+                    class='text-xs text-gray-400 font-medium uppercase tracking-wide'
+                    transition:name={`project-date-${project.slug}`}
+                  >
                     {new Date(project.data.publishedAt).toLocaleDateString(
                       'en-US',
                       { month: 'short', year: 'numeric' }
@@ -288,14 +294,20 @@ const structuredData = {
               <a href={`/blog/${post.slug}`} class='block group'>
                 <div class='group-hover:bg-gray-50 transition-all duration-300 p-6 md:p-8 rounded-xl border border-transparent group-hover:border-gray-100'>
                   <div class='flex justify-between items-start mb-2'>
-                    <h3 class='text-lg font-medium text-gray-900 group-hover:text-blue-600 transition'>
+                    <h3
+                      class='text-lg font-medium text-gray-900 group-hover:text-blue-600 transition'
+                      transition:name={`post-title-${post.slug}`}
+                    >
                       {post.data.title}
                     </h3>
                   </div>
                   <p class='text-gray-600 text-sm leading-relaxed mb-4 line-clamp-2'>
                     {post.data.summary}
                   </p>
-                  <div class='text-xs text-gray-400 font-medium uppercase tracking-wide'>
+                  <div
+                    class='text-xs text-gray-400 font-medium uppercase tracking-wide'
+                    transition:name={`post-date-${post.slug}`}
+                  >
                     {new Date(post.data.publishedAt).toLocaleDateString(
                       'en-US',
                       { month: 'short', year: 'numeric' }

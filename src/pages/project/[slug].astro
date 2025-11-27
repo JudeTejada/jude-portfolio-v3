@@ -88,12 +88,19 @@ const structuredData = {
       </div>
 
       <header class="max-w-4xl mb-16">
-        <h1 class="text-4xl md:text-6xl font-medium tracking-tight text-gray-900 mb-6 leading-[1.1]">
+        <h1 
+          class="text-4xl md:text-6xl font-medium tracking-tight text-gray-900 mb-6 leading-[1.1]"
+          transition:name={`project-title-${project.slug}`}
+        >
           {project.data.title}
         </h1>
         
         <div class="flex items-center gap-6 text-gray-500 text-sm mb-8">
-          <time datetime={project.data.publishedAt} class="font-medium">
+          <time 
+            datetime={project.data.publishedAt} 
+            class="font-medium"
+            transition:name={`project-date-${project.slug}`}
+          >
             {formattedDate}
           </time>
           {project.data.technologies && project.data.technologies.length > 0 && (
