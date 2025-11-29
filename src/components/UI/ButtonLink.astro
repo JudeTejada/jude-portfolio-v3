@@ -9,7 +9,7 @@ const { href, extraClasses = '' } = Astro.props;
 
 <a
   href={href}
-  class={`text-blue-500 uppercase inline-block font-bold ease-in duration-100 border-b-2 border-transparent hover:border-blue-500 focus:border-blue-500 focus-visible:border-blue-500 ${extraClasses}`}
+  class={`text-gray-900 uppercase inline-block font-medium text-sm tracking-wide border-b border-transparent hover:border-gray-900 transition-colors duration-200 ${extraClasses}`}
 >
   <slot />
 </a>

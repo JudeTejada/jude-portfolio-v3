@@ -23,6 +23,10 @@ showHome: true
 
 </div>
 
+## Recording
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe src="https://cap.so/embed/9yxtrd5pdx6ewqz" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+
 ## Overview
 
 Reactly](https://github.com/JudeTejada/reactly)[tly](https://github.com/JudeTejada/reactly) is a production-ready full-stack SaaS platform that collects, analyzes, and understands user feedback using AI-powered sentiment analysis. The platform enables businesses to gather user feedback through an embeddable widget and automatically categorizes it as positive, negative, or neutral.
@@ -98,8 +102,7 @@ feedbackQueue.process('analyze-sentiment', async (job) => {
 
 Sharing code across three apps (dashboard, API, widget) became messy with separate repos. I structured it as a monorepo with **pnpm workspaces** and **Turborepo**.
 
-```
-reac]
+```typescript
 ├── apps/
 │   ├── web/          # Next.js 15 dashboard
 │   ├── backend/      # NestJS API
@@ -154,7 +157,7 @@ export class FeedbackController {
 - Validation pipes handle input validation declaratively
   ## Architecture Overview
 
-```
+```typescript
 User → Embeddable Widget ↔ NestJS API ↔ PostgreSQL
                          ↕           ↕
                      Next.js    GLM 4.6 AI
