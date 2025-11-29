@@ -52,22 +52,7 @@ This design system follows the aesthetic principles of Cursor.com (circa 2024/20
 -   Small, pill-shaped indicators.
 -   *Classes:* `bg-gray-200 text-gray-500 text-xs px-2 py-1 rounded-full`
 
-### Featured Work Preview
--   **Container:** `relative overflow-hidden rounded-2xl bg-gray-100`
--   **Default state:** Light gray background, low opacity
--   **Hover state:** `hover:bg-white hover:shadow-2xl transition-all duration-500`
--   **Image:** 
-    -   Container: `relative aspect-video overflow-hidden rounded-2xl`
-    -   Image: `w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]`
--   **Overlay gradient:** `absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent`
-    -   Default: `opacity-0`
-    -   Hover: `group-hover:opacity-100 transition-opacity duration-300`
--   **Text overlay:** `absolute bottom-0 left-0 right-0 p-6`
-    -   Default: `transform translate-y-full`
-    -   Hover: `group-hover:translate-y-0 transition-transform duration-300`
--   **Text styling:** 
-    -   Title: `text-white font-semibold text-xl mb-1`
-    -   Label: `text-white/80 text-sm font-medium`
+
 
 ## 5. Layout Patterns
 
