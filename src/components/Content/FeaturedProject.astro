@@ -1,8 +1,10 @@
 ---
+import { Image } from 'astro:assets';
+
 interface Props {
   title: string;
   summary: string;
-  image?: string;
+  image?: string | ImageMetadata;
   slug: string;
 }
 
@@ -36,12 +38,27 @@ const { title, summary, image, slug } = Astro.props;
   <div class="flex-1 w-full lg:w-auto order-1 lg:order-2">
     {image && (
       <div class="relative rounded-xl overflow-hidden shadow-lg bg-gray-200 aspect-video lg:aspect-[4/3] group-hover:shadow-xl transition-shadow duration-500">
-         <img 
-          src={image} 
-          alt={title} 
-          class="w-full h-full object-cover" 
-          loading="lazy"
-        />
+         {typeof image === 'object' && image !== null ? (
+           <Image 
+             src={image} 
+             alt={title} 
+             class="w-full h-full object-cover" 
+             loading="lazy"
+             decoding="async"
+             format="webp"
+             quality={80}
+             sizes="(min-width: 1024px) 400px, (min-width: 768px) 50vw, 100vw"
+             layout="constrained"
+           />
+         ) : (
+           <img 
+             src={image as string} 
+             alt={title} 
+             class="w-full h-full object-cover" 
+             loading="lazy"
+             decoding="async"
+           />
+         )}
         <div class="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-xl pointer-events-none"></div>
       </div>
     )}

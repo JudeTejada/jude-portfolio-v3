@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Container from '../components/Layout/Container.astro';
+import { Image } from 'astro:assets';
+import stackImage from '../assets/images/stack.png';
 ---
 
 <Layout
@@ -40,12 +42,14 @@ import Container from '../components/Layout/Container.astro';
                 When working on a project I tailor my approach to the problem that I'm trying to solve. I focus on building approaches which scale to help the growth of the product. Here's my go-to stack:
               </p>
               
-              <img
-                src="/images/stack.png"
-                alt="Tech stack for building front-end applications"
-                class="w-full h-auto rounded-2xl border border-gray-100 shadow-sm"
-                loading="lazy"
-              />
+               <Image
+                 src={stackImage}
+                 alt="Tech stack for building front-end applications"
+                 class="w-full h-auto rounded-2xl border border-gray-100 shadow-sm"
+                 loading="lazy"
+                 format="webp"
+                 quality={85}
+               />
            </div>
         </div>
       </div>

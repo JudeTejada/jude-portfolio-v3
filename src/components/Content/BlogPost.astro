@@ -1,18 +1,18 @@
 ---
 import Heading from '../UI/Heading.astro';
 import Paragraph from '../UI/Paragraph.astro';
+import { Image } from 'astro:assets';
 
 interface Props {
   title: string;
   publishedAt: string;
   summary: string;
   slug: string;
-  image?: string;
+  image?: string | ImageMetadata;
   labels?: string[];
 }
 
 const { title, publishedAt, summary, slug, image, labels = [] } = Astro.props;
-console.log("🚀 ~ title:", title)
 
 // Format date
 const date = new Date(publishedAt);
@@ -27,12 +27,25 @@ const formattedDate = date.toLocaleDateString('en-US', {
   <article class="mb-20 cursor-pointer group">
     {image && (
       <div class="relative mb-8 shadow-md h-72">
-        <img
-          src={image}
-          alt={title}
-          class="w-full h-full object-cover rounded-md"
-          loading="lazy"
-        />
+        {typeof image === 'object' && image !== null ? (
+          <Image
+            src={image}
+            alt={title}
+            class="w-full h-full object-cover rounded-md"
+            loading="lazy"
+            decoding="async"
+            format="webp"
+            quality={80}
+          />
+        ) : (
+          <img
+            src={image as string}
+            alt={title}
+            class="w-full h-full object-cover rounded-md"
+            loading="lazy"
+            decoding="async"
+          />
+        )}
       </div>
     )}
 

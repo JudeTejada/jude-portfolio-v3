@@ -2,10 +2,11 @@
 import Heading from '../UI/Heading.astro';
 import Paragraph from '../UI/Paragraph.astro';
 import ButtonLink from '../UI/ButtonLink.astro';
+import { Image } from 'astro:assets';
 
 interface Props {
   title: string;
-  image?: string;
+  image?: string | ImageMetadata;
   labels?: string[];
   publishedAt: string;
   summary: string;
@@ -26,13 +27,25 @@ const formattedDate = date.toLocaleDateString('en-US', {
 <article class="grid items-start justify-center grid-cols-1 mb-32 md:grid-cols-2">
   {image && (
     <div class="relative w-full mb-8 mr-10 shadow-lg h-80 md:mb-0">
-      <img
-        src={image}
-        alt={title}
-        class="w-full h-full object-cover rounded-md"
-        loading="eager"
-        priority
-      />
+      {typeof image === 'string' ? (
+        <img
+          src={image}
+          alt={title}
+          class="w-full h-full object-cover rounded-md"
+          loading="eager"
+          decoding="async"
+        />
+      ) : (
+        <Image
+          src={image}
+          alt={title}
+          class="w-full h-full object-cover rounded-md"
+          loading="eager"
+          decoding="async"
+          format="webp"
+          quality={80}
+        />
+      )}
     </div>
   )}
 

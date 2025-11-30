@@ -13,6 +13,12 @@ import mdx from '@astrojs/mdx';
 export default defineConfig({
   integrations: [react(), mdx()],
   adapter: vercel(),
+  
+  image: {
+    domains: ['judetejada.com'],
+    remotePatterns: [{ protocol: 'https' }],
+    responsiveStyles: true
+  },
 
   vite: {
     plugins: [tailwindcss()]

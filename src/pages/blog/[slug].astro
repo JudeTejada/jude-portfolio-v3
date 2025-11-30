@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Container from '../../components/Layout/Container.astro';
 import TableOfContents from '../../components/UI/TableOfContents.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 
 // MDX component imports
 import VideoPlayer from '../../components/MDX/VideoPlayer.astro';
@@ -118,11 +119,25 @@ const structuredData = {
 
       {post.data.image && (
         <div class="w-full mb-16 rounded-xl overflow-hidden border border-gray-100">
-          <img
-            src={post.data.image}
-            alt={post.data.title}
-            class="w-full h-auto object-cover"
-          />
+          {typeof post.data.image === 'object' && post.data.image !== null ? (
+            <Image
+              src={post.data.image}
+              alt={post.data.title}
+              class="w-full h-auto object-cover"
+              format="webp"
+              quality={85}
+              sizes="(min-width: 1024px) 1024px, 100vw"
+              layout="full-width"
+            />
+          ) : (
+            <img
+              src={post.data.image as string}
+              alt={post.data.title}
+              class="w-full h-auto object-cover"
+              loading="eager"
+              decoding="async"
+            />
+          )}
         </div>
       )}
 
