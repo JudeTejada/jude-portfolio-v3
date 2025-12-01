@@ -70,15 +70,15 @@ const experience = [
 ];
 
 // Structured data for SEO
-const structuredData = {
+const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Jude Tejada',
   jobTitle: 'Front-end Developer',
   description:
     'A front-end developer who focuses on creating beautiful user experiences and modern web applications.',
-  url: 'https://judetejada.com',
-  image: 'https://judetejada.com/banner.png',
+  url: 'https://judetejada.vercel.app',
+  image: 'https://judetejada.vercel.app/banner.png',
   sameAs: [
     'https://github.com/judetejada',
     'https://linkedin.com/in/judetejada',
@@ -102,17 +102,42 @@ const structuredData = {
       'Creating beautiful user experiences and modern web applications'
   }
 };
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Jude Tejada Portfolio',
+  url: 'https://judetejada.vercel.app',
+  description: 'Front-end developer portfolio showcasing projects and writing',
+  author: {
+    '@type': 'Person',
+    name: 'Jude Tejada'
+  },
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: 'https://judetejada.vercel.app/search?q={search_term_string}',
+    'query-input': 'required name=search_term_string'
+  },
+  publisher: {
+    '@type': 'Person',
+    name: 'Jude Tejada'
+  }
+};
 ---
 
 <Layout
   title='Jude Tejada - Front-end Developer'
   description='Jude Tejada - A front-end developer who focuses on creating beautiful user experiences and modern web applications.'
-  canonical='https://judetejada.com'
+  canonical='https://judetejada.vercel.app'
 >
   <!-- Structured Data -->
   <script
     type='application/ld+json'
-    set:html={JSON.stringify(structuredData)}
+    set:html={JSON.stringify(personSchema)}
+  />
+  <script
+    type='application/ld+json'
+    set:html={JSON.stringify(websiteSchema)}
   />
 
   <!-- Hero Section -->

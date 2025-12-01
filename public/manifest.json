@@ -1,0 +1,22 @@
+{
+  "name": "Jude Tejada - Front-end Developer Portfolio",
+  "short_name": "Jude Tejada",
+  "description": "Portfolio showcasing front-end development projects and technical writing by Jude Tejada",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4669e8",
+  "orientation": "portrait-primary",
+  "categories": ["portfolio", "developer", "web development"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+
+
+  "prefer_related_applications": false
+}

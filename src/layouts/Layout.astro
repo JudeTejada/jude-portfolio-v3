@@ -44,10 +44,66 @@ const { title, description, image = '/banner.png', canonical } = Astro.props;
 
     <!-- Canonical URL -->
     {canonical && <link rel="canonical" href={canonical} />}
+
+    <!-- Enhanced SEO Meta Tags -->
+    <meta name="theme-color" content="#4669e8" />
+    <meta name="msapplication-TileColor" content="#4669e8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <!-- Resource Hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="//judetejada.vercel.app" />
+
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Google Search Console Verification -->
+    <!-- Replace with your actual GSC verification meta tag -->
+    <!-- <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE_HERE" /> -->
+
+    <!-- Google Analytics 4 (Optional - for tracking) -->
+    <!-- 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+    -->
+
+    <!-- Skip Navigation for Accessibility -->
+    <style>
+      .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 6px;
+        background: #000;
+        color: white;
+        padding: 8px;
+        border-radius: 4px;
+        text-decoration: none;
+        z-index: 1000;
+      }
+      .skip-link:focus {
+        top: 6px;
+      }
+    </style>
   </head>
   <body>
+    <!-- Skip Navigation Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <Navbar client:load />
-    <main class="pt-24">
+    <main class="pt-24" id="main-content">
       <slot />
     </main>
     <Footer />
