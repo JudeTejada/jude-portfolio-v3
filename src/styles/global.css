@@ -1,13 +1,16 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
 /* inter-regular - latin */
 @font-face {
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
   src: local(''), url(/fonts/inter-v3-latin-regular.woff2) format('woff2'),
-    /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url(/fonts/inter-v3-latin-regular.woff) format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url(/fonts/inter-v3-latin-regular.woff) format('woff');
 }
 
 /* inter-300 - latin */
@@ -16,8 +19,7 @@
   font-style: normal;
   font-weight: 300;
   src: local(''), url(/fonts/inter-v3-latin-300.woff2) format('woff2'),
-    /* Chrome 26+, Opera 23+, Firefox 39+ */ url(/fonts/inter-v3-latin-300.woff)
-      format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url(/fonts/inter-v3-latin-300.woff) format('woff');
 }
 
 /* inter-500 - latin */
@@ -26,8 +28,7 @@
   font-style: normal;
   font-weight: 500;
   src: local(''), url(/fonts/inter-v3-latin-500.woff2) format('woff2'),
-    /* Chrome 26+, Opera 23+, Firefox 39+ */ url(/fonts/inter-v3-latin-500.woff)
-      format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url(/fonts/inter-v3-latin-500.woff) format('woff');
 }
 
 /* inter-900 - latin */
@@ -36,8 +37,7 @@
   font-style: normal;
   font-weight: 900;
   src: local(''), url(/fonts/inter-v3-latin-900.woff2) format('woff2'),
-    /* Chrome 26+, Opera 23+, Firefox 39+ */ url(/fonts/inter-v3-latin-900.woff)
-      format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url(/fonts/inter-v3-latin-900.woff) format('woff');
 }
 
 /* inter-700 - latin */
@@ -46,12 +46,13 @@
   font-style: normal;
   font-weight: 700;
   src: local(''), url(/fonts/inter-v3-latin-700.woff2) format('woff2'),
-    /* Chrome 26+, Opera 23+, Firefox 39+ */ url(/fonts/inter-v3-latin-700.woff)
-      format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url(/fonts/inter-v3-latin-700.woff) format('woff');
 }
 
 html {
   scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Animation keyframes */
@@ -66,199 +67,165 @@ html {
   }
 }
 
-.prose img {
-  /* Don't apply styles to images */
-  @apply m-0;
-}
+/* Cursor-Inspired Documentation Styling */
 .prose {
   max-width: 80ch;
-}
-
-.remark-code-title {
-  @apply px-5 py-3 font-mono text-sm font-bold text-gray-800 bg-gray-200 border border-b-0 border-gray-200 rounded-t;
-}
-
-.remark-code-title + pre {
-  @apply mt-0 rounded-t-none;
-}
-
-.mdx-marker {
-  @apply block px-4 -mx-4 bg-gray-100 border-l-4 border-blue-500;
-}
-
-/* Enhanced typography for markdown content */
-.prose {
-  color: #1f2937;
+  color: #374151; /* gray-700 */
+  font-size: 1.0625rem; /* 17px */
   line-height: 1.75;
-  max-width: 80ch;
-  font-size: 1.125rem;
 }
 
+/* Headings */
 .prose h1 {
-  @apply text-4xl font-bold leading-tight tracking-normal lg:text-5xl text-gray-900 mb-6 mt-8;
+  @apply text-4xl font-semibold tracking-tight text-gray-900 mb-8 mt-10;
+  letter-spacing: -0.02em;
 }
 
 .prose h2 {
-  @apply text-2xl md:text-3xl font-bold leading-tight text-gray-900 mb-6 mt-12 pb-2 border-b border-gray-200;
-  position: relative;
+  @apply text-2xl font-semibold tracking-tight text-gray-900 mb-4 mt-12;
+  letter-spacing: -0.015em;
   scroll-margin-top: 100px;
 }
 
-.prose h2::before {
-  content: '';
-  position: absolute;
-  left: -1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 4px;
-  height: 70%;
-  background: linear-gradient(135deg, #4669e8, #3b82f6);
-  border-radius: 2px;
-}
-
 .prose h3 {
-  @apply text-xl md:text-2xl font-semibold leading-tight text-gray-900 mb-4 mt-8;
-  color: #1f2937;
+  @apply text-xl font-medium tracking-tight text-gray-900 mb-4 mt-8;
+  letter-spacing: -0.01em;
   scroll-margin-top: 100px;
 }
 
 .prose h4 {
-  @apply text-lg md:text-xl font-semibold leading-tight text-gray-900 mb-3 mt-6 text-gray-800;
+  @apply text-lg font-medium text-gray-900 mb-4 mt-6;
   scroll-margin-top: 100px;
 }
 
+/* Paragraphs */
 .prose p {
   @apply mb-6 text-gray-700 leading-relaxed;
 }
 
+/* Blockquotes - Minimal border */
 .prose blockquote {
-  border-left: 4px solid #4669e8;
-  @apply pl-6 py-4 my-8 bg-gradient-to-r from-blue-50 to-indigo-50 italic text-gray-700 rounded-r-lg;
-  position: relative;
+  @apply pl-6 py-1 my-8 border-l-2 border-gray-200 not-italic text-gray-600;
+}
+.prose blockquote p:first-of-type::before,
+.prose blockquote p:last-of-type::after {
+  content: none;
 }
 
-.prose blockquote::before {
-  content: '"';
-  position: absolute;
-  left: 1rem;
-  top: 0.5rem;
-  font-size: 3rem;
-  color: #4669e8;
-  opacity: 0.3;
-  font-family: Georgia, serif;
-}
-
+/* Lists */
 .prose ul {
-  @apply list-disc pl-6 mb-6 text-gray-700;
+  @apply list-disc list-outside ml-6 mb-6 text-gray-700 marker:text-gray-400;
 }
-
-.prose ul li {
-  @apply mb-3 pl-2;
-  position: relative;
-}
-
-.prose ul > li::marker {
-  @apply text-blue-600;
-  font-size: 1.2em;
-}
-
 .prose ol {
-  @apply list-decimal pl-6 mb-6 text-gray-700;
+  @apply list-decimal list-outside ml-6 mb-6 text-gray-700 marker:text-gray-500;
+}
+.prose li {
+  @apply mb-2 pl-2;
 }
 
-.prose ol li {
-  @apply mb-3 pl-2;
-}
-
-.prose ol > li::marker {
-  @apply text-blue-600 font-semibold;
-}
-
+/* Links */
 .prose a {
-  @apply text-blue-600 hover:text-blue-800 underline underline-offset-2 decoration-2 decoration-blue-400 hover:decoration-blue-600 transition-all duration-200;
-  font-weight: 500;
+  @apply text-gray-900 underline underline-offset-4 decoration-gray-300 transition-colors duration-200 font-medium;
 }
-
 .prose a:hover {
-  @apply text-blue-700;
+  @apply decoration-gray-900 text-gray-950;
 }
 
-.prose strong {
-  @apply font-bold text-gray-900 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent;
-  font-weight: 700;
+/* Inline Code */
+.prose :not(pre) > code {
+  @apply bg-gray-100 text-gray-900 px-1.5 py-0.5 rounded-md border border-gray-200 text-[0.9em] font-mono font-medium;
+}
+.prose :not(pre) > code::before,
+.prose :not(pre) > code::after {
+  content: none;
 }
 
-.prose em {
-  @apply italic text-gray-700;
-}
-
-.prose code {
-  @apply bg-blue-100 text-blue-800 px-1 py-0.5 rounded text-sm font-mono;
-}
-
+/* Code Blocks */
 .prose pre {
-  @apply bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto my-6;
+  @apply bg-[#18181b] text-gray-200 p-5 rounded-xl overflow-x-auto my-8 border border-gray-800 shadow-sm;
+  font-size: 0.875rem;
+  line-height: 1.7;
 }
 
 .prose pre code {
-  @apply bg-transparent text-gray-100 p-0;
+  @apply bg-transparent text-inherit p-0 border-none font-mono;
 }
 
-.prose hr {
-  @apply border-0 my-12 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent;
-}
-
+/* Images */
 .prose img {
-  @apply rounded-xl shadow-lg my-8 max-w-full h-auto;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  @apply rounded-lg border border-gray-200 my-10 w-full h-auto shadow-sm;
 }
 
-.prose img:hover {
-  transform: scale(1.02);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+/* Horizontal Rule */
+.prose hr {
+  @apply border-0 h-px bg-gray-200 my-12;
 }
 
+/* Tables */
 .prose table {
-  @apply min-w-full border-collapse my-8 rounded-lg overflow-hidden shadow-md;
+  @apply w-full border-collapse my-8 text-sm text-left;
 }
-
 .prose th {
-  @apply bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-4 text-left font-semibold;
+  @apply border-b border-gray-200 text-gray-900 px-4 py-3 font-semibold bg-gray-50/50;
 }
-
 .prose td {
-  @apply border-b border-gray-200 px-6 py-4 text-gray-700 hover:bg-gray-50 transition-colors;
+  @apply border-b border-gray-100 px-4 py-3 text-gray-600 align-top;
 }
-
 .prose tr:last-child td {
-  @apply border-b-0;
+  border-bottom: none;
 }
 
+/* Strong & Emphasis */
+.prose strong {
+  @apply font-semibold text-gray-900;
+}
+.prose em {
+  @apply italic text-gray-800;
+}
+
+/* Spacing Utilities */
 .prose > :first-child {
-  /* Override removing top margin, causing layout shift */
-  margin-top: 1.25em !important;
+  margin-top: 0 !important;
+}
+.prose > :last-child {
+  margin-bottom: 0 !important;
 }
 
-/* Ensure proper spacing */
-.prose > * + * {
-  margin-top: 1.5em;
+/* Remark Code Title (if used) */
+.remark-code-title {
+  @apply px-5 py-3 font-mono text-sm font-medium text-gray-400 bg-[#18181b] border-b border-gray-800 rounded-t-xl;
+  margin-bottom: -1px;
+}
+.remark-code-title + pre {
+  @apply mt-0 rounded-t-none;
 }
 
-* {
-  scrollbar-color: red;
-  scrollbar-width: thin;
+/* MDX Markers */
+.mdx-marker {
+  @apply block px-4 -mx-4 bg-blue-50 border-l-4 border-blue-500;
 }
 
-/* removing template literals in code */
-.prose code::after,
-.prose code::before {
-  content: '';
-}
-
-.prose code {
-  @apply bg-sky-100 px-1 py-0.5 rounded-md;
-}
-
+/* Video */
 video {
-  @apply max-w-full;
+  @apply max-w-full rounded-lg shadow-sm;
+}
+
+/* View Transitions */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+::view-transition-old(root) {
+  animation: fade-out 0.4s forwards;
+}
+::view-transition-new(root) {
+  animation: slide-up-fade-in 0.6s forwards;
+}
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; transform: translateY(-10px); }
+}
+@keyframes slide-up-fade-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }

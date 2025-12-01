@@ -1,11 +1,17 @@
 ---
+import { Image } from 'astro:assets';
+
 interface Props {
-  src: string;
+  src: string | ImageMetadata;
   alt: string;
   width?: number;
   height?: number;
   priority?: boolean;
   class?: string;
+  format?: 'avif' | 'webp' | 'png' | 'jpg';
+  quality?: number;
+  sizes?: string;
+  layout?: 'constrained' | 'full-width' | 'cover';
 }
 
 const {
@@ -14,15 +20,39 @@ const {
   width,
   height,
   priority = false,
-  class: className = ""
+  class: className = "",
+  format = 'webp',
+  quality = 80,
+  sizes = "(min-width: 768px) 50vw, 100vw",
+  layout = 'constrained'
 } = Astro.props;
+
+// If src is a string, we need to determine if it's a local import or external URL
+const isExternalUrl = typeof src === 'string' && (src.startsWith('http') || src.startsWith('/'));
+const imageProps = {
+  alt,
+  width,
+  height,
+  class: className,
+  loading: priority ? "eager" as const : "lazy" as const,
+  decoding: "async" as const,
+  format,
+  quality,
+  sizes: isExternalUrl ? undefined : sizes,
+  ...(layout !== 'constrained' && { layout })
+};
 ---
 
-<img
-  src={src}
-  alt={alt}
-  width={width}
-  height={height}
-  class={`m-0 ${className}`}
-  loading={priority ? "eager" : "lazy"}
-/>
+{isExternalUrl ? (
+  <img
+    src={src as string}
+    alt={alt}
+    width={width}
+    height={height}
+    class={className}
+    loading={priority ? "eager" : "lazy"}
+    decoding="async"
+  />
+) : (
+  <Image src={src as ImageMetadata} {...imageProps} />
+)}

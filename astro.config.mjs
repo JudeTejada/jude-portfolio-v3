@@ -9,12 +9,45 @@ import tailwindcss from '@tailwindcss/vite';
 
 import mdx from '@astrojs/mdx';
 
+import sitemap from '@astrojs/sitemap';
+
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react(), mdx()],
-  adapter: vercel(),
+  site: 'https://judetejada.vercel.app',
+  integrations: [
+    react(), 
+    mdx(),
+    sitemap()
+  ],
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true
+    }
+  }),
+  
+  image: {
+    domains: ['judetejada.vercel.app'],
+    remotePatterns: [{ protocol: 'https' }],
+    service: { entrypoint: 'astro/assets/services/sharp' }
+  },
 
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    build: {
+      cssMinify: true,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'vendor': ['react', 'react-dom'],
+            'astro': ['astro']
+          }
+        }
+      }
+    }
+  },
+
+  build: {
+    inlineStylesheets: 'auto',
+    format: 'directory'
   }
 });

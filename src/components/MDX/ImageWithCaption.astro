@@ -1,20 +1,44 @@
 ---
+import { Image } from 'astro:assets';
+
 interface Props {
-  src: string;
+  src: string | ImageMetadata;
   alt: string;
   attribution?: string;
+  width?: number;
+  height?: number;
 }
 
-const { src, alt, attribution } = Astro.props;
+const { src, alt, attribution, width, height } = Astro.props;
+
+// Determine if src is external URL or local import
+const isExternalUrl = typeof src === 'string' && (src.startsWith('http') || src.startsWith('/'));
 ---
 
 <figure class="w-full">
-  <img
-    src={src}
-    alt={alt}
-    class="w-full object-cover rounded"
-    loading="lazy"
-  />
+  {isExternalUrl ? (
+    <img
+      src={src as string}
+      alt={alt}
+      width={width}
+      height={height}
+      class="w-full object-cover rounded"
+      loading="lazy"
+      decoding="async"
+    />
+  ) : (
+    <Image 
+      src={src as ImageMetadata} 
+      alt={alt}
+      width={width}
+      height={height}
+      class="w-full object-cover rounded"
+      loading="lazy"
+      decoding="async"
+      format="webp"
+      quality={80}
+    />
+  )}
   {attribution && (
     <figcaption class="text-xs font-light text-center text-gray-500 mt-2">
       Photo by {attribution}
