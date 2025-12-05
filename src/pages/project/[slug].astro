@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Container from '../../components/Layout/Container.astro';
 import TableOfContents from '../../components/UI/TableOfContents.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 
 // MDX component imports
 import VideoPlayer from '../../components/MDX/VideoPlayer.astro';
@@ -169,6 +170,8 @@ const breadcrumbSchema = {
             src={project.data.image}
             alt={project.data.title}
             class="w-full h-auto object-cover"
+            loading="eager"
+            fetchpriority="high"
           />
         </div>
       )}

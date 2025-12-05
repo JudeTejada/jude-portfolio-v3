@@ -154,6 +154,7 @@ const breadcrumbSchema = {
               quality={85}
               sizes="(min-width: 1024px) 1024px, 100vw"
               layout="full-width"
+              fetchpriority="high"
             />
           ) : (
             <img
@@ -161,7 +162,7 @@ const breadcrumbSchema = {
               alt={post.data.title}
               class="w-full h-auto object-cover"
               loading="eager"
-              decoding="async"
+              fetchpriority="high"
             />
           )}
         </div>
