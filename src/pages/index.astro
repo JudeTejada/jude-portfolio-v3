@@ -131,14 +131,8 @@ const websiteSchema = {
   canonical='https://judetejada.vercel.app'
 >
   <!-- Structured Data -->
-  <script
-    type='application/ld+json'
-    set:html={JSON.stringify(personSchema)}
-  />
-  <script
-    type='application/ld+json'
-    set:html={JSON.stringify(websiteSchema)}
-  />
+  <script type='application/ld+json' set:html={JSON.stringify(personSchema)} />
+  <script type='application/ld+json' set:html={JSON.stringify(websiteSchema)} />
 
   <!-- Hero Section -->
   <section class='pt-12 pb-20 md:pt-24 md:pb-32 bg-white overflow-hidden'>
@@ -220,7 +214,7 @@ const websiteSchema = {
           {
             recentProjects.map(project => (
               <a href={`/project/${project.slug}`} class='block group'>
-                <div class='bg-gray-100 hover:bg-white hover:shadow-lg transition-all duration-300 p-6 md:p-8 rounded-xl border border-gray-200/50 group-hover:border-gray-200'>
+                <div class='bg-gray-100 hover:bg-white hover:shadow-soft transition-all duration-300 p-6 md:p-8 rounded-xl border border-gray-200/50 group-hover:border-gray-200'>
                   <div class='flex justify-between items-start mb-2'>
                     <h3
                       class='text-lg font-medium text-gray-900 group-hover:text-blue-600 transition'
@@ -371,7 +365,7 @@ const websiteSchema = {
       <div class='flex justify-center'>
         <a
           href='/contact'
-          class='inline-flex items-center justify-center px-8 py-4 bg-black text-white rounded-full font-medium text-lg hover:bg-gray-800 transition shadow-xl hover:shadow-2xl hover:-translate-y-1 duration-300'
+          class='inline-flex items-center justify-center px-8 py-4 bg-black text-white rounded-full font-medium text-lg hover:bg-gray-800 transition shadow-soft hover:shadow-hover hover:-translate-y-1 duration-300'
         >
           Get in touch &darr;
         </a>
