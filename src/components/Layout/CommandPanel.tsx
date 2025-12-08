@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { Command } from 'cmdk';
 import {
   LayoutGrid,
@@ -25,6 +26,12 @@ interface CommandItem {
 
 const CommandPanel: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  // Ensure we only render portal on client
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const navigate = useCallback((path: string) => {
     setOpen(false);
@@ -151,6 +158,113 @@ const CommandPanel: React.FC = () => {
     };
   }, [open]);
 
+  // Dialog content to be portaled
+  const dialogContent = open ? (
+    <>
+      {/* Overlay */}
+      <div
+        className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[9999]"
+        onClick={() => setOpen(false)}
+        style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
+      />
+
+      {/* Dialog */}
+      <div
+        className="fixed z-[10000] w-[calc(100%-32px)] max-w-[560px] max-h-[85vh] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+        style={{
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+        }}
+      >
+        {/* Header */}
+        <div className="flex items-center gap-4 p-4 border-b border-gray-200">
+          <div className="w-11 h-11 bg-gray-100 rounded-xl flex items-center justify-center text-gray-500 shrink-0">
+            <LayoutGrid className="w-5 h-5" strokeWidth={1.5} />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="font-semibold text-[15px] text-gray-900 leading-tight">Home</p>
+            <p className="text-[13px] text-gray-500 leading-tight">About me and what I'm up to</p>
+          </div>
+          <button
+            className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-900 hover:bg-gray-100 transition-colors shrink-0"
+            onClick={() => setOpen(false)}
+            aria-label="Close"
+          >
+            <X className="w-[18px] h-[18px]" strokeWidth={1.5} />
+          </button>
+        </div>
+
+        {/* Command Component */}
+        <Command className="flex flex-col flex-1 overflow-hidden" loop>
+          {/* Search Input */}
+          <div className="flex items-center gap-3 px-5 py-3 border-b border-gray-200">
+            <Search className="w-[18px] h-[18px] text-gray-400 shrink-0" strokeWidth={1.5} />
+            <Command.Input
+              placeholder="Search for actions..."
+              className="flex-1 border-none text-[15px] outline-none bg-transparent text-gray-900 placeholder:text-gray-400"
+              autoFocus
+            />
+          </div>
+
+          {/* List */}
+          <Command.List className="flex-1 overflow-y-auto p-2 max-h-[400px]">
+            <Command.Empty className="py-8 text-center text-gray-500 text-sm">
+              No results found.
+            </Command.Empty>
+
+            {Object.entries(groupedCommands).map(([group, items]) => (
+              <Command.Group key={group}>
+                <div className="px-3 py-2 text-xs font-medium text-gray-400 uppercase tracking-wider select-none">
+                  {group}
+                </div>
+                {items.map((item) => (
+                  <Command.Item
+                    key={item.id}
+                    value={item.label}
+                    onSelect={item.onSelect}
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-colors hover:bg-gray-100 aria-selected:bg-gray-100"
+                  >
+                    <span className="text-gray-500 shrink-0">
+                      {item.icon}
+                    </span>
+                    <span className="flex-1 text-sm font-medium text-gray-900">
+                      {item.label}
+                    </span>
+                    {item.shortcut && (
+                      <kbd className="shrink-0 px-2 py-1 text-[11px] font-medium text-gray-500 bg-gray-100 border border-gray-200 rounded-md">
+                        {item.shortcut.join(' + ')}
+                      </kbd>
+                    )}
+                  </Command.Item>
+                ))}
+              </Command.Group>
+            ))}
+          </Command.List>
+        </Command>
+
+        {/* Footer */}
+        <div className="hidden md:flex items-center gap-5 px-4 py-2.5 border-t border-gray-200 bg-gray-50 text-xs text-gray-400">
+          <span className="flex items-center gap-1.5">
+            <kbd className="inline-flex items-center justify-center min-w-[20px] h-5 px-1 text-[11px] text-gray-500 bg-white border border-gray-200 rounded">↑</kbd>
+            <kbd className="inline-flex items-center justify-center min-w-[20px] h-5 px-1 text-[11px] text-gray-500 bg-white border border-gray-200 rounded">↓</kbd>
+            to navigate
+          </span>
+          <span className="flex items-center gap-1.5">
+            <kbd className="inline-flex items-center justify-center min-w-[20px] h-5 px-1 text-[11px] text-gray-500 bg-white border border-gray-200 rounded">↵</kbd>
+            to select
+          </span>
+          <span className="flex-1" />
+          <span className="flex items-center gap-1.5">
+            <kbd className="inline-flex items-center justify-center min-w-[20px] h-5 px-1 text-[11px] text-gray-500 bg-white border border-gray-200 rounded">esc</kbd>
+            to close
+          </span>
+        </div>
+      </div>
+    </>
+  ) : null;
+
   return (
     <>
       {/* Desktop Trigger */}
@@ -171,103 +285,8 @@ const CommandPanel: React.FC = () => {
         <Search className="w-5 h-5" strokeWidth={1.5} />
       </button>
 
-      {/* Command Dialog */}
-      {open && (
-        <>
-          {/* Overlay */}
-          <div
-            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[100]"
-            onClick={() => setOpen(false)}
-          />
-
-          {/* Dialog */}
-          <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100%-32px)] max-w-[560px] max-h-[85vh] bg-white rounded-2xl shadow-2xl z-[101] flex flex-col overflow-hidden">
-            {/* Header */}
-            <div className="flex items-center gap-4 p-4 border-b border-gray-200">
-              <div className="w-11 h-11 bg-gray-100 rounded-xl flex items-center justify-center text-gray-500 shrink-0">
-                <LayoutGrid className="w-5 h-5" strokeWidth={1.5} />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="font-semibold text-[15px] text-gray-900 leading-tight">Home</p>
-                <p className="text-[13px] text-gray-500 leading-tight">About me and what I'm up to</p>
-              </div>
-              <button
-                className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-900 hover:bg-gray-100 transition-colors shrink-0"
-                onClick={() => setOpen(false)}
-                aria-label="Close"
-              >
-                <X className="w-[18px] h-[18px]" strokeWidth={1.5} />
-              </button>
-            </div>
-
-            {/* Command Component */}
-            <Command className="flex flex-col flex-1 overflow-hidden" loop>
-              {/* Search Input */}
-              <div className="flex items-center gap-3 px-5 py-3 border-b border-gray-200">
-                <Search className="w-[18px] h-[18px] text-gray-400 shrink-0" strokeWidth={1.5} />
-                <Command.Input
-                  placeholder="Search for actions..."
-                  className="flex-1 border-none text-[15px] outline-none bg-transparent text-gray-900 placeholder:text-gray-400"
-                  autoFocus
-                />
-              </div>
-
-              {/* List */}
-              <Command.List className="flex-1 overflow-y-auto p-2 max-h-[400px]">
-                <Command.Empty className="py-8 text-center text-gray-500 text-sm">
-                  No results found.
-                </Command.Empty>
-
-                {Object.entries(groupedCommands).map(([group, items]) => (
-                  <Command.Group key={group}>
-                    <div className="px-3 py-2 text-xs font-medium text-gray-400 uppercase tracking-wider select-none">
-                      {group}
-                    </div>
-                    {items.map((item) => (
-                      <Command.Item
-                        key={item.id}
-                        value={item.label}
-                        onSelect={item.onSelect}
-                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-colors hover:bg-gray-100 aria-selected:bg-gray-100"
-                      >
-                        <span className="text-gray-500 shrink-0">
-                          {item.icon}
-                        </span>
-                        <span className="flex-1 text-sm font-medium text-gray-900">
-                          {item.label}
-                        </span>
-                        {item.shortcut && (
-                          <kbd className="shrink-0 px-2 py-1 text-[11px] font-medium text-gray-500 bg-gray-100 border border-gray-200 rounded-md">
-                            {item.shortcut.join(' + ')}
-                          </kbd>
-                        )}
-                      </Command.Item>
-                    ))}
-                  </Command.Group>
-                ))}
-              </Command.List>
-            </Command>
-
-            {/* Footer */}
-            <div className="hidden md:flex items-center gap-5 px-4 py-2.5 border-t border-gray-200 bg-gray-50 text-xs text-gray-400">
-              <span className="flex items-center gap-1.5">
-                <kbd className="inline-flex items-center justify-center min-w-[20px] h-5 px-1 text-[11px] text-gray-500 bg-white border border-gray-200 rounded">↑</kbd>
-                <kbd className="inline-flex items-center justify-center min-w-[20px] h-5 px-1 text-[11px] text-gray-500 bg-white border border-gray-200 rounded">↓</kbd>
-                to navigate
-              </span>
-              <span className="flex items-center gap-1.5">
-                <kbd className="inline-flex items-center justify-center min-w-[20px] h-5 px-1 text-[11px] text-gray-500 bg-white border border-gray-200 rounded">↵</kbd>
-                to select
-              </span>
-              <span className="flex-1" />
-              <span className="flex items-center gap-1.5">
-                <kbd className="inline-flex items-center justify-center min-w-[20px] h-5 px-1 text-[11px] text-gray-500 bg-white border border-gray-200 rounded">esc</kbd>
-                to close
-              </span>
-            </div>
-          </div>
-        </>
-      )}
+      {/* Portal the dialog to document.body to avoid stacking context issues */}
+      {mounted && dialogContent && createPortal(dialogContent, document.body)}
     </>
   );
 };
