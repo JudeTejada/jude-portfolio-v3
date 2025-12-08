@@ -36,7 +36,10 @@ export default {
         }
       },
       boxShadow: {
-        header: 'inset 0 -1px 0 0 rgba(0,0,0,0.1)'
+        header: 'inset 0 -1px 0 0 rgba(0,0,0,0.1)',
+        subtle: '0 1px 3px 0 rgb(0 0 0 / 0.04), 0 1px 2px -1px rgb(0 0 0 / 0.04)',
+        soft: '0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05)',
+        hover: '0 10px 25px -3px rgb(0 0 0 / 0.06), 0 4px 6px -4px rgb(0 0 0 / 0.06)',
       },
       transitionProperty: {
         spacing: 'margin, padding'

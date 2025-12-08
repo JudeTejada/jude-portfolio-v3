@@ -17,43 +17,45 @@ const imageSrc = typeof image === 'string' ? image : image?.src;
 const imageMeta = typeof image === 'object' ? image : null;
 ---
 
-<a href={`/project/${slug}`} class="max-w-full mb-16 cursor-pointer group">
-  {image && (
-    <div class="relative h-48 mb-8 shadow-lg lg:h-72">
-      {imageMeta ? (
-        <Image
-          src={imageMeta}
-          alt={title}
-          class="w-full h-full object-cover rounded-md"
-          loading="lazy"
-          decoding="async"
-          format="webp"
-          quality={80}
-        />
-      ) : (
-        <img
-          src={imageSrc!}
-          alt={title}
-          class="w-full h-full object-cover rounded-md"
-          loading="lazy"
-          decoding="async"
-        />
-      )}
-    </div>
-  )}
+<a href={`/project/${slug}`} class='max-w-full mb-16 cursor-pointer group'>
+  {
+    image && (
+      <div class='relative h-48 mb-8 shadow-soft lg:h-72'>
+        {imageMeta ? (
+          <Image
+            src={imageMeta}
+            alt={title}
+            class='w-full h-full object-cover rounded-md'
+            loading='lazy'
+            decoding='async'
+            format='webp'
+            quality={80}
+          />
+        ) : (
+          <img
+            src={imageSrc!}
+            alt={title}
+            class='w-full h-full object-cover rounded-md'
+            loading='lazy'
+            decoding='async'
+          />
+        )}
+      </div>
+    )
+  }
 
   <div>
-    <div class="flex items-center">
+    <div class='flex items-center'>
       <Heading
-        as="h3"
-        extraClasses="mb-2 group-hover:text-blue-500 duration-100 ease-in-out focus-visible:text-blue-500"
+        as='h3'
+        extraClasses='mb-2 group-hover:text-blue-500 duration-100 ease-in-out focus-visible:text-blue-500'
       >
         {title}
       </Heading>
       <img
-        src="/icon/arrow-right.svg"
-        alt="Arrow"
-        class="ml-2 duration-100 ease-in-out transition-margin group-hover:ml-4 group-hover:text-blue-500 w-4 h-4"
+        src='/icon/arrow-right.svg'
+        alt='Arrow'
+        class='ml-2 duration-100 ease-in-out transition-margin group-hover:ml-4 group-hover:text-blue-500 w-4 h-4'
       />
     </div>
 
