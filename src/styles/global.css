@@ -140,15 +140,20 @@ html {
   content: none;
 }
 
-/* Code Blocks */
+/* Code Blocks - Expressive Code Integration */
+/* Expressive Code handles pre/code block styling via ec.config.mjs */
+/* These rules ensure proper spacing within prose content */
+.prose .expressive-code {
+  @apply my-8;
+}
+
 .prose pre {
-  @apply bg-[#18181b] text-gray-200 p-5 rounded-xl overflow-x-auto my-8 border border-gray-800 shadow-sm;
-  font-size: 0.875rem;
-  line-height: 1.7;
+  margin: 0;
+  padding: 0;
 }
 
 .prose pre code {
-  @apply bg-transparent text-inherit p-0 border-none font-mono;
+  @apply bg-transparent text-inherit p-0 border-none;
 }
 
 /* Images */
@@ -191,14 +196,8 @@ html {
   margin-bottom: 0 !important;
 }
 
-/* Remark Code Title (if used) */
-.remark-code-title {
-  @apply px-5 py-3 font-mono text-sm font-medium text-gray-400 bg-[#18181b] border-b border-gray-800 rounded-t-xl;
-  margin-bottom: -1px;
-}
-.remark-code-title + pre {
-  @apply mt-0 rounded-t-none;
-}
+/* Expressive Code provides its own frame/title styling */
+/* Legacy remark-code-title rules removed */
 
 /* MDX Markers */
 .mdx-marker {

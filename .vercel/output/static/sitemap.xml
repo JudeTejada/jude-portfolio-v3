@@ -3,49 +3,37 @@
 
   <url>
     <loc>https://judetejada.vercel.app</loc>
-    <lastmod>2025-12-05T15:38:57.210Z</lastmod>
+    <lastmod>2025-12-08T05:36:37.591Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://judetejada.vercel.app/about</loc>
-    <lastmod>2025-12-05T15:38:57.210Z</lastmod>
+    <lastmod>2025-12-08T05:36:37.591Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://judetejada.vercel.app/blog</loc>
-    <lastmod>2025-12-05T15:38:57.210Z</lastmod>
+    <lastmod>2025-12-08T05:36:37.591Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://judetejada.vercel.app/contact</loc>
-    <lastmod>2025-12-05T15:38:57.210Z</lastmod>
+    <lastmod>2025-12-08T05:36:37.591Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://judetejada.vercel.app/project</loc>
-    <lastmod>2025-12-05T15:38:57.210Z</lastmod>
+    <lastmod>2025-12-08T05:36:37.591Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://judetejada.vercel.app/blog/lessons-learned-from-nestjs-masterclass</loc>
-    <lastmod>2025-12-05T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://judetejada.vercel.app/blog/4-productivity-tips-i-follow</loc>
     <lastmod>2021-08-07T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://judetejada.vercel.app/blog/how-i-got-started-in-freelancing</loc>
-    <lastmod>2022-01-29T00:00:00.000Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -56,14 +44,32 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://judetejada.vercel.app/blog/how-i-improved-the-performance-of-my-website</loc>
-    <lastmod>2021-07-15T00:00:00.000Z</lastmod>
+    <loc>https://judetejada.vercel.app/blog/how-i-got-started-in-freelancing</loc>
+    <lastmod>2022-01-29T00:00:00.000Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://judetejada.vercel.app/blog/how-i-built-my-blog</loc>
     <lastmod>2021-03-22T00:00:00.000Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://judetejada.vercel.app/blog/how-i-improved-the-performance-of-my-website</loc>
+    <lastmod>2021-07-15T00:00:00.000Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://judetejada.vercel.app/blog/lessons-learned-from-nestjs-masterclass</loc>
+    <lastmod>2025-11-25T00:00:00.000Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://judetejada.vercel.app/blog/migrating-compiled-nextjs-13-app-dir</loc>
+    <lastmod>2023-03-17T00:00:00.000Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -76,12 +82,6 @@
   <url>
     <loc>https://judetejada.vercel.app/blog/using-astro-for-my-portfolio</loc>
     <lastmod>2025-11-15T00:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://judetejada.vercel.app/blog/migrating-compiled-nextjs-13-app-dir</loc>
-    <lastmod>2023-03-17T00:00:00.000Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -110,8 +110,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://judetejada.vercel.app/project/reactly</loc>
-    <lastmod>2025-11-22T00:00:00.000Z</lastmod>
+    <loc>https://judetejada.vercel.app/project/moviepahe</loc>
+    <lastmod>2020-07-22T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -122,14 +122,14 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://judetejada.vercel.app/project/lettre</loc>
-    <lastmod>2022-11-11T00:00:00.000Z</lastmod>
+    <loc>https://judetejada.vercel.app/project/reactly</loc>
+    <lastmod>2025-11-22T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://judetejada.vercel.app/project/moviepahe</loc>
-    <lastmod>2020-07-22T00:00:00.000Z</lastmod>
+    <loc>https://judetejada.vercel.app/project/lettre</loc>
+    <lastmod>2022-11-11T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
