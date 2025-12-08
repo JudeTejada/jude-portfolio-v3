@@ -7,6 +7,8 @@ import vercel from '@astrojs/vercel';
 
 import tailwindcss from '@tailwindcss/vite';
 
+import expressiveCode from 'astro-expressive-code';
+
 import mdx from '@astrojs/mdx';
 
 import sitemap from '@astrojs/sitemap';
@@ -15,16 +17,18 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://judetejada.vercel.app',
   integrations: [
-    react(), 
+    react(),
+    expressiveCode(),
     mdx(),
     sitemap()
   ],
+
   adapter: vercel({
     webAnalytics: {
       enabled: true
     }
   }),
-  
+
   image: {
     domains: ['judetejada.vercel.app'],
     remotePatterns: [{ protocol: 'https' }],
