@@ -8,62 +8,77 @@ const allBlogPosts = await getCollection('blog', ({ data }) => {
   return data.isPublished !== false;
 });
 
-const blogPosts = allBlogPosts.sort((a, b) =>
-  new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime()
+const blogPosts = allBlogPosts.sort(
+  (a, b) =>
+    new Date(b.data.publishedAt).getTime() -
+    new Date(a.data.publishedAt).getTime()
 );
 ---
 
-<Layout title="Writing - Jude Tejada" description="Read my latest articles and thoughts on web development, programming, and technology.">
-  <section class="pt-32 pb-20 bg-white min-h-screen">
+<Layout
+  title='Writing - Jude Tejada'
+  description='Read my latest articles and thoughts on web development, programming, and technology.'
+>
+  <section class='pt-32 pb-20 bg-white min-h-screen'>
     <Container>
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <div class='grid grid-cols-1 lg:grid-cols-12 gap-12'>
         <!-- Sidebar -->
-        <div class="lg:col-span-4">
-           <h1 class="text-4xl md:text-6xl font-medium tracking-tight text-gray-900 mb-8 sticky top-32">
-             Writing
-           </h1>
-           <p class="text-gray-500 text-lg max-w-sm mb-12 lg:sticky lg:top-52">
-             Thoughts, tutorials, and insights about web development and technology.
-           </p>
+        <div class='lg:col-span-4'>
+          <h1
+            class='text-4xl md:text-6xl font-medium tracking-tight text-gray-900 mb-8 lg:sticky lg:top-32'
+          >
+            Writing
+          </h1>
+          <p class='text-gray-500 text-lg max-w-sm mb-12 lg:sticky lg:top-52'>
+            Thoughts, tutorials, and insights about web development and
+            technology.
+          </p>
         </div>
 
         <!-- Content List -->
-        <div class="lg:col-span-8 flex flex-col gap-4">
-           {blogPosts.map((post) => (
-             <a href={`/blog/${post.slug}`} class="block group">
-                <div class="bg-[#FCFCFC] hover:bg-white hover:shadow-lg transition-all duration-300 p-6 md:p-8 rounded-xl border border-gray-200/60 group-hover:border-gray-200">
-                    <div class="flex flex-col gap-2">
-                        <div class="flex justify-between items-start">
-                            <h3 
-                              class="text-xl font-medium text-gray-900 group-hover:text-blue-600 transition" 
-                              transition:name={`post-title-${post.slug}`}
-                            >
-                              {post.data.title}
-                            </h3>
-                            {post.data.labels && post.data.labels.length > 0 && (
-                                <span class="hidden sm:inline-block text-[10px] font-bold uppercase tracking-wider text-gray-400 bg-gray-100 px-2 py-1 rounded-md">
-                                    {post.data.labels[0]}
-                                </span>
-                            )}
-                        </div>
-                        
-                        <p class="text-gray-600 leading-relaxed line-clamp-2 mb-4">{post.data.summary}</p>
-                        
-                        <div class="flex items-center justify-between mt-auto">
-                             <span 
-                               class="text-xs font-medium text-gray-400 uppercase tracking-wide"
-                               transition:name={`post-date-${post.slug}`}
-                             >
-                                {new Date(post.data.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-                             </span>
-                             <span class="text-sm font-medium text-gray-900 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
-                                Read article &rarr;
-                             </span>
-                        </div>
+        <div class='lg:col-span-8 flex flex-col gap-4'>
+          {
+            blogPosts.map(post => (
+              <a href={`/blog/${post.slug}`} class='block group'>
+                <div class='bg-[#FCFCFC] hover:bg-white hover:shadow-lg transition-all duration-300 p-6 md:p-8 rounded-xl border border-gray-200/60 group-hover:border-gray-200'>
+                  <div class='flex flex-col gap-2'>
+                    <div class='flex justify-between items-start'>
+                      <h3
+                        class='text-xl font-medium text-gray-900 group-hover:text-blue-600 transition'
+                        transition:name={`post-title-${post.slug}`}
+                      >
+                        {post.data.title}
+                      </h3>
+                      {post.data.labels && post.data.labels.length > 0 && (
+                        <span class='hidden sm:inline-block text-[10px] font-bold uppercase tracking-wider text-gray-400 bg-gray-100 px-2 py-1 rounded-md'>
+                          {post.data.labels[0]}
+                        </span>
+                      )}
                     </div>
+
+                    <p class='text-gray-600 leading-relaxed line-clamp-2 mb-4'>
+                      {post.data.summary}
+                    </p>
+
+                    <div class='flex items-center justify-between mt-auto'>
+                      <span
+                        class='text-xs font-medium text-gray-400 uppercase tracking-wide'
+                        transition:name={`post-date-${post.slug}`}
+                      >
+                        {new Date(post.data.publishedAt).toLocaleDateString(
+                          'en-US',
+                          { month: 'long', day: 'numeric', year: 'numeric' }
+                        )}
+                      </span>
+                      <span class='text-sm font-medium text-gray-900 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1'>
+                        Read article &rarr;
+                      </span>
+                    </div>
+                  </div>
                 </div>
-             </a>
-           ))}
+              </a>
+            ))
+          }
         </div>
       </div>
     </Container>
