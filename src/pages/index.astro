@@ -76,7 +76,7 @@ const personSchema = {
   name: 'Jude Tejada',
   jobTitle: 'Front-end Developer',
   description:
-    'A front-end developer who focuses on creating beautiful user experiences and modern web applications.',
+    'Frontend Developer proficient in modern web applications and intuitive design, currently exploring backend systems.',
   url: 'https://judetejada.vercel.app',
   image: 'https://judetejada.vercel.app/banner.png',
   sameAs: [
@@ -108,31 +108,61 @@ const websiteSchema = {
   '@type': 'WebSite',
   name: 'Jude Tejada Portfolio',
   url: 'https://judetejada.vercel.app',
-  description: 'Front-end developer portfolio showcasing projects and writing',
+  description: 'Frontend Developer portfolio showcasing projects and writing',
   author: {
     '@type': 'Person',
     name: 'Jude Tejada'
-  },
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: 'https://judetejada.vercel.app/search?q={search_term_string}',
-    'query-input': 'required name=search_term_string'
   },
   publisher: {
     '@type': 'Person',
     name: 'Jude Tejada'
   }
 };
+
+// SiteNavigationElement for Google Sitelinks
+const siteNavigationSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'SiteNavigationElement',
+      '@id': 'https://judetejada.vercel.app/#projects',
+      name: 'Projects',
+      url: 'https://judetejada.vercel.app/project'
+    },
+    {
+      '@type': 'SiteNavigationElement',
+      '@id': 'https://judetejada.vercel.app/#writing',
+      name: 'Writing',
+      url: 'https://judetejada.vercel.app/blog'
+    },
+    {
+      '@type': 'SiteNavigationElement',
+      '@id': 'https://judetejada.vercel.app/#about',
+      name: 'About',
+      url: 'https://judetejada.vercel.app/about'
+    },
+    {
+      '@type': 'SiteNavigationElement',
+      '@id': 'https://judetejada.vercel.app/#contact',
+      name: 'Contact',
+      url: 'https://judetejada.vercel.app/contact'
+    }
+  ]
+};
 ---
 
 <Layout
   title='Jude Tejada - Front-end Developer'
-  description='Jude Tejada - A front-end developer who focuses on creating beautiful user experiences and modern web applications.'
+  description='I am Jude Tejada, a Frontend Developer proficient in modern web applications and intuitive design, currently exploring backend systems.'
   canonical='https://judetejada.vercel.app'
 >
   <!-- Structured Data -->
   <script type='application/ld+json' set:html={JSON.stringify(personSchema)} />
   <script type='application/ld+json' set:html={JSON.stringify(websiteSchema)} />
+  <script
+    type='application/ld+json'
+    set:html={JSON.stringify(siteNavigationSchema)}
+  />
 
   <!-- Hero Section -->
   <section class='pt-12 pb-20 md:pt-24 md:pb-32 bg-white overflow-hidden'>
