@@ -15,7 +15,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://judetejada.vercel.app',
+  site: 'https://judetejada.dev',
   integrations: [
     react(),
     expressiveCode(),
@@ -30,7 +30,7 @@ export default defineConfig({
   }),
 
   image: {
-    domains: ['judetejada.vercel.app'],
+    domains: ['judetejada.dev'],
     remotePatterns: [{ protocol: 'https' }],
     service: { entrypoint: 'astro/assets/services/sharp' }
   },
