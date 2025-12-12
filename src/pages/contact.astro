@@ -11,13 +11,13 @@ const contactSchema = {
   name: 'Contact - Jude Tejada',
   description:
     'Get in touch with Jude Tejada for front-end web development projects, collaborations, or just to say hello.',
-  url: 'https://judetejada.vercel.app/contact',
+  url: 'https://judetejada.dev/contact',
   mainEntity: {
     '@type': 'Person',
     name: 'Jude Tejada',
     email: 'judelaurentetejada@gmail.com',
     jobTitle: 'Frontend Developer',
-    url: 'https://judetejada.vercel.app'
+    url: 'https://judetejada.dev'
   }
 };
 
@@ -29,13 +29,13 @@ const breadcrumbSchema = {
       '@type': 'ListItem',
       position: 1,
       name: 'Home',
-      item: 'https://judetejada.vercel.app'
+      item: 'https://judetejada.dev'
     },
     {
       '@type': 'ListItem',
       position: 2,
       name: 'Contact',
-      item: 'https://judetejada.vercel.app/contact'
+      item: 'https://judetejada.dev/contact'
     }
   ]
 };
@@ -44,7 +44,7 @@ const breadcrumbSchema = {
 <Layout
   title='Contact Me - Jude Tejada'
   description='Get in touch with Jude Tejada for front-end web development projects, collaborations, or just to say hello.'
-  canonical='https://judetejada.vercel.app/contact'
+  canonical='https://judetejada.dev/contact'
 >
   <script type='application/ld+json' set:html={JSON.stringify(contactSchema)} />
   <script

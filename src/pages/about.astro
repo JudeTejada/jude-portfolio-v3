@@ -14,7 +14,7 @@ const profileSchema = {
     jobTitle: 'Frontend Developer',
     description:
       'Frontend Developer proficient in modern web applications and intuitive design.',
-    url: 'https://judetejada.vercel.app',
+    url: 'https://judetejada.dev',
     sameAs: [
       'https://github.com/judetejada',
       'https://linkedin.com/in/judetejada',
@@ -31,13 +31,13 @@ const breadcrumbSchema = {
       '@type': 'ListItem',
       position: 1,
       name: 'Home',
-      item: 'https://judetejada.vercel.app'
+      item: 'https://judetejada.dev'
     },
     {
       '@type': 'ListItem',
       position: 2,
       name: 'About',
-      item: 'https://judetejada.vercel.app/about'
+      item: 'https://judetejada.dev/about'
     }
   ]
 };
@@ -46,7 +46,7 @@ const breadcrumbSchema = {
 <Layout
   title='About - Jude Tejada'
   description='Jude Tejada is a frontend web developer focusing on creating better user experience and building modern web applications.'
-  canonical='https://judetejada.vercel.app/about'
+  canonical='https://judetejada.dev/about'
 >
   <script type='application/ld+json' set:html={JSON.stringify(profileSchema)} />
   <script

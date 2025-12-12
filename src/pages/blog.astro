@@ -21,14 +21,14 @@ const collectionSchema = {
   name: 'Writing - Jude Tejada',
   description:
     'Articles and thoughts on web development, programming, and technology by Jude Tejada.',
-  url: 'https://judetejada.vercel.app/blog',
+  url: 'https://judetejada.dev/blog',
   mainEntity: {
     '@type': 'ItemList',
     numberOfItems: blogPosts.length,
     itemListElement: blogPosts.slice(0, 10).map((post, index) => ({
       '@type': 'ListItem',
       position: index + 1,
-      url: `https://judetejada.vercel.app/blog/${post.slug}`,
+      url: `https://judetejada.dev/blog/${post.slug}`,
       name: post.data.title
     }))
   }
@@ -42,13 +42,13 @@ const breadcrumbSchema = {
       '@type': 'ListItem',
       position: 1,
       name: 'Home',
-      item: 'https://judetejada.vercel.app'
+      item: 'https://judetejada.dev'
     },
     {
       '@type': 'ListItem',
       position: 2,
       name: 'Writing',
-      item: 'https://judetejada.vercel.app/blog'
+      item: 'https://judetejada.dev/blog'
     }
   ]
 };
@@ -57,7 +57,7 @@ const breadcrumbSchema = {
 <Layout
   title='Writing - Jude Tejada'
   description='Read my latest articles and thoughts on web development, programming, and technology.'
-  canonical='https://judetejada.vercel.app/blog'
+  canonical='https://judetejada.dev/blog'
 >
   <script
     type='application/ld+json'

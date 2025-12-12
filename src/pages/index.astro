@@ -77,8 +77,8 @@ const personSchema = {
   jobTitle: 'Front-end Developer',
   description:
     'Frontend Developer proficient in modern web applications and intuitive design, currently exploring backend systems.',
-  url: 'https://judetejada.vercel.app',
-  image: 'https://judetejada.vercel.app/banner.png',
+  url: 'https://judetejada.dev',
+  image: 'https://judetejada.dev/banner.png',
   sameAs: [
     'https://github.com/judetejada',
     'https://linkedin.com/in/judetejada',
@@ -107,7 +107,7 @@ const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'Jude Tejada Portfolio',
-  url: 'https://judetejada.vercel.app',
+  url: 'https://judetejada.dev',
   description: 'Frontend Developer portfolio showcasing projects and writing',
   author: {
     '@type': 'Person',
@@ -125,27 +125,27 @@ const siteNavigationSchema = {
   '@graph': [
     {
       '@type': 'SiteNavigationElement',
-      '@id': 'https://judetejada.vercel.app/#projects',
+      '@id': 'https://judetejada.dev/#projects',
       name: 'Projects',
-      url: 'https://judetejada.vercel.app/project'
+      url: 'https://judetejada.dev/project'
     },
     {
       '@type': 'SiteNavigationElement',
-      '@id': 'https://judetejada.vercel.app/#writing',
+      '@id': 'https://judetejada.dev/#writing',
       name: 'Writing',
-      url: 'https://judetejada.vercel.app/blog'
+      url: 'https://judetejada.dev/blog'
     },
     {
       '@type': 'SiteNavigationElement',
-      '@id': 'https://judetejada.vercel.app/#about',
+      '@id': 'https://judetejada.dev/#about',
       name: 'About',
-      url: 'https://judetejada.vercel.app/about'
+      url: 'https://judetejada.dev/about'
     },
     {
       '@type': 'SiteNavigationElement',
-      '@id': 'https://judetejada.vercel.app/#contact',
+      '@id': 'https://judetejada.dev/#contact',
       name: 'Contact',
-      url: 'https://judetejada.vercel.app/contact'
+      url: 'https://judetejada.dev/contact'
     }
   ]
 };
@@ -154,7 +154,7 @@ const siteNavigationSchema = {
 <Layout
   title='Jude Tejada - Front-end Developer'
   description='I am Jude Tejada, a Frontend Developer proficient in modern web applications and intuitive design, currently exploring backend systems.'
-  canonical='https://judetejada.vercel.app'
+  canonical='https://judetejada.dev'
 >
   <!-- Structured Data -->
   <script type='application/ld+json' set:html={JSON.stringify(personSchema)} />

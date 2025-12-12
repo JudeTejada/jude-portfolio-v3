@@ -1,7 +1,7 @@
 import { getCollection } from 'astro:content';
 
 export async function GET() {
-  const baseUrl = 'https://judetejada.vercel.app';
+  const baseUrl = 'https://judetejada.dev';
   
   const pages = [
     '',

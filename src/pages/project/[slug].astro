@@ -50,13 +50,13 @@ const projectSchema = {
   "@type": "CreativeWork",
   "headline": project.data.title,
   "description": project.data.summary,
-  "image": project.data.image || "https://judetejada.vercel.app/banner.png",
+  "image": project.data.image || "https://judetejada.dev/banner.png",
   "datePublished": project.data.publishedAt,
   "dateModified": project.data.publishedAt,
   "author": {
     "@type": "Person",
     "name": "Jude Tejada",
-    "url": "https://judetejada.vercel.app"
+    "url": "https://judetejada.dev"
   },
   "creator": {
     "@type": "Person",
@@ -64,9 +64,9 @@ const projectSchema = {
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": `https://judetejada.vercel.app/project/${project.slug}`
+    "@id": `https://judetejada.dev/project/${project.slug}`
   },
-  "url": `https://judetejada.vercel.app/project/${project.slug}`,
+  "url": `https://judetejada.dev/project/${project.slug}`,
   "keywords": project.data.technologies ? project.data.technologies.join(", ") : "web development, front-end, portfolio",
   "genre": "Web Development",
   "timeRequired": "PT15M",
@@ -75,7 +75,7 @@ const projectSchema = {
     project.data.demoUrl,
     project.data.githubUrl
   ].filter(Boolean),
-  "thumbnailUrl": project.data.image || "https://judetejada.vercel.app/banner.png"
+  "thumbnailUrl": project.data.image || "https://judetejada.dev/banner.png"
 };
 
 const breadcrumbSchema = {
@@ -86,19 +86,19 @@ const breadcrumbSchema = {
       '@type': 'ListItem',
       position: 1,
       name: 'Home',
-      item: 'https://judetejada.vercel.app'
+      item: 'https://judetejada.dev'
     },
     {
       '@type': 'ListItem',
       position: 2,
       name: 'Projects',
-      item: 'https://judetejada.vercel.app/project'
+      item: 'https://judetejada.dev/project'
     },
     {
       '@type': 'ListItem',
       position: 3,
       name: project.data.title,
-      item: `https://judetejada.vercel.app/project/${project.slug}`
+      item: `https://judetejada.dev/project/${project.slug}`
     }
   ]
 };
@@ -107,7 +107,7 @@ const breadcrumbSchema = {
 <Layout
   title={project.data.title}
   description={project.data.summary}
-  canonical={`https://judetejada.vercel.app/project/${project.slug}`}
+  canonical={`https://judetejada.dev/project/${project.slug}`}
 >
   <!-- Structured Data -->
   <script type="application/ld+json" set:html={JSON.stringify(projectSchema)} />

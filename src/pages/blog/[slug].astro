@@ -50,24 +50,24 @@ const structuredData = {
   '@type': 'BlogPosting',
   headline: post.data.title,
   description: post.data.summary,
-  image: post.data.image || 'https://judetejada.vercel.app/banner.png',
+  image: post.data.image || 'https://judetejada.dev/banner.png',
   datePublished: post.data.publishedAt,
   dateModified: post.data.publishedAt,
   author: {
     '@type': 'Person',
     name: 'Jude Tejada',
-    url: 'https://judetejada.vercel.app'
+    url: 'https://judetejada.dev'
   },
   publisher: {
     '@type': 'Person',
     name: 'Jude Tejada',
-    url: 'https://judetejada.vercel.app'
+    url: 'https://judetejada.dev'
   },
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': `https://judetejada.vercel.app/blog/${post.slug}`
+    '@id': `https://judetejada.dev/blog/${post.slug}`
   },
-  url: `https://judetejada.vercel.app/blog/${post.slug}`,
+  url: `https://judetejada.dev/blog/${post.slug}`,
   keywords: post.data.labels
     ? post.data.labels.join(', ')
     : 'web development, programming, technology'
@@ -81,19 +81,19 @@ const breadcrumbSchema = {
       '@type': 'ListItem',
       position: 1,
       name: 'Home',
-      item: 'https://judetejada.vercel.app'
+      item: 'https://judetejada.dev'
     },
     {
       '@type': 'ListItem',
       position: 2,
       name: 'Blog',
-      item: 'https://judetejada.vercel.app/blog'
+      item: 'https://judetejada.dev/blog'
     },
     {
       '@type': 'ListItem',
       position: 3,
       name: post.data.title,
-      item: `https://judetejada.vercel.app/blog/${post.slug}`
+      item: `https://judetejada.dev/blog/${post.slug}`
     }
   ]
 };
@@ -102,7 +102,7 @@ const breadcrumbSchema = {
 <Layout
   title={post.data.title}
   description={post.data.summary}
-  canonical={`https://judetejada.vercel.app/blog/${post.slug}`}
+  canonical={`https://judetejada.dev/blog/${post.slug}`}
 >
   <script type='application/ld+json' set:html={JSON.stringify(structuredData)}></script>
   <script type='application/ld+json' set:html={JSON.stringify(breadcrumbSchema)}></script>
