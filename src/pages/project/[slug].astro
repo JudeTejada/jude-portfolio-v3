@@ -7,6 +7,7 @@ import { Image } from 'astro:assets';
 
 // MDX component imports
 import VideoPlayer from '../../components/MDX/VideoPlayer.astro';
+import Video from '../../components/MDX/Video.astro';
 import ImageWithCaption from '../../components/MDX/ImageWithCaption.astro';
 import CustomImage from '../../components/MDX/CustomImage.astro';
 import List from '../../components/MDX/List.astro';
@@ -16,9 +17,9 @@ export async function getStaticPaths() {
     return data.isPublished !== false;
   });
 
-  return projects.map((project) => ({
+  return projects.map(project => ({
     params: { slug: project.slug },
-    props: { project },
+    props: { project }
   }));
 }
 
@@ -46,36 +47,35 @@ const tocHeadings = headings.map(heading => ({
 
 // Structured data for SEO
 const projectSchema = {
-  "@context": "https://schema.org",
-  "@type": "CreativeWork",
-  "headline": project.data.title,
-  "description": project.data.summary,
-  "image": project.data.image || "https://judetejada.dev/banner.png",
-  "datePublished": project.data.publishedAt,
-  "dateModified": project.data.publishedAt,
-  "author": {
-    "@type": "Person",
-    "name": "Jude Tejada",
-    "url": "https://judetejada.dev"
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  headline: project.data.title,
+  description: project.data.summary,
+  image: project.data.image || 'https://judetejada.dev/banner.png',
+  datePublished: project.data.publishedAt,
+  dateModified: project.data.publishedAt,
+  author: {
+    '@type': 'Person',
+    name: 'Jude Tejada',
+    url: 'https://judetejada.dev'
   },
-  "creator": {
-    "@type": "Person",
-    "name": "Jude Tejada"
+  creator: {
+    '@type': 'Person',
+    name: 'Jude Tejada'
   },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": `https://judetejada.dev/project/${project.slug}`
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': `https://judetejada.dev/project/${project.slug}`
   },
-  "url": `https://judetejada.dev/project/${project.slug}`,
-  "keywords": project.data.technologies ? project.data.technologies.join(", ") : "web development, front-end, portfolio",
-  "genre": "Web Development",
-  "timeRequired": "PT15M",
-  "about": project.data.technologies || [],
-  "sameAs": [
-    project.data.demoUrl,
-    project.data.githubUrl
-  ].filter(Boolean),
-  "thumbnailUrl": project.data.image || "https://judetejada.dev/banner.png"
+  url: `https://judetejada.dev/project/${project.slug}`,
+  keywords: project.data.technologies
+    ? project.data.technologies.join(', ')
+    : 'web development, front-end, portfolio',
+  genre: 'Web Development',
+  timeRequired: 'PT15M',
+  about: project.data.technologies || [],
+  sameAs: [project.data.demoUrl, project.data.githubUrl].filter(Boolean),
+  thumbnailUrl: project.data.image || 'https://judetejada.dev/banner.png'
 };
 
 const breadcrumbSchema = {
@@ -110,91 +110,140 @@ const breadcrumbSchema = {
   canonical={`https://judetejada.dev/project/${project.slug}`}
 >
   <!-- Structured Data -->
-  <script type="application/ld+json" set:html={JSON.stringify(projectSchema)} />
-  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type='application/ld+json' set:html={JSON.stringify(projectSchema)} />
+  <script
+    type='application/ld+json'
+    set:html={JSON.stringify(breadcrumbSchema)}
+  />
 
-  <section class="pt-32 pb-20 bg-white min-h-screen">
+  <section class='pt-32 pb-20 bg-white min-h-screen'>
     <Container>
-      <div class="mb-8">
-        <a href="/project" class="text-sm font-medium text-gray-500 hover:text-black transition-colors mb-8 inline-block">
+      <div class='mb-8'>
+        <a
+          href='/project'
+          class='text-sm font-medium text-gray-500 hover:text-black transition-colors mb-8 inline-block'
+        >
           &larr; Back to Selected Works
         </a>
       </div>
 
-      <header class="max-w-4xl mb-16">
-        <h1 
-          class="text-4xl md:text-6xl font-medium tracking-tight text-gray-900 mb-6 leading-[1.1]"
+      <header class='max-w-4xl mb-16'>
+        <h1
+          class='text-4xl md:text-6xl font-medium tracking-tight text-gray-900 mb-6 leading-[1.1]'
           transition:name={`project-title-${project.slug}`}
         >
           {project.data.title}
         </h1>
-        
-        <div class="flex items-center gap-6 text-gray-500 text-sm mb-8">
-          <time 
-            datetime={project.data.publishedAt} 
-            class="font-medium"
+
+        <div class='flex items-center gap-6 text-gray-500 text-sm mb-8'>
+          <time
+            datetime={project.data.publishedAt}
+            class='font-medium'
             transition:name={`project-date-${project.slug}`}
           >
             {formattedDate}
           </time>
-          {project.data.technologies && project.data.technologies.length > 0 && (
-            <div class="flex gap-2">
-              {project.data.technologies.map(tech => (
-                 <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded-md text-xs uppercase tracking-wide font-medium">
-                   {tech}
-                 </span>
-              ))}
-            </div>
-          )}
+          {
+            project.data.technologies &&
+              project.data.technologies.length > 0 && (
+                <div class='flex gap-2'>
+                  {project.data.technologies.map(tech => (
+                    <span class='bg-gray-100 text-gray-600 px-2 py-1 rounded-md text-xs uppercase tracking-wide font-medium'>
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              )
+          }
         </div>
 
-        <div class="flex flex-wrap gap-4">
-            {project.data.demoUrl && (
-              <a href={project.data.demoUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-2.5 bg-black text-white rounded-full font-medium text-sm hover:bg-gray-800 transition shadow-sm">
-                 View Live Demo
-                 <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+        <div class='flex flex-wrap gap-4'>
+          {
+            project.data.demoUrl && (
+              <a
+                href={project.data.demoUrl}
+                target='_blank'
+                rel='noopener noreferrer'
+                class='inline-flex items-center px-6 py-2.5 bg-black text-white rounded-full font-medium text-sm hover:bg-gray-800 transition shadow-sm'
+              >
+                View Live Demo
+                <svg
+                  class='w-4 h-4 ml-2'
+                  fill='none'
+                  stroke='currentColor'
+                  viewBox='0 0 24 24'
+                >
+                  <path
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                    stroke-width='2'
+                    d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14'
+                  />
+                </svg>
               </a>
-            )}
-            {project.data.githubUrl && (
-              <a href={project.data.githubUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-2.5 bg-white text-gray-900 border border-gray-200 rounded-full font-medium text-sm hover:bg-gray-50 transition shadow-sm">
-                 View Source Code
-                 <svg class="w-4 h-4 ml-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            )
+          }
+          {
+            project.data.githubUrl && (
+              <a
+                href={project.data.githubUrl}
+                target='_blank'
+                rel='noopener noreferrer'
+                class='inline-flex items-center px-6 py-2.5 bg-white text-gray-900 border border-gray-200 rounded-full font-medium text-sm hover:bg-gray-50 transition shadow-sm'
+              >
+                View Source Code
+                <svg
+                  class='w-4 h-4 ml-2'
+                  fill='currentColor'
+                  viewBox='0 0 24 24'
+                >
+                  <path d='M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z' />
+                </svg>
               </a>
-            )}
+            )
+          }
         </div>
       </header>
 
-      {project.data.image && (
-        <div class="w-full mb-16 rounded-xl overflow-hidden border border-gray-100">
-          <img
-            src={project.data.image}
-            alt={project.data.title}
-            class="w-full h-auto object-cover"
-            loading="eager"
-            fetchpriority="high"
-          />
-        </div>
-      )}
+      {
+        project.data.image && (
+          <div class='w-full mb-16 rounded-xl overflow-hidden border border-gray-100'>
+            <img
+              src={project.data.image}
+              alt={project.data.title}
+              class='w-full h-auto object-cover'
+              loading='eager'
+              fetchpriority='high'
+            />
+          </div>
+        )
+      }
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <div class='grid grid-cols-1 lg:grid-cols-12 gap-12'>
         <!-- Main Content -->
-        <main class="lg:col-span-8">
-          <article class="prose prose-lg prose-neutral max-w-none">
+        <main class='lg:col-span-8'>
+          <article class='prose prose-lg prose-neutral max-w-none'>
             <Content
               components={{
                 Image: CustomImage,
                 VideoPlayer,
+                Video,
                 ImageWithCaption,
-                List,
+                List
               }}
             />
           </article>
         </main>
 
         <!-- Table of Contents -->
-        <aside id="toc-sidebar" class="hidden lg:block lg:col-span-4 opacity-0 transition-opacity duration-500">
-           <div class="sticky top-32">
-            <div class="text-sm font-medium text-gray-900 mb-4 uppercase tracking-wider">
+        <aside
+          id='toc-sidebar'
+          class='hidden lg:block lg:col-span-4 opacity-0 transition-opacity duration-500'
+        >
+          <div class='sticky top-32'>
+            <div
+              class='text-sm font-medium text-gray-900 mb-4 uppercase tracking-wider'
+            >
               On this page
             </div>
             <TableOfContents headings={tocHeadings} />
@@ -209,22 +258,25 @@ const breadcrumbSchema = {
   document.addEventListener('DOMContentLoaded', () => {
     const tocSidebar = document.getElementById('toc-sidebar');
     const article = document.querySelector('article');
-    
+
     if (tocSidebar && article) {
       const headings = article.querySelectorAll('h2, h3');
       if (headings.length > 0) {
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              tocSidebar.classList.remove('opacity-0');
-              tocSidebar.classList.add('opacity-100');
-            } else if (entry.boundingClientRect.top > 0) {
-               // Optional: Hide again if scrolling back up above the content
-               tocSidebar.classList.remove('opacity-100');
-               tocSidebar.classList.add('opacity-0');
-            }
-          });
-        }, { threshold: 0.1, rootMargin: "-100px 0px 0px 0px" });
+        const observer = new IntersectionObserver(
+          entries => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                tocSidebar.classList.remove('opacity-0');
+                tocSidebar.classList.add('opacity-100');
+              } else if (entry.boundingClientRect.top > 0) {
+                // Optional: Hide again if scrolling back up above the content
+                tocSidebar.classList.remove('opacity-100');
+                tocSidebar.classList.add('opacity-0');
+              }
+            });
+          },
+          { threshold: 0.1, rootMargin: '-100px 0px 0px 0px' }
+        );
 
         observer.observe(article);
       }

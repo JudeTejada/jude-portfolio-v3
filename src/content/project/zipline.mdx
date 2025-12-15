@@ -1,0 +1,77 @@
+---
+title: 'Zipline'
+publishedAt: '2025-12-15'
+summary: 'Download any folder from a public GitHub repo directly to a zip—no clone required, built with Bun and TypeScript'
+image: '/images/zipline/banner.jpeg'
+showHome: true
+---
+
+<div className='flex flex-row justify-between'>
+        <List title="TYPE" items={["Open Source CLI Tool"]} />
+        <List
+          title="STACK"
+          items={[
+            "Bun",
+            "TypeScript",
+            "GitHub API",
+            "Commander.js",
+            "Inquirer.js",
+          ]}
+        />
+
+<List title='Live' items={['View Repo']} link='https://github.com/JudeTejada/zipline' />
+</div>
+
+
+
+
+<Video src="/images/zipline/zipline-demo.mp4" alt="Zipline CLI demo - downloading a GitHub folder" />
+## What Made This Project Interesting
+
+**The GitHub API Discovery**: I learned that GitHub's API lets you fetch directory contents recursively, which was perfect for this use case. The trick was handling the different response structures for files vs. directories.
+
+**Authentication Handling**: I wanted to make it work both with and without GitHub tokens. The tool automatically detects if you have GitHub CLI configured and uses those credentials, falling back to anonymous requests (with the obvious rate limits).
+
+**Bun's Speed**: The startup time is incredible compared to Node.js. For a CLI tool, that instant response makes a real difference in the user experience.
+
+## How It Works
+
+```bash
+# Interactive mode - walks you through everything
+zipline --interactive
+
+# Direct download - just paste the GitHub URL
+zipline https://github.com/user/repo/tree/main/docs
+
+# Custom output name
+zipline https://github.com/user/repo/tree/main/src -o my-files.zip
+```
+
+The tool parses the GitHub URL, figures out the repository and path, then recursively downloads all the files in that directory while maintaining the folder structure.
+
+## Key Features That Actually Matter
+
+- **No setup required**: Works out of the box, detects GitHub CLI tokens automatically
+- **Preserves folder structure**: Downloads maintain the original organization
+- **Handles nested directories**: Works with any level of folder nesting
+- **Smart authentication**: Uses tokens when available, works anonymously when not
+
+## What I Learned Building This
+
+**Bun is genuinely fast**: Not just marketing hype. The TypeScript support without configuration is a game-changer for quick projects like this.
+
+**GitHub API quirks**: Different endpoints return different data structures. Files vs. directories needed separate handling logic.
+
+**CLI design matters**: Adding interactive prompts with Inquirer.js made the tool much more approachable than forcing users to remember command syntax.
+
+## Get It
+
+```bash
+# Install globally
+bun install -g zipline
+
+# Or run without installing
+bunx github:JudeTejada/zipline --interactive
+```
+
+This was one of those projects that solved an actual problem I kept running into. The fact that it's built with Bun made it a fun exploration of a new runtime while creating something genuinely useful for my workflow.
