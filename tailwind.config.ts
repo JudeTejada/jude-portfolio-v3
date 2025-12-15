@@ -41,6 +41,34 @@ export default {
         soft: '0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05)',
         hover: '0 10px 25px -3px rgb(0 0 0 / 0.06), 0 4px 6px -4px rgb(0 0 0 / 0.06)',
       },
+      keyframes: {
+        'command-panel-overlay-in': {
+          from: { opacity: '0' },
+          to: { opacity: '1' },
+        },
+        'command-panel-overlay-out': {
+          from: { opacity: '1' },
+          to: { opacity: '0' },
+        },
+        'command-panel-dialog-in': {
+          from: { opacity: '0', transform: 'translateY(-8px) scale(0.98)' },
+          to: { opacity: '1', transform: 'translateY(0) scale(1)' },
+        },
+        'command-panel-dialog-out': {
+          from: { opacity: '1', transform: 'translateY(0) scale(1)' },
+          to: { opacity: '0', transform: 'translateY(-6px) scale(0.98)' },
+        },
+      },
+      animation: {
+        'command-panel-overlay-in':
+          'command-panel-overlay-in 160ms cubic-bezier(0.16, 1, 0.3, 1) both',
+        'command-panel-overlay-out':
+          'command-panel-overlay-out 120ms cubic-bezier(0.16, 1, 0.3, 1) both',
+        'command-panel-dialog-in':
+          'command-panel-dialog-in 180ms cubic-bezier(0.16, 1, 0.3, 1) both',
+        'command-panel-dialog-out':
+          'command-panel-dialog-out 140ms cubic-bezier(0.16, 1, 0.3, 1) both',
+      },
       transitionProperty: {
         spacing: 'margin, padding'
       }
