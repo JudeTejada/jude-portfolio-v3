@@ -1,80 +1,83 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Container from '../components/Layout/Container.astro';
-import Heading from '../components/UI/Heading.astro';
-import Paragraph from '../components/UI/Paragraph.astro';
+import Layout from "../layouts/Layout.astro";
+import Container from "../components/Layout/Container.astro";
+import Heading from "../components/UI/Heading.astro";
+import Paragraph from "../components/UI/Paragraph.astro";
 
 // Structured data for SEO
 const contactSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'ContactPage',
-  name: 'Contact - Jude Tejada',
-  description:
-    'Get in touch with Jude Tejada for front-end web development projects, collaborations, or just to say hello.',
-  url: 'https://judetejada.dev/contact',
-  mainEntity: {
-    '@type': 'Person',
-    name: 'Jude Tejada',
-    email: 'judelaurentetejada@gmail.com',
-    jobTitle: 'Frontend Developer',
-    url: 'https://judetejada.dev'
-  }
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Contact - Jude Tejada",
+    description:
+        "Get in touch with Jude Tejada for front-end web development projects, collaborations, or just to say hello.",
+    url: "https://judetejada.dev/contact",
+    mainEntity: {
+        "@type": "Person",
+        name: "Jude Tejada",
+        email: "judelaurentetejada@gmail.com",
+        jobTitle: "Frontend engineer",
+        url: "https://judetejada.dev",
+    },
 };
 
 const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    {
-      '@type': 'ListItem',
-      position: 1,
-      name: 'Home',
-      item: 'https://judetejada.dev'
-    },
-    {
-      '@type': 'ListItem',
-      position: 2,
-      name: 'Contact',
-      item: 'https://judetejada.dev/contact'
-    }
-  ]
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+        {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://judetejada.dev",
+        },
+        {
+            "@type": "ListItem",
+            position: 2,
+            name: "Contact",
+            item: "https://judetejada.dev/contact",
+        },
+    ],
 };
 ---
 
 <Layout
-  title='Contact Me - Jude Tejada'
-  description='Get in touch with Jude Tejada for front-end web development projects, collaborations, or just to say hello.'
-  canonical='https://judetejada.dev/contact'
+    title="Contact Me - Jude Tejada"
+    description="Get in touch with Jude Tejada for front-end web development projects, collaborations, or just to say hello."
+    canonical="https://judetejada.dev/contact"
 >
-  <script type='application/ld+json' set:html={JSON.stringify(contactSchema)} />
-  <script
-    type='application/ld+json'
-    set:html={JSON.stringify(breadcrumbSchema)}
-  />
-  <Container>
-    <header class='pb-20 pt-28 md:pt-40'>
-      <Heading as='h1' extraClasses='mb-4'>
-        Let's Build Something Together
-      </Heading>
-      <div class='max-w-3xl'>
-        <Paragraph>
-          I have over 5 years of experience doing front-end web development and
-          I mainly focus on creating highly performant and user-experience
-          focused web applications and websites.
-        </Paragraph>
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(contactSchema)}
+    />
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(breadcrumbSchema)}
+    />
+    <Container>
+        <header class="pb-20 pt-28 md:pt-40">
+            <Heading as="h1" extraClasses="mb-4">
+                Let's Build Something Together
+            </Heading>
+            <div class="max-w-3xl">
+                <Paragraph>
+                    I have over 5 years of experience doing front-end web
+                    development and I mainly focus on creating highly performant
+                    and user-experience focused web applications and websites.
+                </Paragraph>
 
-        <Paragraph extraClasses='mt-2'>
-          Drop me an email if you want to get in touch with me or simply
-          connect.
-        </Paragraph>
-      </div>
+                <Paragraph extraClasses="mt-2">
+                    Drop me an email if you want to get in touch with me or
+                    simply connect.
+                </Paragraph>
+            </div>
 
-      <a
-        href='mailto: judelaurentetejada@gmail.com'
-        class='inline-block mt-6 font-bold uppercase duration-100 ease-in border-b-2 border-transparent text-blue-500 hover:border-blue-500 focus-visible:border-blue-500'
-      >
-        judelaurentetejada@gmail.com
-      </a>
-    </header>
-  </Container>
+            <a
+                href="mailto: judelaurentetejada@gmail.com"
+                class="inline-block mt-6 font-bold uppercase duration-100 ease-in border-b-2 border-transparent text-blue-500 hover:border-blue-500 focus-visible:border-blue-500"
+            >
+                judelaurentetejada@gmail.com
+            </a>
+        </header>
+    </Container>
 </Layout>
