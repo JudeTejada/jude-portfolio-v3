@@ -1,153 +1,159 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Container from '../components/Layout/Container.astro';
-import { getCollection } from 'astro:content';
+import Layout from "../layouts/Layout.astro";
+import Container from "../components/Layout/Container.astro";
+import { getCollection } from "astro:content";
 
 // Get featured projects
-const allProjects = await getCollection('project', ({ data }) => {
-  return data.isPublished !== false && data.showHome === true;
+const allProjects = await getCollection("project", ({ data }) => {
+    return data.isPublished !== false && data.showHome === true;
 });
 
 const featuredProjects = allProjects.sort(
-  (a, b) =>
-    new Date(b.data.publishedAt).getTime() -
-    new Date(a.data.publishedAt).getTime()
+    (a, b) =>
+        new Date(b.data.publishedAt).getTime() -
+        new Date(a.data.publishedAt).getTime(),
 );
 
 // Get latest blog posts
-const allBlogPosts = await getCollection('blog', ({ data }) => {
-  return data.isPublished !== false;
+const allBlogPosts = await getCollection("blog", ({ data }) => {
+    return data.isPublished !== false;
 });
 
 const latestBlogs = allBlogPosts
-  .sort(
-    (a, b) =>
-      new Date(b.data.publishedAt).getTime() -
-      new Date(a.data.publishedAt).getTime()
-  )
-  .slice(0, 4);
+    .sort(
+        (a, b) =>
+            new Date(b.data.publishedAt).getTime() -
+            new Date(a.data.publishedAt).getTime(),
+    )
+    .slice(0, 4);
 
 const topProject = featuredProjects[0];
 const recentProjects = featuredProjects.slice(0, 5);
 const recentWriting = latestBlogs;
 
 const experience = [
-  {
-    company: 'Islands',
-    date: 'Apr 2023 - Present',
-    description:
-      'Building frontend development for high-impact web applications. Building scalable, performant user interfaces using modern technologies like Next.js and TypeScript.',
-    tech: ['Next.js', 'TypeScript', 'Tailwind CSS']
-  },
-  {
-    company: 'Elite Sports Tours Inc.',
-    date: 'Jun 2024 - Dec 2024',
-    description:
-      'Architected and implemented a complete frontend overhaul, significantly improving user experience. Built a custom package builder allowing users to create travel packages with tickets, hotels, and flights. Developed a modern, responsive hotel booking system with advanced filtering.',
-    tech: ['React', 'TypeScript', 'Next.js', 'Tailwind']
-  },
-  {
-    company: 'DIG Labs',
-    date: 'Apr 2023 - Mar 2024',
-    description:
-      'Remote frontend engineer developing user experience for a veterinary tech app MVP. Built seamless user journeys using React, TypeScript, and REST API integrations.',
-    tech: ['React', 'TypeScript', 'REST APIs']
-  },
-  {
-    company: 'Hybe',
-    date: 'Sep 2021 - Dec 2022',
-    description:
-      'Contributed to the broader modernization effort by converting legacy class components to well-tested functional counterparts, expanding user-facing feature sets, and translating product design specs into pixel-perfect implementations. Helped elevate performance and reliability by optimizing components across browsers, introducing Framer Motion-powered animations, migrating critical flows to TypeScript + RTK Query, and wiring Firebase-backed real-time battle events—resulting in faster releases and a noticeably smoother gameplay experience.',
-    tech: ['React', 'Redux Toolkit', 'TypeScript', 'Framer Motion']
-  },
-  {
-    company: 'Upwork',
-    date: 'Nov 2020 - Sep 2021',
-    description:
-      'Freelance frontend developer working on multiple client projects. Led development teams, architected Next.js applications, and built scalable component systems. Delivered admin dashboards, responsive UIs, and implemented modern development practices including testing frameworks.',
-    tech: ['React', 'Next.js', 'Styled-components', 'Cypress', 'Material-UI']
-  }
+    {
+        company: "Islands",
+        date: "Apr 2023 - Present",
+        description:
+            "Building frontend development for high-impact web applications. Building scalable, performant user interfaces using modern technologies like Next.js and TypeScript.",
+        tech: ["Next.js", "TypeScript", "Tailwind CSS"],
+    },
+    {
+        company: "Elite Sports Tours Inc.",
+        date: "Jun 2024 - Dec 2024",
+        description:
+            "Architected and implemented a complete frontend overhaul, significantly improving user experience. Built a custom package builder allowing users to create travel packages with tickets, hotels, and flights. Developed a modern, responsive hotel booking system with advanced filtering.",
+        tech: ["React", "TypeScript", "Next.js", "Tailwind"],
+    },
+    {
+        company: "DIG Labs",
+        date: "Apr 2023 - Mar 2024",
+        description:
+            "Remote frontend engineer developing user experience for a veterinary tech app MVP. Built seamless user journeys using React, TypeScript, and REST API integrations.",
+        tech: ["React", "TypeScript", "REST APIs"],
+    },
+    {
+        company: "Hybe",
+        date: "Sep 2021 - Dec 2022",
+        description:
+            "Contributed to the broader modernization effort by converting legacy class components to well-tested functional counterparts, expanding user-facing feature sets, and translating product design specs into pixel-perfect implementations. Helped elevate performance and reliability by optimizing components across browsers, introducing Framer Motion-powered animations, migrating critical flows to TypeScript + RTK Query, and wiring Firebase-backed real-time battle events—resulting in faster releases and a noticeably smoother gameplay experience.",
+        tech: ["React", "Redux Toolkit", "TypeScript", "Framer Motion"],
+    },
+    {
+        company: "Upwork",
+        date: "Nov 2020 - Sep 2021",
+        description:
+            "Freelance frontend developer working on multiple client projects. Led development teams, architected Next.js applications, and built scalable component systems. Delivered admin dashboards, responsive UIs, and implemented modern development practices including testing frameworks.",
+        tech: [
+            "React",
+            "Next.js",
+            "Styled-components",
+            "Cypress",
+            "Material-UI",
+        ],
+    },
 ];
 
 // Structured data for SEO
 const personSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: 'Jude Tejada',
-  jobTitle: 'Front-end Developer',
-  description:
-    'Frontend Developer proficient in modern web applications and intuitive design, currently exploring backend systems.',
-  url: 'https://judetejada.dev',
-  image: 'https://judetejada.dev/banner.png',
-  sameAs: [
-    'https://github.com/judetejada',
-    'https://linkedin.com/in/judetejada',
-    'https://twitter.com/JudeTejada2',
-    'https://dribbble.com/judetejada'
-  ],
-  knowsAbout: [
-    'Front-end Development',
-    'React',
-    'Next.js',
-    'Astro',
-    'TypeScript',
-    'JavaScript',
-    'Web Development',
-    'UI/UX Design'
-  ],
-  offers: {
-    '@type': 'Offer',
-    serviceType: 'Front-end Web Development',
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Jude Tejada",
+    jobTitle: "Front-end engineer",
     description:
-      'Creating beautiful user experiences and modern web applications'
-  }
+        "Frontend engineer proficient in modern web applications and intuitive design, currently exploring backend systems.",
+    url: "https://judetejada.dev",
+    image: "https://judetejada.dev/banner.png",
+    sameAs: [
+        "https://github.com/judetejada",
+        "https://linkedin.com/in/judetejada",
+        "https://twitter.com/JudeTejada2",
+        "https://dribbble.com/judetejada",
+    ],
+    knowsAbout: [
+        "Front-end Development",
+        "React",
+        "Next.js",
+        "Astro",
+        "TypeScript",
+        "JavaScript",
+        "Web Development",
+        "UI/UX Design",
+    ],
+    offers: {
+        "@type": "Offer",
+        serviceType: "Front-end Web Development",
+        description:
+            "Creating beautiful user experiences and modern web applications",
+    },
 };
 
 const websiteSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: 'Jude Tejada Portfolio',
-  url: 'https://judetejada.dev',
-  description: 'Frontend Developer portfolio showcasing projects and writing',
-  author: {
-    '@type': 'Person',
-    name: 'Jude Tejada'
-  },
-  publisher: {
-    '@type': 'Person',
-    name: 'Jude Tejada'
-  }
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Jude Tejada Portfolio",
+    url: "https://judetejada.dev",
+    description: "Frontend Developer portfolio showcasing projects and writing",
+    author: {
+        "@type": "Person",
+        name: "Jude Tejada",
+    },
+    publisher: {
+        "@type": "Person",
+        name: "Jude Tejada",
+    },
 };
 
 // SiteNavigationElement for Google Sitelinks
 const siteNavigationSchema = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'SiteNavigationElement',
-      '@id': 'https://judetejada.dev/#projects',
-      name: 'Projects',
-      url: 'https://judetejada.dev/project'
-    },
-    {
-      '@type': 'SiteNavigationElement',
-      '@id': 'https://judetejada.dev/#writing',
-      name: 'Writing',
-      url: 'https://judetejada.dev/blog'
-    },
-    {
-      '@type': 'SiteNavigationElement',
-      '@id': 'https://judetejada.dev/#about',
-      name: 'About',
-      url: 'https://judetejada.dev/about'
-    },
-    {
-      '@type': 'SiteNavigationElement',
-      '@id': 'https://judetejada.dev/#contact',
-      name: 'Contact',
-      url: 'https://judetejada.dev/contact'
-    }
-  ]
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "SiteNavigationElement",
+            "@id": "https://judetejada.dev/#projects",
+            name: "Projects",
+            url: "https://judetejada.dev/project",
+        },
+        {
+            "@type": "SiteNavigationElement",
+            "@id": "https://judetejada.dev/#writing",
+            name: "Writing",
+            url: "https://judetejada.dev/blog",
+        },
+        {
+            "@type": "SiteNavigationElement",
+            "@id": "https://judetejada.dev/#about",
+            name: "About",
+            url: "https://judetejada.dev/about",
+        },
+        {
+            "@type": "SiteNavigationElement",
+            "@id": "https://judetejada.dev/#contact",
+            name: "Contact",
+            url: "https://judetejada.dev/contact",
+        },
+    ],
 };
 ---
 
@@ -156,250 +162,269 @@ const siteNavigationSchema = {
   description='I am Jude Tejada, a Frontend engineer proficient in modern web applications and intuitive design, currently exploring backend systems.'
   canonical='https://judetejada.dev'
 >
-  <!-- Structured Data -->
-  <script type='application/ld+json' set:html={JSON.stringify(personSchema)} />
-  <script type='application/ld+json' set:html={JSON.stringify(websiteSchema)} />
-  <script
-    type='application/ld+json'
-    set:html={JSON.stringify(siteNavigationSchema)}
-  />
+    <!-- Structured Data -->
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(personSchema)}
+    />
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(websiteSchema)}
+    />
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(siteNavigationSchema)}
+    />
 
-  <!-- Hero Section -->
-  <section class='pt-12 pb-20 md:pt-24 md:pb-32 bg-white overflow-hidden'>
-    <Container>
-      <div class='max-w-4xl mx-auto text-center px-4'>
-        <h1
-          class='text-5xl md:text-7xl font-medium tracking-tight text-gray-900 mb-6 leading-[1.1]'
-        >
-          Built to create <br />
-          <span class='text-gray-400'>beautiful experiences.</span>
-        </h1>
-        <p
-          class='text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed'
-        >
-          I am Jude Tejada, a Frontend Developer proficient in modern web
-          applications and intuitive design, currently exploring backend
-          systems.
-        </p>
-
-        <div
-          class='flex flex-col sm:flex-row items-center justify-center gap-4 mb-16'
-        >
-          <a
-            href='/project'
-            class='w-full sm:w-auto px-8 py-3 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition text-center'
-            >View Work</a
-          >
-          <a
-            href='/contact'
-            class='w-full sm:w-auto px-8 py-3 bg-white text-gray-900 border border-gray-200 rounded-full font-medium hover:bg-gray-50 transition text-center'
-            >Contact Me</a
-          >
-        </div>
-      </div>
-    </Container>
-  </section>
-
-  <style>
-    .animate-marquee {
-      animation: marquee 25s linear infinite;
-    }
-    .animate-marquee2 {
-      animation: marquee2 25s linear infinite;
-    }
-    @keyframes marquee {
-      0% {
-        transform: translateX(0%);
-      }
-      100% {
-        transform: translateX(-100%);
-      }
-    }
-    @keyframes marquee2 {
-      0% {
-        transform: translateX(100%);
-      }
-      100% {
-        transform: translateX(0%);
-      }
-    }
-
-    /* Pause on hover */
-    .group:hover .animate-marquee,
-    .group:hover .animate-marquee2 {
-      animation-play-state: paused;
-    }
-  </style>
-
-  <!-- Recent Projects -->
-  <section class='py-24 bg-[#FCFCFC]'>
-    <Container>
-      <div class='grid grid-cols-1 lg:grid-cols-12 gap-12'>
-        <div class='lg:col-span-4'>
-          <h2 class='text-2xl font-medium text-gray-900 sticky top-32'>
-            Selected works
-          </h2>
-        </div>
-        <div class='lg:col-span-8 flex flex-col gap-4'>
-          {
-            recentProjects.map(project => (
-              <a href={`/project/${project.slug}`} class='block group'>
-                <div class='bg-gray-100 hover:bg-white hover:shadow-soft transition-all duration-300 p-6 md:p-8 rounded-xl border border-gray-200/50 group-hover:border-gray-200'>
-                  <div class='flex justify-between items-start mb-2'>
-                    <h3
-                      class='text-lg font-medium text-gray-900 group-hover:text-blue-600 transition'
-                      transition:name={`project-title-${project.slug}`}
-                    >
-                      {project.data.title}
-                    </h3>
-                    <span class='text-xs font-medium text-gray-500 bg-gray-200 px-2 py-1 rounded-full'>
-                      Project
-                    </span>
-                  </div>
-                  <p class='text-gray-600 text-sm leading-relaxed mb-4 line-clamp-2'>
-                    {project.data.summary}
-                  </p>
-                  <div
-                    class='text-xs text-gray-400 font-medium uppercase tracking-wide'
-                    transition:name={`project-date-${project.slug}`}
-                  >
-                    {new Date(project.data.publishedAt).toLocaleDateString(
-                      'en-US',
-                      { month: 'short', year: 'numeric' }
-                    )}
-                  </div>
-                </div>
-              </a>
-            ))
-          }
-
-          <div class='mt-6 text-right'>
-            <a
-              href='/project'
-              class='text-sm font-medium text-gray-500 hover:text-black transition inline-flex items-center gap-1 group'
-            >
-              View all projects <span
-                class='group-hover:translate-x-1 transition-transform'
-                >&rarr;</span
-              >
-            </a>
-          </div>
-        </div>
-      </div>
-    </Container>
-  </section>
-
-  <!-- Experience -->
-  <section class='py-24 bg-white border-t border-gray-100'>
-    <Container>
-      <div class='grid grid-cols-1 lg:grid-cols-12 gap-12'>
-        <div class='lg:col-span-4'>
-          <h2 class='text-2xl font-medium text-gray-900 sticky top-32'>
-            Experience
-          </h2>
-        </div>
-        <div class='lg:col-span-8 flex flex-col gap-8'>
-          {
-            experience.map(job => (
-              <div class='group relative pl-8 border-l border-gray-200 hover:border-gray-400 transition-colors duration-300'>
-                <div class='absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-gray-200 group-hover:bg-black transition-colors duration-300' />
-                <div class='flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2'>
-                  <h3 class='text-lg font-medium text-gray-900'>
-                    {job.company}
-                  </h3>
-                  <span class='text-xs font-medium text-gray-500 uppercase tracking-wide'>
-                    {job.date}
-                  </span>
-                </div>
-                <p class='text-gray-600 text-sm leading-relaxed mb-4 max-w-2xl'>
-                  {job.description}
+    <!-- Hero Section -->
+    <section class="pt-12 pb-20 md:pt-24 md:pb-32 bg-white overflow-hidden">
+        <Container>
+            <div class="max-w-4xl mx-auto text-center px-4">
+                <h1
+                    class="text-5xl md:text-7xl font-medium tracking-tight text-gray-900 mb-6 leading-[1.1]"
+                >
+                    Built to create <br />
+                    <span class="text-gray-400">beautiful experiences.</span>
+                </h1>
+                <p
+                    class="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed"
+                >
+                    I am Jude Tejada, a Frontend Developer proficient in modern
+                    web applications and intuitive design, currently exploring
+                    backend systems.
                 </p>
-                <div class='flex flex-wrap gap-2'>
-                  {job.tech.map(t => (
-                    <span class='text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-md'>
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))
-          }
-        </div>
-      </div>
-    </Container>
-  </section>
 
-  <!-- Writing / Blog -->
-  <section class='py-24 bg-[#FCFCFC] border-t border-gray-100'>
-    <Container>
-      <div class='grid grid-cols-1 lg:grid-cols-12 gap-12'>
-        <div class='lg:col-span-4'>
-          <h2 class='text-2xl font-medium text-gray-900 sticky top-32'>
-            Writing
-          </h2>
-        </div>
-        <div class='lg:col-span-8 flex flex-col gap-4'>
-          {
-            recentWriting.map(post => (
-              <a href={`/blog/${post.slug}`} class='block group'>
-                <div class='group-hover:bg-gray-50 transition-all duration-300 p-6 md:p-8 rounded-xl border border-transparent group-hover:border-gray-100'>
-                  <div class='flex justify-between items-start mb-2'>
-                    <h3
-                      class='text-lg font-medium text-gray-900 group-hover:text-blue-600 transition'
-                      transition:name={`post-title-${post.slug}`}
+                <div
+                    class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
+                >
+                    <a
+                        href="/project"
+                        class="w-full sm:w-auto px-8 py-3 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition text-center"
+                        >View Work</a
                     >
-                      {post.data.title}
-                    </h3>
-                  </div>
-                  <p class='text-gray-600 text-sm leading-relaxed mb-4 line-clamp-2'>
-                    {post.data.summary}
-                  </p>
-                  <div
-                    class='text-xs text-gray-400 font-medium uppercase tracking-wide'
-                    transition:name={`post-date-${post.slug}`}
-                  >
-                    {new Date(post.data.publishedAt).toLocaleDateString(
-                      'en-US',
-                      { month: 'short', year: 'numeric' }
-                    )}
-                  </div>
+                    <a
+                        href="/contact"
+                        class="w-full sm:w-auto px-8 py-3 bg-white text-gray-900 border border-gray-200 rounded-full font-medium hover:bg-gray-50 transition text-center"
+                        >Contact Me</a
+                    >
                 </div>
-              </a>
-            ))
-          }
+            </div>
+        </Container>
+    </section>
 
-          <div class='mt-6 text-right'>
-            <a
-              href='/blog'
-              class='text-sm font-medium text-gray-500 hover:text-black transition inline-flex items-center gap-1 group'
+    <style>
+        .animate-marquee {
+            animation: marquee 25s linear infinite;
+        }
+        .animate-marquee2 {
+            animation: marquee2 25s linear infinite;
+        }
+        @keyframes marquee {
+            0% {
+                transform: translateX(0%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+        @keyframes marquee2 {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(0%);
+            }
+        }
+
+        /* Pause on hover */
+        .group:hover .animate-marquee,
+        .group:hover .animate-marquee2 {
+            animation-play-state: paused;
+        }
+    </style>
+
+    <!-- Recent Projects -->
+    <section class="py-24 bg-[#FCFCFC]">
+        <Container>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <div class="lg:col-span-4">
+                    <h2
+                        class="text-2xl font-medium text-gray-900 sticky top-32"
+                    >
+                        Selected works
+                    </h2>
+                </div>
+                <div class="lg:col-span-8 flex flex-col gap-4">
+                    {
+                        recentProjects.map((project) => (
+                            <a
+                                href={`/project/${project.slug}`}
+                                class="block group"
+                            >
+                                <div class="bg-gray-100 hover:bg-white hover:shadow-soft transition-all duration-300 p-6 md:p-8 rounded-xl border border-gray-200/50 group-hover:border-gray-200">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h3
+                                            class="text-lg font-medium text-gray-900 group-hover:text-blue-600 transition"
+                                            transition:name={`project-title-${project.slug}`}
+                                        >
+                                            {project.data.title}
+                                        </h3>
+                                        <span class="text-xs font-medium text-gray-500 bg-gray-200 px-2 py-1 rounded-full">
+                                            Project
+                                        </span>
+                                    </div>
+                                    <p class="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-2">
+                                        {project.data.summary}
+                                    </p>
+                                    <div
+                                        class="text-xs text-gray-400 font-medium uppercase tracking-wide"
+                                        transition:name={`project-date-${project.slug}`}
+                                    >
+                                        {new Date(
+                                            project.data.publishedAt,
+                                        ).toLocaleDateString("en-US", {
+                                            month: "short",
+                                            year: "numeric",
+                                        })}
+                                    </div>
+                                </div>
+                            </a>
+                        ))
+                    }
+
+                    <div class="mt-6 text-right">
+                        <a
+                            href="/project"
+                            class="text-sm font-medium text-gray-500 hover:text-black transition inline-flex items-center gap-1 group"
+                        >
+                            View all projects <span
+                                class="group-hover:translate-x-1 transition-transform"
+                                >&rarr;</span
+                            >
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </Container>
+    </section>
+
+    <!-- Experience -->
+    <section class="py-24 bg-white border-t border-gray-100">
+        <Container>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <div class="lg:col-span-4">
+                    <h2
+                        class="text-2xl font-medium text-gray-900 sticky top-32"
+                    >
+                        Experience
+                    </h2>
+                </div>
+                <div class="lg:col-span-8 flex flex-col gap-8">
+                    {
+                        experience.map((job) => (
+                            <div class="group relative pl-8 border-l border-gray-200 hover:border-gray-400 transition-colors duration-300">
+                                <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-gray-200 group-hover:bg-black transition-colors duration-300" />
+                                <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">
+                                    <h3 class="text-lg font-medium text-gray-900">
+                                        {job.company}
+                                    </h3>
+                                    <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                                        {job.date}
+                                    </span>
+                                </div>
+                                <p class="text-gray-600 text-sm leading-relaxed mb-4 max-w-2xl">
+                                    {job.description}
+                                </p>
+                                <div class="flex flex-wrap gap-2">
+                                    {job.tech.map((t) => (
+                                        <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-md">
+                                            {t}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+        </Container>
+    </section>
+
+    <!-- Writing / Blog -->
+    <section class="py-24 bg-[#FCFCFC] border-t border-gray-100">
+        <Container>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <div class="lg:col-span-4">
+                    <h2
+                        class="text-2xl font-medium text-gray-900 sticky top-32"
+                    >
+                        Writing
+                    </h2>
+                </div>
+                <div class="lg:col-span-8 flex flex-col gap-4">
+                    {
+                        recentWriting.map((post) => (
+                            <a href={`/blog/${post.slug}`} class="block group">
+                                <div class="group-hover:bg-gray-50 transition-all duration-300 p-6 md:p-8 rounded-xl border border-transparent group-hover:border-gray-100">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h3
+                                            class="text-lg font-medium text-gray-900 group-hover:text-blue-600 transition"
+                                            transition:name={`post-title-${post.slug}`}
+                                        >
+                                            {post.data.title}
+                                        </h3>
+                                    </div>
+                                    <p class="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-2">
+                                        {post.data.summary}
+                                    </p>
+                                    <div
+                                        class="text-xs text-gray-400 font-medium uppercase tracking-wide"
+                                        transition:name={`post-date-${post.slug}`}
+                                    >
+                                        {new Date(
+                                            post.data.publishedAt,
+                                        ).toLocaleDateString("en-US", {
+                                            month: "short",
+                                            year: "numeric",
+                                        })}
+                                    </div>
+                                </div>
+                            </a>
+                        ))
+                    }
+
+                    <div class="mt-6 text-right">
+                        <a
+                            href="/blog"
+                            class="text-sm font-medium text-gray-500 hover:text-black transition inline-flex items-center gap-1 group"
+                        >
+                            Read all articles <span
+                                class="group-hover:translate-x-1 transition-transform"
+                                >&rarr;</span
+                            >
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </Container>
+    </section>
+
+    <!-- Bottom CTA -->
+    <section class="py-32 bg-white text-center border-t border-gray-100">
+        <Container>
+            <h2
+                class="text-4xl md:text-6xl font-medium text-gray-900 mb-8 tracking-tight"
             >
-              Read all articles <span
-                class='group-hover:translate-x-1 transition-transform'
-                >&rarr;</span
-              >
-            </a>
-          </div>
-        </div>
-      </div>
-    </Container>
-  </section>
-
-  <!-- Bottom CTA -->
-  <section class='py-32 bg-white text-center border-t border-gray-100'>
-    <Container>
-      <h2
-        class='text-4xl md:text-6xl font-medium text-gray-900 mb-8 tracking-tight'
-      >
-        Work with me.
-      </h2>
-      <div class='flex justify-center'>
-        <a
-          href='/contact'
-          class='inline-flex items-center justify-center px-8 py-4 bg-black text-white rounded-full font-medium text-lg hover:bg-gray-800 transition shadow-soft hover:shadow-hover hover:-translate-y-1 duration-300'
-        >
-          Get in touch &darr;
-        </a>
-      </div>
-    </Container>
-  </section>
+                Work with me.
+            </h2>
+            <div class="flex justify-center">
+                <a
+                    href="/contact"
+                    class="inline-flex items-center justify-center px-8 py-4 bg-black text-white rounded-full font-medium text-lg hover:bg-gray-800 transition shadow-soft hover:shadow-hover hover:-translate-y-1 duration-300"
+                >
+                    Get in touch &darr;
+                </a>
+            </div>
+        </Container>
+    </section>
 </Layout>
