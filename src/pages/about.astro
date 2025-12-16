@@ -1,130 +1,130 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Container from '../components/Layout/Container.astro';
-import { Image } from 'astro:assets';
-import stackImage from '../assets/images/stack.png';
+import Layout from "../layouts/Layout.astro";
+import Container from "../components/Layout/Container.astro";
+import { Image } from "astro:assets";
+import stackImage from "../assets/images/stack.png";
 
-// Structured data for SEO
 const profileSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'ProfilePage',
-  mainEntity: {
-    '@type': 'Person',
-    name: 'Jude Tejada',
-    jobTitle: 'Frontend Developer',
-    description:
-      'Frontend Developer proficient in modern web applications and intuitive design.',
-    url: 'https://judetejada.dev',
-    sameAs: [
-      'https://github.com/judetejada',
-      'https://linkedin.com/in/judetejada',
-      'https://twitter.com/JudeTejada2'
-    ]
-  }
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    mainEntity: {
+        "@type": "Person",
+        name: "Jude Tejada",
+        jobTitle: "Frontend Developer",
+        description:
+            "Frontend Developer proficient in modern web applications and intuitive design.",
+        url: "https://judetejada.dev",
+        sameAs: [
+            "https://github.com/judetejada",
+            "https://linkedin.com/in/judetejada",
+            "https://twitter.com/JudeTejada2",
+        ],
+    },
 };
 
 const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    {
-      '@type': 'ListItem',
-      position: 1,
-      name: 'Home',
-      item: 'https://judetejada.dev'
-    },
-    {
-      '@type': 'ListItem',
-      position: 2,
-      name: 'About',
-      item: 'https://judetejada.dev/about'
-    }
-  ]
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+        {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://judetejada.dev",
+        },
+        {
+            "@type": "ListItem",
+            position: 2,
+            name: "About",
+            item: "https://judetejada.dev/about",
+        },
+    ],
 };
 ---
 
 <Layout
-  title='About - Jude Tejada'
-  description='Jude Tejada is a frontend web developer focusing on creating better user experience and building modern web applications.'
-  canonical='https://judetejada.dev/about'
+    title="About - Jude Tejada"
+    description="Jude Tejada is a frontend web developer focusing on creating better user experience and building modern web applications."
+    canonical="https://judetejada.dev/about"
 >
-  <script type='application/ld+json' set:html={JSON.stringify(profileSchema)} />
-  <script
-    type='application/ld+json'
-    set:html={JSON.stringify(breadcrumbSchema)}
-  />
-  <section class='pt-32 pb-20 bg-white min-h-screen'>
-    <Container>
-      <div class='grid grid-cols-1 lg:grid-cols-12 gap-12'>
-        <!-- Sidebar -->
-        <div class='lg:col-span-4'>
-          <h1
-            class='text-4xl md:text-6xl font-medium tracking-tight text-gray-900 mb-8 sticky top-32'
-          >
-            About Me
-          </h1>
-        </div>
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(profileSchema)}
+    />
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(breadcrumbSchema)}
+    />
+    <section class="pt-32 pb-20 bg-white min-h-screen">
+        <Container>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <!-- Sidebar -->
+                <div class="lg:col-span-4">
+                    <h1
+                        class="text-4xl md:text-6xl font-medium tracking-tight text-gray-900 mb-8 sticky top-32"
+                    >
+                        About Me
+                    </h1>
+                </div>
 
-        <!-- Content -->
-        <div class='lg:col-span-8 flex flex-col gap-12'>
-          <!-- Intro -->
-          <div class='prose prose-lg prose-neutral max-w-none'>
-            <p class='text-xl text-gray-600 leading-relaxed mb-8 font-medium'>
-              Hi, I'm Jude Tejada.
-            </p>
-            <p class='text-gray-600 leading-relaxed mb-6'>
-              I'm a frontend engineer who loves to create products that make a
-              difference in people's lives. I've been building web applications
-              for several years now, and I'm passionate about crafting digital
-              experiences that provide real value to users.
-            </p>
-            <p class='text-gray-600 leading-relaxed'>
-              When I'm not coding, I dive deep into User Interface and User
-              Experience design, and I'm currently expanding my skillset by
-              learning backend engineering. This helps me create products that
-              not only look great but also solve real problems for users. I
-              believe great products combine beautiful design with meaningful
-              functionality.
-            </p>
-          </div>
+                <!-- Content -->
+                <div class="lg:col-span-8 flex flex-col gap-12">
+                    <!-- Intro -->
+                    <div class="prose prose-lg prose-neutral max-w-none">
+                        <p
+                            class="text-xl text-gray-600 leading-relaxed mb-8 font-medium"
+                        >
+                            Hi, I'm Jude Tejada.
+                        </p>
+                        <p class="text-gray-600 leading-relaxed mb-6">
+                            I'm a frontend engineer who loves to create products
+                            that make a difference in people's lives. I've been
+                            building web applications for several years now, and
+                            I'm passionate about crafting digital experiences
+                            that provide real value to users.
+                        </p>
+                        <p class="text-gray-600 leading-relaxed">
+                            When I'm not coding, I dive deep into User Interface
+                            and User Experience design, and I'm currently
+                            expanding my skillset by learning backend
+                            engineering. This helps me create products that not
+                            only look great but also solve real problems for
+                            users. I believe great products combine beautiful
+                            design with meaningful functionality.
+                        </p>
+                    </div>
 
-          <!-- Tech Stack -->
-          <div class='border-t border-gray-100 pt-12'>
-            <h2 class='text-2xl font-medium text-gray-900 mb-6'>Tech Stack</h2>
-            <p class='text-gray-600 leading-relaxed mb-8'>
-              When working on a project I tailor my approach to the problem that
-              I'm trying to solve. I focus on building approaches which scale to
-              help the growth of the product. Here's my go-to stack:
-            </p>
+                    <!-- Tech Stack -->
+                    <div class="border-t border-gray-100 pt-12">
+                        <h2 class="text-2xl font-medium text-gray-900 mb-6">
+                            Tech Stack
+                        </h2>
+                        <p class="text-gray-600 leading-relaxed mb-8">
+                            When working on a project I tailor my approach to
+                            the problem that I'm trying to solve. I focus on
+                            building approaches which scale to help the growth
+                            of the product. Here's my go-to stack:
+                        </p>
+                    </div>
+                </div>
+            </div>
 
-            <Image
-              src={stackImage}
-              alt='Tech stack for building front-end applications'
-              class='w-full h-auto rounded-2xl border border-gray-100 shadow-sm'
-              loading='lazy'
-              format='webp'
-              quality={85}
-            />
-          </div>
-        </div>
-      </div>
-
-      <!-- CTA -->
-      <div class='mt-24 pt-24 border-t border-gray-100 text-center'>
-        <h2
-          class='text-4xl md:text-5xl font-medium text-gray-900 mb-8 tracking-tight'
-        >
-          Work with me.
-        </h2>
-        <div class='flex justify-center'>
-          <a
-            href='/contact'
-            class='inline-flex items-center justify-center px-8 py-4 bg-black text-white rounded-full font-medium text-lg hover:bg-gray-800 transition shadow-xl hover:shadow-2xl hover:-translate-y-1 duration-300'
-          >
-            Get in touch &darr;
-          </a>
-        </div>
-      </div>
-    </Container>
-  </section>
+            <!-- CTA -->
+            <div class="mt-24 pt-24 border-t border-gray-100 text-center">
+                <h2
+                    class="text-4xl md:text-5xl font-medium text-gray-900 mb-8 tracking-tight"
+                >
+                    Work with me.
+                </h2>
+                <div class="flex justify-center">
+                    <a
+                        href="/contact"
+                        class="inline-flex items-center justify-center px-8 py-4 bg-black text-white rounded-full font-medium text-lg hover:bg-gray-800 transition shadow-xl hover:shadow-2xl hover:-translate-y-1 duration-300"
+                    >
+                        Get in touch &darr;
+                    </a>
+                </div>
+            </div>
+        </Container>
+    </section>
 </Layout>
