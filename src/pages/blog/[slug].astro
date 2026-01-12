@@ -198,6 +198,7 @@ const breadcrumbSchema = {
 </Layout>
 
 <script>
+  /** @type {any} */
   let intersectionObserver = null;
 
   function cleanupObserver() {
@@ -250,7 +251,7 @@ const breadcrumbSchema = {
   
   // Fallback: watch for content changes
   let lastArticleContent = '';
-  const checkInterval = setInterval(() => {
+  setInterval(() => {
     const article = document.querySelector('article');
     if (article && article.innerHTML !== lastArticleContent) {
       lastArticleContent = article.innerHTML;

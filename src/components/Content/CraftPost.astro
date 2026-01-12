@@ -1,0 +1,58 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  title: string;
+  summary: string;
+  image?: string | ImageMetadata;
+  slug: string;
+}
+
+const { title, summary, image, slug } = Astro.props;
+
+const imageSrc = typeof image === 'string' ? image : (image as any)?.src;
+const imageMeta = typeof image === 'object' ? image : null;
+---
+
+<a href={`/crafts/${slug}`} class="group block">
+  <div class="relative aspect-[16/10] bg-gray-50 border border-gray-100 rounded-2xl overflow-hidden mb-6 transition-all duration-500 group-hover:border-gray-200 group-hover:bg-white group-hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+    {image ? (
+      <div class="w-full h-full overflow-hidden">
+         {imageMeta ? (
+          <Image
+            src={imageMeta as ImageMetadata}
+            alt={title}
+            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            loading="lazy"
+            decoding="async"
+            width={800}
+            height={500}
+          />
+        ) : (
+          <img
+            src={imageSrc!}
+            alt={title}
+            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            loading="lazy"
+            decoding="async"
+          />
+        )}
+      </div>
+    ) : (
+      <div class="w-full h-full flex items-center justify-center bg-gray-50 group-hover:bg-white transition-colors duration-500">
+        <div class="text-[10px] font-medium uppercase tracking-widest text-gray-300 group-hover:text-gray-400 transition-colors">
+          Preview
+        </div>
+      </div>
+    )}
+  </div>
+  
+  <div class="space-y-1">
+    <h3 class="text-lg font-medium text-gray-900 group-hover:text-black transition-colors">
+      {title}
+    </h3>
+    <p class="text-sm text-gray-500 leading-relaxed line-clamp-2">
+      {summary}
+    </p>
+  </div>
+</a>

@@ -29,16 +29,17 @@ const {
 
 // If src is a string, we need to determine if it's a local import or external URL
 const isExternalUrl = typeof src === 'string' && (src.startsWith('http') || src.startsWith('/'));
+
 const imageProps = {
   alt,
-  width,
-  height,
   class: className,
   loading: priority ? "eager" as const : "lazy" as const,
   decoding: "async" as const,
   format,
   quality,
   sizes: isExternalUrl ? undefined : sizes,
+  ...(width && { width }),
+  ...(height && { height }),
   ...(layout !== 'constrained' && { layout })
 };
 ---
@@ -54,5 +55,5 @@ const imageProps = {
     decoding="async"
   />
 ) : (
-  <Image src={src as ImageMetadata} {...imageProps} />
+  <Image src={src as ImageMetadata} {...imageProps as any} />
 )}

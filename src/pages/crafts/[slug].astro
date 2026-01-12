@@ -1,0 +1,96 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Container from '../../components/Layout/Container.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const crafts = await getCollection('craft', ({ data }) => {
+    return data.isPublished !== false;
+  });
+
+  return crafts.map(craft => ({
+    params: { slug: craft.slug },
+    props: { craft }
+  }));
+}
+
+type Props = {
+  craft: CollectionEntry<'craft'>;
+};
+
+const { craft } = Astro.props;
+const { Content } = await craft.render();
+
+// Format date
+const date = new Date(craft.data.publishedAt);
+const formattedDate = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+---
+
+<Layout
+  title={`${craft.data.title} — Jude Tejada`}
+  description={craft.data.summary}
+>
+  <section class="pt-32 pb-20 bg-white min-h-screen">
+    <Container>
+      <div class="mb-12">
+        <a
+          href="/crafts"
+          class="text-sm font-medium text-gray-500 hover:text-black transition-colors mb-8 inline-block"
+        >
+          &larr; Back to Crafts
+        </a>
+      </div>
+
+      <header class="max-w-4xl mb-12">
+         <div class="flex items-center gap-4 text-gray-500 text-xs mb-4 uppercase tracking-widest font-medium">
+          <time datetime={craft.data.publishedAt}>
+            {formattedDate}
+          </time>
+        </div>
+        
+        <h1 class="text-4xl md:text-6xl font-medium tracking-tight text-gray-900 mb-6 leading-[1.1]">
+          {craft.data.title}
+        </h1>
+        
+        <p class="text-xl text-gray-600 leading-relaxed max-w-2xl">
+          {craft.data.summary}
+        </p>
+      </header>
+
+      <!-- Preview Section -->
+      <section class="mb-20">
+        <div class="text-xs font-medium text-gray-400 uppercase tracking-widest mb-4">Preview</div>
+        <div class="relative w-full min-h-[400px] bg-[#FCFCFC] border border-gray-100 rounded-3xl overflow-hidden flex items-center justify-center shadow-[inset_0_2px_10px_rgba(0,0,0,0.01)]">
+          <div class="absolute inset-0 grid-preview opacity-[0.03]"></div>
+          <div class="relative z-10 w-full h-full p-6 md:p-12 flex items-center justify-center">
+             <Content />
+          </div>
+        </div>
+      </section>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div class="lg:col-span-8">
+          <article class="prose prose-lg prose-neutral max-w-none">
+            <!-- Additional documentation or details can be placed here if the MDX has more than just the component -->
+          </article>
+        </div>
+      </div>
+    </Container>
+  </section>
+</Layout>
+
+<style is:global>
+  .grid-preview {
+    background-image: linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+  
+  /* Reset some prose styles for the preview content if it's not meant to be prose-ified */
+  .prose :where(img):not(:where([class~="not-prose"] *)) {
+    margin: 0;
+  }
+</style>

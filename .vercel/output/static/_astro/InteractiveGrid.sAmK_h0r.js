@@ -1,0 +1,7 @@
+import{j as e}from"./jsx-runtime.D_zvdyIk.js";import{r as s}from"./index.DhRyc5x2.js";const l=()=>{const t=s.useRef(null);return s.useEffect(()=>{const r=a=>{if(t.current){const n=t.current.getBoundingClientRect(),i=a.clientX-n.left,o=a.clientY-n.top;t.current.style.setProperty("--x",`${i}px`),t.current.style.setProperty("--y",`${o}px`)}};return window.addEventListener("mousemove",r),()=>window.removeEventListener("mousemove",r)},[]),e.jsxs("div",{ref:t,className:"absolute inset-0 -z-10 overflow-hidden pointer-events-none",children:[e.jsx("div",{className:"absolute inset-0 opacity-[0.03]",style:{backgroundImage:`
+            linear-gradient(to right, #000 1px, transparent 1px),
+            linear-gradient(to bottom, #000 1px, transparent 1px)
+          `,backgroundSize:"40px 40px"}}),e.jsx("div",{className:"absolute inset-0 opacity-20 transition-opacity duration-500",style:{backgroundImage:`
+            linear-gradient(to right, #000 1px, transparent 1px),
+            linear-gradient(to bottom, #000 1px, transparent 1px)
+          `,backgroundSize:"40px 40px",WebkitMaskImage:"radial-gradient(circle 200px at var(--x, -1000px) var(--y, -1000px), black, transparent)",maskImage:"radial-gradient(circle 200px at var(--x, -1000px) var(--y, -1000px), black, transparent)"}}),e.jsx("div",{className:"absolute inset-0 bg-gradient-to-b from-transparent via-white/20 to-white"})]})};export{l as default};

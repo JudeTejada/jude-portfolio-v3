@@ -13,6 +13,7 @@ import {
   Copy,
   X,
   Search,
+  Sparkles,
 } from 'lucide-react';
 
 interface CommandItem {
@@ -79,6 +80,14 @@ const CommandPanel: React.FC = () => {
         shortcut: ['shift', 'B'],
         group: 'Navigation',
         onSelect: () => navigate('/blog'),
+      },
+      {
+        id: 'crafts',
+        label: 'Go to Crafts',
+        icon: <Sparkles className="w-[18px] h-[18px]" strokeWidth={1.5} />,
+        shortcut: ['shift', 'K'],
+        group: 'Navigation',
+        onSelect: () => navigate('/crafts'),
       },
       {
         id: 'about',
