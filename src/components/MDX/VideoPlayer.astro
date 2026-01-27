@@ -1,15 +1,16 @@
 ---
 interface Props {
   url: string;
+  alt?: string;
 }
 
-const { url } = Astro.props;
+const { url, alt = '' } = Astro.props;
 ---
 
 <video
   src={url}
   controls
-  aria-label="video content"
+  aria-label={alt || 'Video'}
   loop
   muted
   class="max-w-full"

@@ -6,7 +6,7 @@ import CraftPost from '../../components/Content/CraftPost.astro';
 import { getCollection } from 'astro:content';
 
 const crafts = await getCollection('craft', ({ data }) => {
-  return data.isPublished !== false;
+  return data.isPublished !== false;codekim
 });
 
 const sortedCrafts = crafts.sort(
@@ -20,9 +20,9 @@ const description = "A collection of experimental UI components, animations, and
 <Layout title={title} description={description}>
   <section class="relative min-h-screen pt-32 pb-20 bg-white">
     <InteractiveGrid client:load />
-    
+
     <CraftIntro />
-    
+
     <div class="px-6 md:px-12 max-w-7xl mx-auto pb-32">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
         {sortedCrafts.map((craft) => (
@@ -34,7 +34,7 @@ const description = "A collection of experimental UI components, animations, and
           />
         ))}
       </div>
-      
+
       {sortedCrafts.length === 0 && (
         <div class="py-24 text-center">
           <p class="text-gray-500 italic">No crafts found. Check back later!</p>

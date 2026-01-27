@@ -1,6 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Container from "../components/Layout/Container.astro";
+import SpotlightCard from "../components/UI/SpotlightCard";
+import MagneticButton from "../components/UI/MagneticButton";
+import ScrollReveal from "../components/UI/ScrollReveal";
+import TextReveal from "../components/UI/TextReveal";
 import { getCollection } from "astro:content";
 
 // Get featured projects
@@ -177,37 +181,54 @@ const siteNavigationSchema = {
     />
 
     <!-- Hero Section -->
-    <section class="pt-12 pb-20 md:pt-24 md:pb-32 bg-white overflow-hidden">
+    <section class="relative pt-12 pb-20 md:pt-24 md:pb-32 bg-white overflow-hidden">
+        <!-- Ambient Gradient Orbs -->
+        <div class="ambient-orb -top-40 -left-40 opacity-60"></div>
+        <div class="ambient-orb ambient-orb-2 top-20 -right-40 opacity-40"></div>
+        
         <Container>
-            <div class="max-w-4xl mx-auto text-center px-4">
+            <div class="max-w-4xl mx-auto text-center px-4 relative">
                 <h1
                     class="text-5xl md:text-7xl font-medium tracking-tight text-gray-900 mb-6 leading-[1.1]"
                 >
-                    Built to create <br />
-                    <span class="text-gray-400">beautiful experiences.</span>
+                    <TextReveal client:load>Built to create</TextReveal>
+                    <br />
+                    <span class="text-gray-400">
+                        <TextReveal client:load delay={150}>beautiful experiences.</TextReveal>
+                    </span>
                 </h1>
-                <p
-                    class="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed"
-                >
-                    I am Jude Tejada, a Frontend Developer proficient in modern
-                    web applications and intuitive design, currently exploring
-                    backend systems.
-                </p>
+                <ScrollReveal client:load delay={300}>
+                    <p
+                        class="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed"
+                    >
+                        I am Jude Tejada, a Frontend Developer proficient in modern
+                        web applications and intuitive design, currently exploring
+                        backend systems.
+                    </p>
+                </ScrollReveal>
 
-                <div
-                    class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
-                >
-                    <a
-                        href="/project"
-                        class="w-full sm:w-auto px-8 py-3 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition text-center"
-                        >View Work</a
+                <ScrollReveal client:load delay={400}>
+                    <div
+                        class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
                     >
-                    <a
-                        href="/contact"
-                        class="w-full sm:w-auto px-8 py-3 bg-white text-gray-900 border border-gray-200 rounded-full font-medium hover:bg-gray-50 transition text-center"
-                        >Contact Me</a
-                    >
-                </div>
+                        <MagneticButton
+                            client:load
+                            href="/project"
+                            className="w-full sm:w-auto px-8 py-3 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition-colors duration-200 text-center shimmer-link"
+                            strength={0.2}
+                        >
+                            View Work
+                        </MagneticButton>
+                        <MagneticButton
+                            client:load
+                            href="/contact"
+                            className="w-full sm:w-auto px-8 py-3 bg-white text-gray-900 border border-gray-200 rounded-full font-medium hover:bg-gray-50 transition-colors duration-200 text-center"
+                            strength={0.2}
+                        >
+                            Contact Me
+                        </MagneticButton>
+                    </div>
+                </ScrollReveal>
             </div>
         </Container>
     </section>
@@ -248,61 +269,70 @@ const siteNavigationSchema = {
         <Container>
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
                 <div class="lg:col-span-4">
-                    <h2
-                        class="text-2xl font-medium text-gray-900 sticky top-32"
-                    >
-                        Selected works
-                    </h2>
+                    <ScrollReveal client:load>
+                        <h2
+                            class="text-2xl font-medium text-gray-900 sticky top-32"
+                        >
+                            Selected works
+                        </h2>
+                    </ScrollReveal>
                 </div>
                 <div class="lg:col-span-8 flex flex-col gap-4">
                     {
-                        recentProjects.map((project) => (
-                            <a
-                                href={`/project/${project.slug}`}
-                                class="block group"
-                            >
-                                <div class="bg-gray-100 hover:bg-white hover:shadow-soft transition-all duration-300 p-6 md:p-8 rounded-xl border border-gray-200/50 group-hover:border-gray-200">
-                                    <div class="flex justify-between items-start mb-2">
-                                        <h3
-                                            class="text-lg font-medium text-gray-900 group-hover:text-blue-600 transition"
-                                            transition:name={`project-title-${project.slug}`}
-                                        >
-                                            {project.data.title}
-                                        </h3>
-                                        <span class="text-xs font-medium text-gray-500 bg-gray-200 px-2 py-1 rounded-full">
-                                            Project
-                                        </span>
-                                    </div>
-                                    <p class="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-2">
-                                        {project.data.summary}
-                                    </p>
-                                    <div
-                                        class="text-xs text-gray-400 font-medium uppercase tracking-wide"
-                                        transition:name={`project-date-${project.slug}`}
+                        recentProjects.map((project, index) => (
+                            <ScrollReveal client:load delay={index * 100}>
+                                <a
+                                    href={`/project/${project.slug}`}
+                                    class="block group"
+                                >
+                                    <SpotlightCard
+                                        client:load
+                                        className="bg-gray-100 hover:bg-white transition-all duration-300 p-6 md:p-8 rounded-xl border border-gray-200/50 group-hover:border-gray-200 group-hover:shadow-lg card-lift"
+                                        spotlightColor="rgba(0, 0, 0, 0.02)"
                                     >
-                                        {new Date(
-                                            project.data.publishedAt,
-                                        ).toLocaleDateString("en-US", {
-                                            month: "short",
-                                            year: "numeric",
-                                        })}
-                                    </div>
-                                </div>
-                            </a>
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h3
+                                                class="text-lg font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-200"
+                                                transition:name={`project-title-${project.slug}`}
+                                            >
+                                                {project.data.title}
+                                            </h3>
+                                            <span class="text-xs font-medium text-gray-500 bg-gray-200 px-2 py-1 rounded-full badge-pulse">
+                                                Project
+                                            </span>
+                                        </div>
+                                        <p class="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-2">
+                                            {project.data.summary}
+                                        </p>
+                                        <div
+                                            class="text-xs text-gray-400 font-medium uppercase tracking-wide"
+                                            transition:name={`project-date-${project.slug}`}
+                                        >
+                                            {new Date(
+                                                project.data.publishedAt,
+                                            ).toLocaleDateString("en-US", {
+                                                month: "short",
+                                                year: "numeric",
+                                            })}
+                                        </div>
+                                    </SpotlightCard>
+                                </a>
+                            </ScrollReveal>
                         ))
                     }
 
-                    <div class="mt-6 text-right">
-                        <a
-                            href="/project"
-                            class="text-sm font-medium text-gray-500 hover:text-black transition inline-flex items-center gap-1 group"
-                        >
-                            View all projects <span
-                                class="group-hover:translate-x-1 transition-transform"
-                                >&rarr;</span
+                    <ScrollReveal client:load delay={500}>
+                        <div class="mt-6 text-right">
+                            <a
+                                href="/project"
+                                class="text-sm font-medium text-gray-500 hover:text-black transition-colors duration-200 inline-flex items-center gap-1 group underline-draw"
                             >
-                        </a>
-                    </div>
+                                View all projects <span
+                                    class="icon-bounce">&rarr;</span
+                                >
+                            </a>
+                        </div>
+                    </ScrollReveal>
                 </div>
             </div>
         </Container>
@@ -313,36 +343,40 @@ const siteNavigationSchema = {
         <Container>
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
                 <div class="lg:col-span-4">
-                    <h2
-                        class="text-2xl font-medium text-gray-900 sticky top-32"
-                    >
-                        Experience
-                    </h2>
+                    <ScrollReveal client:load>
+                        <h2
+                            class="text-2xl font-medium text-gray-900 sticky top-32"
+                        >
+                            Experience
+                        </h2>
+                    </ScrollReveal>
                 </div>
                 <div class="lg:col-span-8 flex flex-col gap-8">
                     {
-                        experience.map((job) => (
-                            <div class="group relative pl-8 border-l border-gray-200 hover:border-gray-400 transition-colors duration-300">
-                                <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-gray-200 group-hover:bg-black transition-colors duration-300" />
-                                <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">
-                                    <h3 class="text-lg font-medium text-gray-900">
-                                        {job.company}
-                                    </h3>
-                                    <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                                        {job.date}
-                                    </span>
-                                </div>
-                                <p class="text-gray-600 text-sm leading-relaxed mb-4 max-w-2xl">
-                                    {job.description}
-                                </p>
-                                <div class="flex flex-wrap gap-2">
-                                    {job.tech.map((t) => (
-                                        <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-md">
-                                            {t}
+                        experience.map((job, index) => (
+                            <ScrollReveal client:load delay={index * 100}>
+                                <div class="group relative pl-8 border-l border-gray-200 hover:border-gray-400 transition-colors duration-300">
+                                    <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-gray-200 group-hover:bg-black group-hover:scale-125 transition-all duration-300" />
+                                    <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">
+                                        <h3 class="text-lg font-medium text-gray-900 group-hover:translate-x-1 transition-transform duration-300">
+                                            {job.company}
+                                        </h3>
+                                        <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                                            {job.date}
                                         </span>
-                                    ))}
+                                    </div>
+                                    <p class="text-gray-600 text-sm leading-relaxed mb-4 max-w-2xl">
+                                        {job.description}
+                                    </p>
+                                    <div class="flex flex-wrap gap-2">
+                                        {job.tech.map((t) => (
+                                            <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-md badge-pulse">
+                                                {t}
+                                            </span>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
+                            </ScrollReveal>
                         ))
                     }
                 </div>
@@ -355,76 +389,94 @@ const siteNavigationSchema = {
         <Container>
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
                 <div class="lg:col-span-4">
-                    <h2
-                        class="text-2xl font-medium text-gray-900 sticky top-32"
-                    >
-                        Writing
-                    </h2>
+                    <ScrollReveal client:load>
+                        <h2
+                            class="text-2xl font-medium text-gray-900 sticky top-32"
+                        >
+                            Writing
+                        </h2>
+                    </ScrollReveal>
                 </div>
                 <div class="lg:col-span-8 flex flex-col gap-4">
                     {
-                        recentWriting.map((post) => (
-                            <a href={`/blog/${post.slug}`} class="block group">
-                                <div class="group-hover:bg-gray-50 transition-all duration-300 p-6 md:p-8 rounded-xl border border-transparent group-hover:border-gray-100">
-                                    <div class="flex justify-between items-start mb-2">
-                                        <h3
-                                            class="text-lg font-medium text-gray-900 group-hover:text-blue-600 transition"
-                                            transition:name={`post-title-${post.slug}`}
-                                        >
-                                            {post.data.title}
-                                        </h3>
-                                    </div>
-                                    <p class="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-2">
-                                        {post.data.summary}
-                                    </p>
-                                    <div
-                                        class="text-xs text-gray-400 font-medium uppercase tracking-wide"
-                                        transition:name={`post-date-${post.slug}`}
+                        recentWriting.map((post, index) => (
+                            <ScrollReveal client:load delay={index * 80}>
+                                <a href={`/blog/${post.slug}`} class="block group">
+                                    <SpotlightCard
+                                        client:load
+                                        className="group-hover:bg-white transition-all duration-300 p-6 md:p-8 rounded-xl border border-transparent group-hover:border-gray-100 group-hover:shadow-soft card-lift"
+                                        spotlightColor="rgba(0, 0, 0, 0.015)"
                                     >
-                                        {new Date(
-                                            post.data.publishedAt,
-                                        ).toLocaleDateString("en-US", {
-                                            month: "short",
-                                            year: "numeric",
-                                        })}
-                                    </div>
-                                </div>
-                            </a>
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h3
+                                                class="text-lg font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-200"
+                                                transition:name={`post-title-${post.slug}`}
+                                            >
+                                                {post.data.title}
+                                            </h3>
+                                        </div>
+                                        <p class="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-2">
+                                            {post.data.summary}
+                                        </p>
+                                        <div
+                                            class="text-xs text-gray-400 font-medium uppercase tracking-wide"
+                                            transition:name={`post-date-${post.slug}`}
+                                        >
+                                            {new Date(
+                                                post.data.publishedAt,
+                                            ).toLocaleDateString("en-US", {
+                                                month: "short",
+                                                year: "numeric",
+                                            })}
+                                        </div>
+                                    </SpotlightCard>
+                                </a>
+                            </ScrollReveal>
                         ))
                     }
 
-                    <div class="mt-6 text-right">
-                        <a
-                            href="/blog"
-                            class="text-sm font-medium text-gray-500 hover:text-black transition inline-flex items-center gap-1 group"
-                        >
-                            Read all articles <span
-                                class="group-hover:translate-x-1 transition-transform"
-                                >&rarr;</span
+                    <ScrollReveal client:load delay={400}>
+                        <div class="mt-6 text-right">
+                            <a
+                                href="/blog"
+                                class="text-sm font-medium text-gray-500 hover:text-black transition-colors duration-200 inline-flex items-center gap-1 group underline-draw"
                             >
-                        </a>
-                    </div>
+                                Read all articles <span
+                                    class="icon-bounce">&rarr;</span
+                                >
+                            </a>
+                        </div>
+                    </ScrollReveal>
                 </div>
             </div>
         </Container>
     </section>
 
     <!-- Bottom CTA -->
-    <section class="py-32 bg-white text-center border-t border-gray-100">
+    <section class="py-32 bg-white text-center border-t border-gray-100 relative overflow-hidden">
+        <!-- Ambient orb for CTA -->
+        <div class="ambient-orb bottom-0 left-1/2 -translate-x-1/2 opacity-50"></div>
+        
         <Container>
-            <h2
-                class="text-4xl md:text-6xl font-medium text-gray-900 mb-8 tracking-tight"
-            >
-                Work with me.
-            </h2>
-            <div class="flex justify-center">
-                <a
-                    href="/contact"
-                    class="inline-flex items-center justify-center px-8 py-4 bg-black text-white rounded-full font-medium text-lg hover:bg-gray-800 transition shadow-soft hover:shadow-hover hover:-translate-y-1 duration-300"
+            <ScrollReveal client:load>
+                <h2
+                    class="text-4xl md:text-6xl font-medium text-gray-900 mb-8 tracking-tight"
                 >
-                    Get in touch &darr;
-                </a>
-            </div>
+                    <TextReveal client:load>Work with me.</TextReveal>
+                </h2>
+            </ScrollReveal>
+            <ScrollReveal client:load delay={200}>
+                <div class="flex justify-center">
+                    <MagneticButton
+                        client:load
+                        href="/contact"
+                        className="inline-flex items-center justify-center px-8 py-4 bg-black text-white rounded-full font-medium text-lg hover:bg-gray-800 transition-colors duration-200 shadow-soft hover:shadow-hover shimmer-link"
+                        strength={0.25}
+                    >
+                        Get in touch <span class="ml-2 icon-bounce">&darr;</span>
+                    </MagneticButton>
+                </div>
+            </ScrollReveal>
         </Container>
     </section>
 </Layout>

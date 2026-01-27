@@ -27,6 +27,25 @@ interface CommandItem {
 
 const CommandPanel: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const [currentPath, setCurrentPath] = useState('/');
+
+  // Update current path on mount and when it changes
+  useEffect(() => {
+    setCurrentPath(window.location.pathname);
+    const handleNavigate = () => setCurrentPath(window.location.pathname);
+    window.addEventListener('popstate', handleNavigate);
+    return () => window.removeEventListener('popstate', handleNavigate);
+  }, []);
+
+  const pageInfo = {
+    '/': { title: 'Home', desc: 'About me and what I\'m up to' },
+    '/project': { title: 'Projects', desc: 'Selected works and case studies' },
+    '/blog': { title: 'Writing', desc: 'Articles and thoughts' },
+    '/about': { title: 'About', desc: 'Learn more about me' },
+    '/contact': { title: 'Contact', desc: 'Get in touch' },
+    '/crafts': { title: 'Crafts', desc: 'Experimental components' }
+  };
+  const currentPage = pageInfo[currentPath as keyof typeof pageInfo] || pageInfo['/'];
 
   const closePanel = useCallback(() => {
     setOpen(false);
@@ -230,7 +249,7 @@ const CommandPanel: React.FC = () => {
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
-      {/* Desktop Trigger */}
+      {/* Unified Trigger - Desktop shows ⌘K, Mobile shows Search icon */}
       <Dialog.Trigger asChild>
         <button
           className="hidden md:flex items-center gap-2 px-3 py-1.5 text-sm text-gray-500 bg-gray-100 hover:bg-gray-200 rounded-lg border border-gray-200 transition-colors"
@@ -240,7 +259,6 @@ const CommandPanel: React.FC = () => {
         </button>
       </Dialog.Trigger>
 
-      {/* Mobile trigger */}
       <Dialog.Trigger asChild>
         <button
           className="md:hidden p-2 text-gray-600 hover:text-gray-900 transition-colors"
@@ -265,10 +283,10 @@ const CommandPanel: React.FC = () => {
               </div>
               <div className="flex-1 min-w-0">
                 <Dialog.Title className="font-semibold text-[15px] text-gray-900 leading-tight">
-                  Home
+                  {currentPage.title}
                 </Dialog.Title>
                 <Dialog.Description className="text-[13px] text-gray-500 leading-tight">
-                  About me and what I'm up to
+                  {currentPage.desc}
                 </Dialog.Description>
               </div>
               <Dialog.Close asChild>
@@ -289,7 +307,6 @@ const CommandPanel: React.FC = () => {
                 <Command.Input
                   placeholder="Search for actions..."
                   className="flex-1 border-none text-[15px] outline-none bg-transparent text-gray-900 placeholder:text-gray-400"
-                  autoFocus
                 />
               </div>
 
@@ -309,7 +326,7 @@ const CommandPanel: React.FC = () => {
                         key={item.id}
                         value={item.label}
                         onSelect={item.onSelect}
-                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-colors hover:bg-gray-100 aria-selected:bg-gray-100"
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors hover:bg-gray-100 aria-selected:bg-gray-100"
                       >
                         <span className="text-gray-500 shrink-0">{item.icon}</span>
                         <span className="flex-1 text-sm font-medium text-gray-900">{item.label}</span>

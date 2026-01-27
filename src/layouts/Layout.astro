@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Navbar from '../components/Layout/Navbar';
 import Footer from '../components/Layout/Footer.astro';
+import CursorGlow from '../components/UI/CursorGlow';
 import { ClientRouter } from 'astro:transitions';
 
 interface Props {
@@ -106,7 +107,13 @@ const { title, description, image = '/banner.png', canonical } = Astro.props;
     <!-- Skip Navigation Link -->
     <a href='#main-content' class='skip-link'>Skip to main content</a>
 
+    <!-- JS Detection Script -->
+    <script is:inline>
+      document.documentElement.classList.add('js-enabled');
+    </script>
+
     <Navbar client:load />
+    <CursorGlow client:load />
     <main class='pt-24' id='main-content'>
       <slot />
     </main>

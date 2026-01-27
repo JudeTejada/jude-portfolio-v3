@@ -46,7 +46,7 @@ const { title, summary, image, slug } = Astro.props;
   <div class='flex-1 w-full lg:w-auto order-1 lg:order-2'>
     {
       image && (
-        <div class='relative rounded-xl overflow-hidden shadow-soft bg-gray-200 aspect-video lg:aspect-[4/3] group-hover:shadow-hover transition-shadow duration-500'>
+        <div class='relative rounded-xl overflow-hidden shadow-soft bg-gray-200 aspect-video lg:aspect-[4/3] hover:shadow-md transition-shadow duration-500'>
           {typeof image === 'object' && image !== null ? (
             <Image
               src={image}

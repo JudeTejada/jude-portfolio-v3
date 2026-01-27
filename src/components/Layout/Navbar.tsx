@@ -1,9 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import CommandPanel from './CommandPanel';
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const handleMenuToggle = useCallback(() => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  }, [isMobileMenuOpen]);
+
+  const handleMenuKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleMenuToggle();
+    }
+  }, [handleMenuToggle]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -109,7 +120,8 @@ const Navbar: React.FC = () => {
           {/* Mobile Menu Toggle */}
           <button
             className="md:hidden p-2 text-gray-600 transition-transform duration-200 ease-out active:scale-95"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            onClick={handleMenuToggle}
+            onKeyDown={handleMenuKeyDown}
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
           >
             <img
