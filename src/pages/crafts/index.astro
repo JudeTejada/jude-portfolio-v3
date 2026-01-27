@@ -6,7 +6,7 @@ import CraftPost from '../../components/Content/CraftPost.astro';
 import { getCollection } from 'astro:content';
 
 const crafts = await getCollection('craft', ({ data }) => {
-  return data.isPublished !== false;codekim
+  return data.isPublished !== false;
 });
 
 const sortedCrafts = crafts.sort(
